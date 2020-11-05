@@ -1,33 +1,41 @@
 @extends('main')
 
+@section('tabname','Dashboard')
+
+@section('username','CK BISWAS')
+
+@section('designation','Assistant Officer')
+
+@section('page-title','Dashboard')
+
 @section('head')
 @include('section.head')
 @stop
 
 @section('loader')
-@include('section.head')
+@include('section.loader')
 @stop
 
 @section('logo')
-@include('section.head')
+@include('section.logo')
 @stop
 
 @section('header')
-@include('section.head')
+@include('section.header')
 @stop
 
 @section('sidebar')
-@include('section.head')
+@include('section.sidebar')
 @stop
 
 @section('main-content')
-@include('section.head')
+@include('section.main-content')
 @stop
 
 @section('footer')
-@include('section.head')
+@include('section.footer')
 @stop
 
 @section('bottom')
-@include('section.head')
+@include('section.bottom')
 @stop

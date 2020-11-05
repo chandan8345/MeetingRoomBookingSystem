@@ -1,4 +1,4 @@
-<h5 class="mb-3" ><strong>Dashboard</strong></h5>
+<h5 class="mb-3" ><strong>@yield('page-title')</strong></h5>
                 
                 <!--Dashboard widget-->
                 <div class="mt-1 mb-3 button-container">
@@ -11,7 +11,7 @@
                                     </div>
                                     <div class="media-body pl-2">
                                         <h3 class="mt-0 mb-0"><strong>$300k</strong></h3>
-                                        <p><small class="text-muted bc-description">Total Revenue</small></p>
+                                        <p><small class="text-muted bc-description">On Going Meeting</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="media-body pl-2">
                                         <h3 class="mt-0 mb-0"><strong>3.1M</strong></h3>
-                                        <p><small class="text-muted bc-description">Customers</small></p>
+                                        <p><small class="text-muted bc-description">Waiting for Allocation</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="media-body pl-2">
                                         <h3 class="mt-0 mb-0"><strong>1022</strong></h3>
-                                        <p><small class="bc-description text-white">Total Products</small></p>
+                                        <p><small class="bc-description text-white">Meeting Completed</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -47,54 +47,6 @@
                     </div>
                 </div>
                 <!--/Dashboard widget-->
-
-                <div class="row mt-3">
-                    <div class="col-sm-6">
-                        <!--Jvector world map-->
-                        <div class="mt-1 mb-3 p-3 button-container bg-white shadow-sm border">
-                            <h6 class="mb-3">World Market</h6><hr>
-                            
-                            <div id="worldMarket" style="width: 100%; height: 350px"></div>
-                            
-                        </div>
-                        <!--/Jvector world map-->
-
-                    </div>
-                    
-                    
-                    <div class="col-sm-6">
-                        <!--Revenue Graph-->
-                        <div class="mt-1 mb-3 button-container bg-white border shadow-sm p-3">
-                            <h6 class="mb-3">Revenue vs Cost Graph</h6><hr>
-
-                            <div class="ct-chart" id="costRevenue"  style="height: 350px;"></div>
-
-                        </div>
-                        <!--/Revenue Graph-->
-                    </div>
-                </div>
-
-                <!--Chart Section-->
-                <div class="mt-1 mb-3 p-3 button-container bg-white shadow-sm border">
-                    <h6>Analytics overview</h6><hr>
-                    <div class="row mb-3">
-                        <div class="col-sm-4 ol-12">
-                            <h1 class="text-success">1560</h1>
-                            <h5>Customers</h5>
-                        </div>
-                        <div class="col-sm-4 ol-12 text-center">
-                            <h1 class="text-theme">1300</h1>
-                            <h5>Orders</h5>
-                        </div>
-                        <div class="col-sm-4 ol-12 text-right">
-                            <h1 class="text-danger">$5545</h1>
-                            <h5>Revenue</h5>
-                        </div>
-                    </div>
-
-                    <canvas id="orderRevenue" class="orderRevenue pt-1" height="100px"></canvas>
-                </div>
-                <!--Chart Section-->
 
                 <div class="mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm">
                     <!--Order Listing-->

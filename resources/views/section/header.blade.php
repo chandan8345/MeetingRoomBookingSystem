@@ -10,7 +10,10 @@
                         <!--Toggle sidebar-->
                         <!--Notification icon-->
                         <div class="menu-icon">
-                            <a class="" href="#" onclick="toggle_dropdown(this); return false" role="button" class="dropdown-toggle">
+                        <div class="search-rounded mr-3">
+                        <button type="button" class="btn btn-warning btn-sm" style="color:#fff;font-weight:bold"><i class="fa fa-pencil"></i>  Quick Booking</button>
+                        </div>
+                            <!-- <a class="" href="#" onclick="toggle_dropdown(this); return false" role="button" class="dropdown-toggle">
                                 <i class="fa fa-bell"></i>
                                 <span class="badge badge-danger">5</span>
                             </a>
@@ -57,12 +60,12 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center link-all" href="#">See all notifications ></a>
-                            </div>
+                            </div> -->
                         </div>
                         <!--Notication icon-->
 
                         <!--Inbox icon-->
-                        <span class="menu-icon inbox">
+                        <!-- <span class="menu-icon inbox">
                             <a class="" href="#" role="button" id="dropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
                                 <span class="badge badge-danger">4</span>
@@ -105,30 +108,27 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-center link-all" href="#">View all messages</a>
                             </div>
-                        </span>
+                        </span> -->
                         <!--Inbox icon-->
-                        <span class="menu-icon">
+                        <!-- <span class="menu-icon">
                             <i class="fa fa-th-large"></i>
-                        </span>
+                        </span> -->
                     </div>
                     <!--Menu Icons-->
 
                     <!--Search box and avatar-->
                     <div class="col-sm-8 col-4 text-right flex-header-menu justify-content-end">
-                        <div class="search-rounded mr-3">
-                            <input type="text" class="form-control search-box" placeholder="Enter keywords.." />
-                        </div>
                         <div class="mr-4">
                             <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="assets/img/profile.jpg" alt="Adam" class="rounded-circle" width="40px" height="40px">
+                                <img src="{{ URL::asset('template/assets/img/profile.jpg') }}" alt="Adam" class="rounded-circle" width="40px" height="40px">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="#"><i class="fa fa-user pr-2"></i> Profile</a>
-                                <div class="dropdown-divider"></div>
+                                <!-- <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i> Tasks</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"><i class="fa fa-book pr-2"></i> Projects</a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#"><i class="fa fa-power-off pr-2"></i> Logout</a>
                             </div>
                         </div>

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--Favicon Icon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('template/assets/img/guardian_logo.png') }}" />
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="{{ URL::asset('template/assets/css/bootstrap.min.css') }}">
     <!--Custom style.css-->
@@ -35,5 +35,5 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <title>Sleek Admin</title>
+    <title>@yield('tabname')</title>
   </head>
