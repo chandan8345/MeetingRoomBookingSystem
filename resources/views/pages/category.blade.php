@@ -1,12 +1,12 @@
 @extends('main')
 
-@section('tabname','MRBS | Manage Rooms')
+@section('tabname','MRBS | Rooms')
 
 @section('username','CK BISWAS')
 
 @section('designation','Assistant Officer')
 
-@section('page-title','Manage Rooms')
+@section('page-title','Manage Category')
 
 @section('main-content')
 <h5 class="mb-0" ><strong>@yield('page-title')</strong></h5>

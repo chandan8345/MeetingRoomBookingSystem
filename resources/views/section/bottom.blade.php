@@ -27,6 +27,11 @@
     <!--Bootstrap Calendar JS-->
     <script src="{{ URL::asset('template/assets/js/calendar/bootstrap_calendar.js') }}"></script>
     <script src="{{ URL::asset('template/assets/js/calendar/demo.js') }}"></script>
+
+        <!--Full calendar-->
+        <script src="{{ URL::asset('template/assets/css/fullcalendar-3.9.0/lib/moment.min.js') }}"></script>
+    <script src="{{ URL::asset('template/assets/css/fullcalendar-3.9.0/fullcalendar.min.js') }}"></script>
+    <script src="{{ URL::asset('template/assets/js/full-calendar.js') }}"></script>
     <!--Nice select-->
     <script src="{{ URL::asset('template/assets/js/jquery.nice-select.min.js') }}"></script>
 
@@ -39,4 +44,5 @@
 
     <script>
         $('#example').DataTable();
+        $('.bulk-actions').niceSelect();
     </script>

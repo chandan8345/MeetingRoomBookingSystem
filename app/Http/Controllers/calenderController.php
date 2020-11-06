@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class roomsController extends Controller
+class calenderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class roomsController extends Controller
      */
     public function index()
     {
-        return view('pages.manage-rooms');
+        return view('pages.schedule');
     }
 
     /**

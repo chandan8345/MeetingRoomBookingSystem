@@ -10,9 +10,9 @@
                         <!--Toggle sidebar-->
                         <!--Notification icon-->
                         <div class="menu-icon">
-                        <div class="search-rounded mr-3">
+                        <!-- <div class="search-rounded mr-3">
                         <button type="button" class="btn btn-warning btn-sm" style="color:#fff;font-weight:bold"><i class="fa fa-pencil"></i>  Quick Booking</button>
-                        </div>
+                        </div> -->
                             <!-- <a class="" href="#" onclick="toggle_dropdown(this); return false" role="button" class="dropdown-toggle">
                                 <i class="fa fa-bell"></i>
                                 <span class="badge badge-danger">5</span>
@@ -118,7 +118,11 @@
 
                     <!--Search box and avatar-->
                     <div class="col-sm-8 col-4 text-right flex-header-menu justify-content-end">
-                        <div class="mr-4">
+                    <div class="search-rounded mr-4">
+                        <button type="button" class="btn btn-primary btn-md" style="color:#fff;font-weight:bold"><i class="fa fa-pencil"></i>  Quick Booking</button>
+                            <!-- <input type="text" class="form-control search-box" placeholder="Enter keywords.." /> -->
+                        </div>    
+                    <div class="mr-4">
                             <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ URL::asset('template/assets/img/profile.jpg') }}" alt="Adam" class="rounded-circle" width="40px" height="40px">
                             </a>

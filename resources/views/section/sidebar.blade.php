@@ -22,27 +22,25 @@
                         <span class="none">Booking <i class="fa fa-angle-down pull-right align-bottom"></i></span>
                     </a>
                     <ul class="children" id="booking">
-                        <li class="child"><a href="{{ URL::to('/addrooms') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
+                        <li class="child"><a href="{{ URL::to('/quickbooking') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
                                 Quick Booking</a></li>
-                        <li class="child"><a href="{{ URL::to('/managerooms') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
+                        <li class="child"><a href="{{ URL::to('/managebooking') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
                                 Manage Booking</a></li>
                     </ul>
                 </li>
                 <li class="parent">
-                    <a href="#" onclick="toggle_menu('rooms'); return false" class=""><i
-                            class="fa fa-puzzle-piece mr-3"></i>
-                        <span class="none">Rooms <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    <a href="{{ URL::to('/managerooms') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                        <span class="none">Manage Rooms </span>
                     </a>
-                    <ul class="children" id="rooms">
-                        <li class="child"><a href="{{ URL::to('/addrooms') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Add Rooms</a></li>
-                        <li class="child"><a href="{{ URL::to('/managerooms') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Manage Rooms</a></li>
-                    </ul>
                 </li>
                 <li class="parent">
-                    <a href="widgets.html" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/category') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
                         <span class="none">Manage Category </span>
+                    </a>
+                </li>
+                <li class="parent">
+                    <a href="{{ URL::to('/schedule') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                        <span class="none">Ongoing Schedule </span>
                     </a>
                 </li>
                 <li class="parent">

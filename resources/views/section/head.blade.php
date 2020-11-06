@@ -25,6 +25,11 @@
     <link rel="stylesheet" href="{{ URL::asset('template/assets/css/chartist.min.css') }}">
     <!--Map-->
     <link rel="stylesheet" href="{{ URL::asset('template/assets/css/jquery-jvectormap-2.0.2.css') }}">
+    
+    <!--Fullcalendar CSS-->
+    <link rel="stylesheet" href="{{ URL::asset('template/assets/css/fullcalendar-3.9.0/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('template/assets/css/fullcalendar-3.9.0/fullcalendar.print.min.css') }}"  media='print'>
+
     <!--Bootstrap Calendar-->
     <link rel="stylesheet" href="{{ URL::asset('template/assets/js/calendar/bootstrap_calendar.css') }}">
     <!--Nice select -->

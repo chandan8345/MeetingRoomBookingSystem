@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class roomsController extends Controller
+class bookingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function managebooking()
     {
-        return view('pages.manage-rooms');
+        return view('pages.manage-booking');
     }
 
+    public function quickbooking()
+    {
+        return view('pages.quick-booking');
+    }
     /**
      * Show the form for creating a new resource.
      *
