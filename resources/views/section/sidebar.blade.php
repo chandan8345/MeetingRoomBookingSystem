@@ -44,17 +44,17 @@
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="widgets.html" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/reports') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
                         <span class="none">Reports </span>
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="widgets.html" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/category') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
                         <span class="none">Profile</span>
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="widgets.html" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/logout') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
                         <span class="none">Logout </span>
                     </a>
                 </li>

@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('tabname','MRBS | Rooms')
+@section('tabname','MRBS | Schedule')
 
 @section('username','CK BISWAS')
 

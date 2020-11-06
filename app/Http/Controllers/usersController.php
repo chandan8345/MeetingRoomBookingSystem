@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class usersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,6 +12,21 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        return view('pages.signin');
+    }
+
+    public function profile()
+    {
+        return view('pages.profile');
+    }
+
+    public function reports()
+    {
+        return view('pages.reports');
+    }
+
+    public function logout()
     {
         return view('pages.signin');
     }

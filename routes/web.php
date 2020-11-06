@@ -1,15 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\loginController;
+use App\Http\Controllers\usersController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\roomsController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\bookingController;
 use App\Http\Controllers\calenderController;
 
-//LOGIN
-Route::get('/',[loginController::class,'index']);
+//USERS
+Route::get('/',[usersController::class,'index']);
+Route::get('/profile',[usersController::class,'profile']);
+Route::get('/reports',[usersController::class,'reports']);
+Route::get('/logout',[usersController::class,'logout']);
 
 //DASHBOARD
 Route::get('/dashboard',[dashboardController::class,'index']);
