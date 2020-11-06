@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('tabname','Dashboard')
+@section('tabname','MRBS | Dashboard')
 
 @section('username','CK BISWAS')
 

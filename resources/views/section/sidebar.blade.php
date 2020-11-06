@@ -12,19 +12,33 @@
         <div class="sidebar-menu-container">
             <ul class="sidebar-menu mt-4 mb-4">
                 <li class="parent">
-                    <a href="widgets.html" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/dashboard') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
                         <span class="none">Dashboard </span>
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="widgets.html" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                        <span class="none">Quick Booking </span>
+                    <a href="#" onclick="toggle_menu('booking'); return false" class=""><i
+                            class="fa fa-puzzle-piece mr-3"></i>
+                        <span class="none">Booking <i class="fa fa-angle-down pull-right align-bottom"></i></span>
                     </a>
+                    <ul class="children" id="booking">
+                        <li class="child"><a href="{{ URL::to('/addrooms') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
+                                Quick Booking</a></li>
+                        <li class="child"><a href="{{ URL::to('/managerooms') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
+                                Manage Booking</a></li>
+                    </ul>
                 </li>
                 <li class="parent">
-                    <a href="widgets.html" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                        <span class="none">Manage Rooms </span>
+                    <a href="#" onclick="toggle_menu('rooms'); return false" class=""><i
+                            class="fa fa-puzzle-piece mr-3"></i>
+                        <span class="none">Rooms <i class="fa fa-angle-down pull-right align-bottom"></i></span>
                     </a>
+                    <ul class="children" id="rooms">
+                        <li class="child"><a href="{{ URL::to('/addrooms') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
+                                Add Rooms</a></li>
+                        <li class="child"><a href="{{ URL::to('/managerooms') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
+                                Manage Rooms</a></li>
+                    </ul>
                 </li>
                 <li class="parent">
                     <a href="widgets.html" class=""><i class="fa fa-puzzle-piece mr-3"></i>
@@ -47,40 +61,6 @@
                     </a>
                 </li>
                 <!-- <li class="parent">
-                    <a href="#" onclick="toggle_menu('ul_element'); return false" class=""><i
-                            class="fa fa-puzzle-piece mr-3"></i>
-                        <span class="none">UI Elements <i class="fa fa-angle-down pull-right align-bottom"></i></span>
-                    </a>
-                    <ul class="children" id="ul_element">
-                        <li class="child"><a href="accordion.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Accordions</a></li>
-                        <li class="child"><a href="buttons.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Buttons</a></li>
-                        <li class="child"><a href="badges.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Badges</a></li>
-                        <li class="child"><a href="breadcrumb.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Breadcrumbs</a></li>
-                        <li class="child"><a href="cards.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Cards</a></li>
-                        <li class="child"><a href="icons.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Icons</a></li>
-                        <li class="child"><a href="modal.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Modals</a></li>
-                        <li class="child"><a href="notification.html" class="ml-4"><i
-                                    class="fa fa-angle-right mr-2"></i> Notification</a></li>
-                        <li class="child"><a href="progressbar.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Progressbar</a></li>
-                        <li class="child"><a href="sweetalert.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Sweet alert</a></li>
-                        <li class="child"><a href="tabs.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Tabs</a></li>
-                        <li class="child"><a href="tooltip-popover.html" class="ml-4"><i
-                                    class="fa fa-angle-right mr-2"></i> Tooltip and Popovers</a></li>
-                        <li class="child"><a href="typography.html" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
-                                Typography</a></li>
-                    </ul>
-                </li>
-                <li class="parent">
                     <a href="#" onclick="toggle_menu('form_element'); return false" class=""><i
                             class="fa fa-pencil-square mr-3"></i>
                         <span class="none">Form Elements <i class="fa fa-angle-down pull-right align-bottom"></i></span>

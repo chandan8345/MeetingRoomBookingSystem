@@ -10,7 +10,7 @@
 
     <!--Meta Responsive tag-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('template/assets/img/guardian_logo.png') }}" />
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="{{ URL::asset('template/assets/css/bootstrap.min.css') }}">
     <!--Custom style.css-->
@@ -52,14 +52,14 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope-o"></i></span>
                             </div>
-                            <input type="text" class="form-control mt-0" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="email" name="email" class="form-control mt-0" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
                             </div>
-                            <input type="text" class="form-control mt-0" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                            <input type="password" name="password" class="form-control mt-0" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
                         </div>
 
                         <div class="form-group">

@@ -31,9 +31,12 @@
     <script src="{{ URL::asset('template/assets/js/jquery.nice-select.min.js') }}"></script>
 
     <!--Custom Js Script-->
-    <script src="{{ URL::asset('template/assets/js/custom.js') }}"></script>
+    <script src="{{ URL::asset('template/assets/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('template/assets/js/dataTables.bootstrap4.min.js') }}"></script>
+
     <!--Custom Js Script-->
+    <script src="{{ URL::asset('template/assets/js/custom.js') }}"></script>
+
     <script>
-        //Nice select
-        $('.bulk-actions').niceSelect();
+        $('#example').DataTable();
     </script>
