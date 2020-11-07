@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class usersController extends Controller
 {
@@ -11,6 +12,29 @@ class usersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function login(Request $r){
+        $i=0;
+        $email=$r->input('email');
+        $password=$r->input('password');
+        if(User::where('email', $email)->first()){
+            $i++;
+        }
+        if(User::where('password', $password)->first()){
+            $i++;
+        }
+        if($i == 2){
+            $result=User::where('email', $email)->where('password', $password)->get();
+            foreach($result as $r){
+                session()->put('id',$r->id);  
+            }
+            return $i;
+        }else if($i == 1){
+            return $i;
+        }
+        else{
+            return $i;
+        }
+    }
     public function index()
     {
         return view('pages.signin');
@@ -28,6 +52,7 @@ class usersController extends Controller
 
     public function logout()
     {
+        session()->forget('id');
         return view('pages.signin');
     }
 

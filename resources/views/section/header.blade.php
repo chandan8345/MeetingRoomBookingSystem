@@ -119,7 +119,7 @@
                     <!--Search box and avatar-->
                     <div class="col-sm-8 col-4 text-right flex-header-menu justify-content-end">
                     <div class="search-rounded mr-4">
-                        <button type="button" class="btn btn-primary btn-md" style="color:#fff;font-weight:bold"><i class="fa fa-pencil"></i>  Quick Booking</button>
+                        <a type="button" href="{{ URL::to('/quickbooking') }}" class="btn btn-outline-warning btn-md" style="color:blue;"><i class="fa fa-pencil"></i>  Quick Booking</a>
                             <!-- <input type="text" class="form-control search-box" placeholder="Enter keywords.." /> -->
                         </div>    
                     <div class="mr-4">
@@ -127,13 +127,13 @@
                                 <img src="{{ URL::asset('template/assets/img/profile.jpg') }}" alt="Adam" class="rounded-circle" width="40px" height="40px">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#"><i class="fa fa-user pr-2"></i> Profile</a>
+                                <a class="dropdown-item" href="{{ URL::to('/profile') }}"><i class="fa fa-user pr-2"></i> Profile</a>
                                 <!-- <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i> Tasks</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"><i class="fa fa-book pr-2"></i> Projects</a>
                                 <div class="dropdown-divider"></div> -->
-                                <a class="dropdown-item" href="#"><i class="fa fa-power-off pr-2"></i> Logout</a>
+                                <a class="dropdown-item" href="{{ URL::to('/logout') }}"><i class="fa fa-power-off pr-2"></i> Logout</a>
                             </div>
                         </div>
                     </div>

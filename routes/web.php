@@ -12,13 +12,18 @@ use App\Http\Controllers\calenderController;
 Route::get('/',[usersController::class,'index']);
 Route::get('/profile',[usersController::class,'profile']);
 Route::get('/reports',[usersController::class,'reports']);
+Route::post('/login',[usersController::class,'login']);
 Route::get('/logout',[usersController::class,'logout']);
 
 //DASHBOARD
 Route::get('/dashboard',[dashboardController::class,'index']);
 
 //ROOMS
-Route::get('/managerooms',[roomsController::class,'index']);
+Route::get('/rooms',[roomsController::class,'index']);
+Route::get('/roomlist',[roomsController::class,'roomlist']);
+Route::get('/updateroom/{id}',[roomsController::class,'updateroom']);
+Route::get('/deleteroom/{id}',[roomsController::class,'deleteroom']);
+Route::post('/addroom',[roomsController::class,'addroom']);
 
 //Booking
 Route::get('/quickbooking',[bookingController::class,'quickbooking']);
@@ -26,6 +31,10 @@ Route::get('/managebooking',[bookingController::class,'managebooking']);
 
 //Category
 Route::get('/category',[categoryController::class,'index']);
+Route::get('/categorylist',[categoryController::class,'categorylist']);
+Route::get('/updatecategory/{id}',[categoryController::class,'updatecategory']);
+Route::get('/deletecategory/{id}',[categoryController::class,'deletecategory']);
+Route::post('/addcategory',[categoryController::class,'addcategory']);
 
 //Calender
 Route::get('/schedule',[calenderController::class,'index']);

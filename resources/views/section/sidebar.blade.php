@@ -29,13 +29,13 @@
                     </ul>
                 </li>
                 <li class="parent">
-                    <a href="{{ URL::to('/managerooms') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                        <span class="none">Manage Rooms </span>
+                    <a href="{{ URL::to('/rooms') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                        <span class="none">Rooms </span>
                     </a>
                 </li>
                 <li class="parent">
                     <a href="{{ URL::to('/category') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                        <span class="none">Manage Category </span>
+                        <span class="none">Category </span>
                     </a>
                 </li>
                 <li class="parent">

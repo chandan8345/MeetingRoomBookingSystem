@@ -1,3 +1,8 @@
+@if(session()->has('id'))
+<script>window.location = "{{ URL::to('/dashboard') }}";</script>
+@else 
+
+@endif
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,26 +52,27 @@
                     <h3 class="mb-2">Login</h3>
                     
                     <small class="text-muted bc-description">Sign in with your credentials</small>
-                    <form action="" class="mt-2">
+                    <form action="" class="mt-2" id="login-form">
+                    {{ csrf_field() }}
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope-o"></i></span>
                             </div>
-                            <input type="email" name="email" class="form-control mt-0" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                            <input type="email" name="email" class="form-control mt-0" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required>
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
                             </div>
-                            <input type="password" name="password" class="form-control mt-0" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                            <input type="password" name="password" class="form-control mt-0" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required>
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-theme btn-block p-2 mb-1">Login</button>
-                            <!-- <a href="#">
+                            <button type="submit" class="btn btn-theme btn-block p-2 mb-1">Login</button>
+                            <a href="#">
                                 <small class="text-theme"><strong>Forgot password?</strong></small>
-                            </a> -->
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -87,5 +93,23 @@
     <!--Custom Js Script-->
     <script src="{{ URL::asset('template/assets/js/custom.js') }}"></script>
     <!--Custom Js Script-->
+    <script>
+    $('#login-form').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{{ url('/login') }}',
+            data: $("#login-form").serialize(),
+            success: function (response) {
+                if(response == 2){
+                    window.location.href = "{{ url('/dashboard') }}";
+                }
+            },
+            error: function (error) {
+                console.log('error');
+            }
+        });
+	});
+    </script>
   </body>
 </html>
