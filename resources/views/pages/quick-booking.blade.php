@@ -16,92 +16,109 @@
                     <div class="col-sm-12">
                         <!--Default elements-->
                         <div class="mt-1 mb-3 p-3 button-container bg-white border shadow-sm">
-                            <h6 class="mb-2">Basic input types</h6>
+                            <!-- <h6 class="mb-2">Basic input types</h6>
                             <p>use class <span class="text-danger">.form-control</span> with input</p>
-                            
-                            <form class="form-horizontal mt-4 mb-5">
+                             -->
+                            <form id="addbooking" method="post">
+                                {{ csrf_field() }}
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-1">Default Input</label>
+                                    <label class="control-label col-sm-2" for="input-1">Purpose of Meeting*</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="input-1" placeholder="John Doe" />
+                                        <input type="text" name="purpose" class="form-control" id="input-1" placeholder="write down someting" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-2">Email</label>
+                                    <label class="control-label col-sm-2" for="input-2">Meeting Date</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="input-2" placeholder="johndoe@gmail.com" />
+                                        <input type="date" name="meetingdate" min="<?php echo date('m-d-Y');?>" class="form-control" id="input-2" placeholder="pick the date here" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-3">Search</label>
+                                    <label class="control-label col-sm-2" for="input-3">Meeting Time</label>
                                     <div class="col-sm-10">
-                                        <input type="search" class="form-control" id="input-3" placeholder="Search keywords" />
+                                        <input type="time" name="meetingtime" min="09:00" max="18:00" class="form-control" id="input-3" placeholder="pick the time here" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-4">Number</label>
+                                    <label for="exampleFormControlSelect1" class="control-label col-sm-2">Duration</label>
                                     <div class="col-sm-10">
-                                        <input type="number" value="34" id="input-4" class="form-control" placeholder="number" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-5">Date</label>
-                                    <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="input-5" placeholder="11/11/2019" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-6">Max Characters</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" maxlength="5" class="form-control" id="input-6" placeholder="Maximum characters allowed is 5" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-7">Password</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="input-7" placeholder="*********" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-8">Predefined Value</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="input-8" value="Predefined set value" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="exampleFormControlSelect1" class="control-label col-sm-2">Example select</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>Choose ...</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                        <select class="form-control" name="duration" id="exampleFormControlSelect1" required>
+                                            <option value="">Choose Duration</option>
+                                            <option value="30 Mins">30 Mins</option>
+                                            <option value="1 Hour">1 Hour</option>
+                                            <option value="2 Hour">2 Hour</option>
+                                            <option value="3 Hour">3 Hour</option>
+                                            <option value="4 Hour">3 Hour</option>
+                                            <option value="5 Hour">3 Hour</option>
+                                            <option value="6 Hour">3 Hour</option>
+                                            <option value="Full Day">Full Day</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="exampleFormControlFile1">File input</label>
+                                    <label class="control-label col-sm-2" for="input-3">Total People</label>
                                     <div class="col-sm-10">
-                                        <input type="file" class="form-control" id="exampleFormControlFile1">
+                                        <input type="number" name="total" min="0" class="form-control" id="input-3" placeholder="How many people concern here" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-9">Read Only Field</label>
+                                    <label for="exampleFormControlSelect1" class="control-label col-sm-2">Choose Room</label>
                                     <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="input-9" placeholder="read only" />
+                                        <select name="room" class="form-control" id="exampleFormControlSelect1" required>
+                                            <option value="">Choose Room</option>
+                                            @foreach($rooms as $room)
+                                            <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-10">Disabled Field</label>
+                                    <label for="exampleFormControlSelect1" class="control-label col-sm-2">Meeting Category</label>
                                     <div class="col-sm-10">
-                                        <input type="text" disabled class="form-control" id="input-10" placeholder="Disabled" />
+                                        <select name="category" class="form-control" id="exampleFormControlSelect1" required>
+                                            <option value="">Select Category</option>
+                                            @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-11">Textarea</label>
+                                    <label for="exampleFormControlSelect1" class="control-label col-sm-2">Meeting Type</label>
                                     <div class="col-sm-10">
-                                        <textarea rows="5" class="form-control" id="input-11" placeholder="Default Textarea"></textarea>
+                                        <select name="meetingtype" class="form-control" id="exampleFormControlSelect1" required>
+                                            <option value="0">Select Type</option>
+                                            <option value="Internal">Internal</option>
+                                            <option value="External">External</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-2" for="input-6">Special Remarks</label>
+                                    <div class="col-sm-10">
+                                        <textarea rows="2" name="remarks" class="form-control" id="input-11" placeholder="write down the requirments of your meeting"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-2" for="input-6">Other Requests</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="coffee" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Coffee</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="snacks" class="custom-control-input" id="customCheck2">
+                                            <label class="custom-control-label" for="customCheck2">Snacks</label>
+                                        </div>
+                                        </div>
+ 
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-2" for="input-6"></label>
+                                    <div class="col-sm-10">
+                                        <button class="btn btn-primary" type="submit">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -137,4 +154,21 @@
 
 @section('bottom')
 @include('section.bottom')
+<script>
+            $('#addbooking').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: "{{ URL::to('/booking') }}",
+                data: $("#addbooking").serialize(),
+                success: function (response) {
+                    $("#addbooking").trigger('reset');
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log('error');
+                }
+            });
+        });
+</script>
 @stop

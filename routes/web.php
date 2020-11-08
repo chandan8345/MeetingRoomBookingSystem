@@ -28,6 +28,7 @@ Route::post('/addroom',[roomsController::class,'addroom']);
 //Booking
 Route::get('/quickbooking',[bookingController::class,'quickbooking']);
 Route::get('/managebooking',[bookingController::class,'managebooking']);
+Route::post('/booking',[bookingController::class,'booking']);
 
 //Category
 Route::get('/category',[categoryController::class,'index']);

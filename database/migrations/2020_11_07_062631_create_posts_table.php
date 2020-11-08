@@ -15,10 +15,14 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',50);
             $table->text('purpose');
-            $table->dateTime('dateTime',0)->unique();;
+            $table->date('meetingdate',0);
+            $table->time('meetingtime',0);
             $table->string('duration',11);
+            $table->string('meetingtype',11);
+            $table->text('remarks');
+            $table->text('comments');
+            $table->integer('total');
             $table->date('postingdate');
             $table->date('approvedate');
             $table->string('approveuser');
@@ -28,9 +32,9 @@ class CreatePostsTable extends Migration
             $table->foreign('postuser_id')->references('id')->on('users');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->boolean('coffee');
-            $table->boolean('snacks');
-            $table->integer('status');
+            $table->string('coffee',3);
+            $table->string('snacks',3);
+            $table->string('status',12);
             $table->timestamps();
         });
     }

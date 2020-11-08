@@ -6,7 +6,14 @@
 <!DOCTYPE html>
 <html lang="en">
 @yield('head')
-
+<style>
+    .custom-control {
+    position: relative;
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 2.5rem;
+}
+</style>
 <body>
     <!--Page loader-->
     @yield('loader')

@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Room;
+use App\Models\Post;
 
 class bookingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function managebooking()
     {
         return view('pages.manage-booking');
@@ -18,71 +16,26 @@ class bookingController extends Controller
 
     public function quickbooking()
     {
-        return view('pages.quick-booking');
+        $rooms=Room::where('status',1)->get();
+        $categories=Category::where('status',1)->get();
+        return view('pages.quick-booking')->with('rooms',$rooms)->with('categories',$categories);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function booking(Request $r){
+        $post=new Post;
+        $post->purpose=$r->input('purpose');
+        $post->meetingdate=$r->input('meetingdate');
+        $post->meetingtime=$r->input('meetingtime');
+        $post->duration=$r->input('duration');
+        $post->meetingtype=$r->input('meetingtype');
+        $post->remarks=$r->input('remarks');
+        $post->total=$r->input('total');
+        $post->coffee='Yes';
+        $post->snacks='No';
+        $post->room_id=$r->input('room');
+        $post->category_id=$r->input('category');
+        $post->status='waiting';
+        $post->postuser_id=session()->get('id');
+        $post->save();
+        return "store";
     }
 }
