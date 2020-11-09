@@ -19,8 +19,8 @@
                             <!-- <h6 class="mb-2">Basic input types</h6>
                             <p>use class <span class="text-danger">.form-control</span> with input</p>
                              -->
-                            <form id="addbooking" method="post">
-                                {{ csrf_field() }}
+                            <form id="addbooking">
+                            {{ csrf_field() }}
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2" for="input-1">Purpose of Meeting*</label>
                                     <div class="col-sm-10">
@@ -129,6 +129,7 @@
 @stop
 
 @section('head')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @include('section.head')
 @stop
 
@@ -158,7 +159,7 @@
             $('#addbooking').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
-                type: 'POST',
+                type: "POST",
                 url: "{{ URL::to('/booking') }}",
                 data: $("#addbooking").serialize(),
                 success: function (response) {
