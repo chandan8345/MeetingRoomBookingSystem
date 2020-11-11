@@ -7,155 +7,192 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Room;
 use App\Models\Post;
+Use Session;
 
 class bookingController extends Controller
 {
+    public function delete($id){
+        Post::where('id', $id)->delete();
+        return "delete";
+    }
+    public function reject($id){
+        $post = Post::find($id);
+        $post->status='rejected';
+        $post->save();
+        return "rejected";
+    }
+    public function book(Request $r){
+        $post = Post::find($r->input('id'));
+        $post->meetingdate=$r->input('meetingdate');
+        $post->meetingtime=$r->input('meetingtime');
+        $post->duration=$r->input('duration');
+        $post->comments=$r->input('comments');
+        $post->coffee=$r->input('coffee');
+        $post->snacks=$r->input('snacks');
+        $post->room_id=$r->input('room');
+        $post->status='booked';
+        $post->approveuser=session()->get('name');
+        $post->save();
+        return "update";
+    }
+
+    public function rebook(Request $r){
+        $post= Post::find($r->input('id'));
+        $post->meetingdate=$r->input('meetingdate');
+        $post->meetingtime=$r->input('meetingtime');
+        $post->duration=$r->input('duration');
+        $post->remarks=$r->input('remarks');
+        $post->coffee=$r->input('coffee');
+        $post->snacks=$r->input('snacks');
+        $post->room_id=$r->input('room');
+        $post->status='waiting';
+        $post->approveuser=session()->get('name');
+        $post->save();
+        return "rebook";
+    }
+
+    public function setPostponed(Request $r){
+        $post= Post::find($r->input('id'));
+        $post->meetingdate=$r->input('meetingdate');
+        $post->meetingtime=$r->input('meetingtime');
+        $post->duration=$r->input('duration');
+        $post->remarks=$r->input('remarks');
+        $post->coffee=$r->input('coffee');
+        $post->snacks=$r->input('snacks');
+        $post->room_id=$r->input('room');
+        $post->status='postponed';
+        $post->approveuser=session()->get('name');
+        $post->save();
+        return "update";
+    }
+
+    public function edit($id){
+        $rooms=Room::where('status',1)->get();
+        $categories=Category::where('status',1)->get();
+        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.id='$id' order by posts.meetingdate asc");
+        return view('pages.edit-booking')->with('posts',$posts)->with('rooms',$rooms)->with('categories',$categories);
+    }
     public function waiting(){
-        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='waiting' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate asc");
+        $rooms=Room::where('status',1)->get();
+        $categories=Category::where('status',1)->get();
+        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='waiting' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
         $i=1;
         foreach($posts as $post){
             echo 
-           '  <div id="view'.$post->id.'" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form id="add-category">
-                            {{ csrf_field() }}
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Category</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Name of Category</label>
-                                    <input type="text" name="name" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-primary" value="Save">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-           <tr>
+           '<tr>
             <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
             '.$post->category.'
             </td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle">'.$post->meetingdate.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->duration.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->total.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->postuser.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->meetingtype.'</td>
+            <td id="status'.$post->id.'" class="align-middle">'.$post->meetingdate.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
+            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
             <td class="align-middle text-center">
-            <a class="btn btn-warning" data-toggle="modal" data-target="#view'.$post->id.'" type="button"><i class="fa fa-edit"></i></a>
-            </td>
+            <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
+            ';
+            if(Session::get('role') == 'user'){
+            echo '<button class="btn btn-danger" type="button" onclick="remove('.$post->id.')" ><i class="fa fa-trash"></i></button>
+            ';}
+            echo '</td>
         </tr>';
         }
     }
     public function postponed(){
-        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate asc");
+        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
         $i=1;
         foreach($posts as $post){
             echo 
-           '  <div id="view'.$post->id.'" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form id="add-category">
-                            {{ csrf_field() }}
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Category</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Name of Category</label>
-                                    <input type="text" name="name" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-primary" value="Save">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+           '
            <tr>
             <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
             '.$post->category.'
             </td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle">'.$post->meetingdate.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->duration.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->total.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->postuser.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->meetingtype.'</td>
+            <td id="status'.$post->id.'" class="align-middle">'.$post->meetingdate.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
+            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
             <td class="align-middle text-center">
-            <a class="btn btn-warning" data-toggle="modal" data-target="#view'.$post->id.'" type="button"><i class="fa fa-edit"></i></a>
+            ';
+            if(Session::get('role') == 'user'){
+            echo '<a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
+            ';}
+            echo '<button class="btn btn-danger" type="button" onclick="reject('.$post->id.')" ><i class="fa fa-trash"></i></button>
             </td>
         </tr>';
         }
     }
     public function booked(){
-        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate asc");
+        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
         $i=1;
         foreach($posts as $post){
             echo 
-           '  <div id="view'.$post->id.'" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form id="add-category">
-                            {{ csrf_field() }}
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Category</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Name of Category</label>
-                                    <input type="text" name="name" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-primary" value="Save">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+           '
            <tr>
             <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
             '.$post->category.'
             </td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle">'.$post->meetingdate.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->duration.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->total.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->postuser.'</td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->meetingtype.'</td>
+            <td id="status'.$post->id.'" class="align-middle">'.$post->meetingdate.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
+            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
             <td class="align-middle text-center">
-            <a class="btn btn-warning" data-toggle="modal" data-target="#view'.$post->id.'" type="button"><i class="fa fa-edit"></i></a>
+            <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
+            <button class="btn btn-danger" type="button" onclick="reject('.$post->id.')" ><i class="fa fa-trash"></i></button>
             </td>
         </tr>';
         }    }
+        public function rejected(){
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='rejected' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate asc");
+            $i=1;
+            foreach($posts as $post){
+                echo 
+               '
+               <tr>
+                <td id="name'.$post->id.'" class="align-middle text-center">
+                '.$post->category.'
+                </td>
+                <td class="align-middle">'.$post->meetingdate.'</td>
+                <td  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+                <td class="align-middle text-center">'.$post->duration.'</td>
+                <td  class="align-middle text-center">'.$post->total.'</td>
+                <td  class="align-middle text-center">'.$post->room.'</td>
+                <td  class="align-middle text-center">'.$post->postuser.'</td>
+                <td  class="align-middle text-center">'.$post->meetingtype.'</td>
+                <td class="align-middle text-center">
+                <a href="edit/'.$post->id.'" class="btn btn-info" type="button"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>';
+            }
+        }
     public function completed(){
+        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate < 
+        CAST( GETDATE() AS Date ) order by posts.meetingdate desc");
         $i=1;
         foreach($posts as $post){
-           echo 
-           '<tr>
-            <td class="align-middle text-center">'.$i++.'</td>
+            echo 
+           '
+           <tr>
             <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
-            '.$post->name.'
+            '.$post->category.'
             </td>
-            <td id="status'.$post->id.'" onblur="updateStatus('.$post->id.')" contenteditable="true" class="align-middle text-center">'.$post->status.'</td>
+            <td id="status'.$post->id.'" class="align-middle">'.$post->meetingdate.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
+            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
             <td class="align-middle text-center">
-                <button class="btn btn-danger" onclick="remove('.$post->id.')"><i class="fas fa-trash"></i></button>
+            <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
             </td>
         </tr>';
         }

@@ -13,16 +13,6 @@
     min-height: 1.5rem;
     padding-left: 2.5rem;
 }
-.dt-button buttons-csv{
-    background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
 </style>
 <body>
     <!--Page loader-->

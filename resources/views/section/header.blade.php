@@ -118,10 +118,10 @@
 
                     <!--Search box and avatar-->
                     <div class="col-sm-8 col-4 text-right flex-header-menu justify-content-end">
-                    <div class="search-rounded mr-4">
+                    <!-- <div class="search-rounded mr-4">
                         <a type="button" href="{{ URL::to('/quickbooking') }}" class="btn btn-outline-warning btn-md" style="color:blue;"><i class="fa fa-pencil"></i>  Quick Booking</a>
-                            <!-- <input type="text" class="form-control search-box" placeholder="Enter keywords.." /> -->
-                        </div>    
+                            <!-- <input type="text" class="form-control search-box" placeholder="Enter keywords.." />
+                        </div>     -->
                     <div class="mr-4">
                             <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ URL::asset('template/assets/img/profile.jpg') }}" alt="Adam" class="rounded-circle" width="40px" height="40px">

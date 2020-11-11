@@ -29,10 +29,18 @@ Route::post('/addroom',[roomsController::class,'addroom']);
 Route::get('/quickbooking',[bookingController::class,'quickbooking']);
 Route::get('/managebooking',[bookingController::class,'managebooking']);
 Route::post('/booking',[bookingController::class,'booking']);
+Route::post('/book',[bookingController::class,'book']);
+Route::get('/edit/{id}',[bookingController::class,'edit']);
+Route::post('/setpostponed',[bookingController::class,'setpostponed']);
+Route::post('/rebook',[bookingController::class,'rebook']);
+Route::get('/reject/{id}',[bookingController::class,'reject']);
+Route::get('/delete/{id}',[bookingController::class,'delete']);
 Route::get('/waiting',[bookingController::class,'waiting']);
 Route::get('/postponed',[bookingController::class,'postponed']);
 Route::get('/booked',[bookingController::class,'booked']);
+Route::get('/rejected',[bookingController::class,'rejected']);
 Route::get('/completed',[bookingController::class,'completed']);
+
 
 //Category
 Route::get('/category',[categoryController::class,'index']);

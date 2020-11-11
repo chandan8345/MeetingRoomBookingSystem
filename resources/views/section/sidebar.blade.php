@@ -12,11 +12,16 @@
         <div class="sidebar-menu-container">
             <ul class="sidebar-menu mt-4 mb-4">
                 <li class="parent">
-                    <a href="{{ URL::to('/dashboard') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/dashboard') }}" class=""><i class="fa fa-tachometer mr-3"></i>
                         <span class="none">Dashboard </span>
                     </a>
                 </li>
                 <li class="parent">
+                    <a href="{{ URL::to('/quickbooking') }}" class=""><i class="fa fa-ticket mr-3"></i>
+                        <span class="none">Quick Booking </span>
+                    </a>
+                </li>
+                <!-- <li class="parent">
                     <a href="#" onclick="toggle_menu('booking'); return false" class=""><i
                             class="fa fa-puzzle-piece mr-3"></i>
                         <span class="none">Booking <i class="fa fa-angle-down pull-right align-bottom"></i></span>
@@ -27,34 +32,34 @@
                         <li class="child"><a href="{{ URL::to('/managebooking') }}" class="ml-4"><i class="fa fa-angle-right mr-2"></i>
                                 Manage Booking</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="parent">
-                    <a href="{{ URL::to('/rooms') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/rooms') }}" class=""><i class="fa fa-building-o mr-3"></i>
                         <span class="none">Rooms </span>
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="{{ URL::to('/category') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/category') }}" class=""><i class="fa fa-list-alt mr-3"></i>
                         <span class="none">Category </span>
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="{{ URL::to('/schedule') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
-                        <span class="none">Ongoing Schedule </span>
+                    <a href="{{ URL::to('/schedule') }}" class=""><i class="fa fa-calendar-plus-o mr-3"></i>
+                        <span class="none">Calendar</span>
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="{{ URL::to('/reports') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/reports') }}" class=""><i class="fa fa-file mr-3"></i>
                         <span class="none">Reports </span>
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="{{ URL::to('/category') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/category') }}" class=""><i class="fa fa-user mr-3"></i>
                         <span class="none">Profile</span>
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="{{ URL::to('/logout') }}" class=""><i class="fa fa-puzzle-piece mr-3"></i>
+                    <a href="{{ URL::to('/logout') }}" class=""><i class="fa fa-sign-out mr-3"></i>
                         <span class="none">Logout </span>
                     </a>
                 </li>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Session;
 
 class usersController extends Controller
 {
@@ -26,6 +27,8 @@ class usersController extends Controller
             $result=User::where('email', $email)->where('password', $password)->get();
             foreach($result as $r){
                 session()->put('id',$r->id);  
+                session()->put('name',$r->name); 
+                session()->put('role','admin');
             }
             return $i;
         }else if($i == 1){
@@ -52,8 +55,8 @@ class usersController extends Controller
 
     public function logout()
     {
-        session()->forget('id');
-        return view('pages.signin');
+        Session::flush();
+        return redirect('/');
     }
 
     /**
