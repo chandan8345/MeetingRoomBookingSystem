@@ -25,15 +25,6 @@
                     <i class="fas fa-plus"></i>
                 </button>
 
-                <div class="pull-right mr-3 btn-order-bulk">
-                    <select class="shadow bg-secondary bulk-actions">
-                        <option data-display="<span class='text-white'><b>Bulk status</b></span>">Status options
-                        </option>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
-                </div>
-
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -105,6 +96,7 @@
             </div>
         </div>
     </div>
+</div>
     @stop
 
     @section('head')

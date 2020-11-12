@@ -23,7 +23,7 @@
                             {{ csrf_field() }}
                                 <br>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-1">Purpose of Meeting*</label>
+                                    <label class="control-label col-sm-2" for="input-1">Purpose of Meeting</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="purpose" class="form-control" id="input-1" placeholder="write down someting" required/>
                                     </div>
@@ -31,7 +31,7 @@
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2" for="input-2">Meeting Date</label>
                                     <div class="col-sm-10">
-                                        <input type="date" name="meetingdate" min="<?php echo date('m-d-Y');?>" class="form-control" id="input-2" placeholder="pick the date here" required/>
+                                        <input type="date" min="<?php echo date('m-d-Y');?>" name="meetingdate" class="form-control" id="input-2" placeholder="pick the date here" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -49,9 +49,9 @@
                                             <option value="1 Hour">1 Hour</option>
                                             <option value="2 Hour">2 Hour</option>
                                             <option value="3 Hour">3 Hour</option>
-                                            <option value="4 Hour">3 Hour</option>
-                                            <option value="5 Hour">3 Hour</option>
-                                            <option value="6 Hour">3 Hour</option>
+                                            <option value="4 Hour">4 Hour</option>
+                                            <option value="5 Hour">5 Hour</option>
+                                            <option value="6 Hour">6 Hour</option>
                                             <option value="Full Day">Full Day</option>
                                         </select>
                                     </div>
@@ -59,7 +59,7 @@
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2" for="input-3">Total People</label>
                                     <div class="col-sm-10">
-                                        <input type="number" name="total" min="0" class="form-control" id="input-3" placeholder="How many people concern here" required/>
+                                        <input type="number" name="total" min="2" class="form-control" id="input-3" placeholder="How many people concern here" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -95,7 +95,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-6">Special Remarks</label>
+                                    <label class="control-label col-sm-2" for="input-6"> Remarks</label>
                                     <div class="col-sm-10">
                                         <textarea rows="2" name="remarks" class="form-control" id="input-11" placeholder="write down the requirments of your meeting"></textarea>
                                     </div>

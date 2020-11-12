@@ -30,6 +30,7 @@ Route::get('/quickbooking',[bookingController::class,'quickbooking']);
 Route::get('/managebooking',[bookingController::class,'managebooking']);
 Route::post('/booking',[bookingController::class,'booking']);
 Route::post('/book',[bookingController::class,'book']);
+Route::post('/updatepost',[bookingController::class,'updatepost']);
 Route::get('/edit/{id}',[bookingController::class,'edit']);
 Route::post('/setpostponed',[bookingController::class,'setpostponed']);
 Route::post('/rebook',[bookingController::class,'rebook']);

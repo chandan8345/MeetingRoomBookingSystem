@@ -91,9 +91,9 @@
                 </div>
                 <div class="col-sm-2 text-right pb-2">
                     <div class="pull-right mr-3 btn-order-bulk">
-                        <select id="status" onchange="state()" class="shadow bg-primary bulk-actions">
-                            <option value="waiting">Waiting</option>
+                        <select id="status" onchange="state()" class="shadow bg-success bulk-actions">
                             <option value="booked">Booked</option>
+                            <option value="waiting">Waiting</option>
                             <option value="postponed">Postponed</option>
                             <option value="completed">Completed</option>
                             <option value="rejected">Rejected</option>
@@ -105,7 +105,7 @@
             </div>
             <h3 id="data">No Data Available</h3>
             <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered">
+                <table id="example" class="table table-striped table-bordered table-dark">
                     <thead>
                         <tr>
                             <th>Category</th>
@@ -114,8 +114,11 @@
                             <th>Duration</th>
                             <th>Person</th>
                             <th>Room</th>
-                            <th>Proposed By</th>
                             <th>Meeting Type</th>
+                            @if(Session::get('role') == "admin")
+                            <th>Proposed By</th>
+                            @endif
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>

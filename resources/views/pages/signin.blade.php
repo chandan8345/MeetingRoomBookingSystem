@@ -42,7 +42,7 @@
             <h1 class="text-center mb-5"><i class="fa fa-handshake-o " aria-hidden="true"></i> Meeting Room Booking System</h1>    
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-12 login-box-info">
-                    <br><br>
+                    <br><br><br>
                     <p></p><p></p>
                     <img class="text-center" src="{{ URL::asset('template/assets/img/guardian.png') }}" width="240" height="80" alt="">
                     <!-- <p class="mb-4">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.</p>

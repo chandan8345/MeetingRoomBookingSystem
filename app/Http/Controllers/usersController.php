@@ -28,7 +28,7 @@ class usersController extends Controller
             foreach($result as $r){
                 session()->put('id',$r->id);  
                 session()->put('name',$r->name); 
-                session()->put('role','admin');
+                session()->put('role','user');
             }
             return $i;
         }else if($i == 1){

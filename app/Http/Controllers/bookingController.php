@@ -10,7 +10,20 @@ use App\Models\Post;
 Use Session;
 
 class bookingController extends Controller
-{
+{   
+    public function updatepost(Request $r){
+        $post = Post::find($r->input('id'));
+        $post->purpose=$r->input('purpose');
+        $post->meetingdate=$r->input('meetingdate');
+        $post->meetingtime=$r->input('meetingtime');
+        $post->duration=$r->input('duration');
+        $post->comments=$r->input('comments');
+        $post->coffee=$r->input('coffee');
+        $post->snacks=$r->input('snacks');
+        $post->room_id=$r->input('room');
+        $post->save();
+        return "update";
+    }
     public function delete($id){
         Post::where('id', $id)->delete();
         return "delete";
@@ -88,8 +101,13 @@ class bookingController extends Controller
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+            ';
+            if(Session::get('role') == 'admin'){
+            echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            ';}
+            echo ' 
+            <td id="status'.$post->id.'"  class="align-middle text-center">Waiting</td>
             <td class="align-middle text-center">
             <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
             ';
@@ -115,8 +133,13 @@ class bookingController extends Controller
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+            ';
+            if(Session::get('role') == 'admin'){
+            echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            ';}
+            echo ' 
+            <td id="status'.$post->id.'"  class="align-middle text-center">Postponed</td>
             <td class="align-middle text-center">
             ';
             if(Session::get('role') == 'user'){
@@ -142,8 +165,13 @@ class bookingController extends Controller
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+            ';
+            if(Session::get('role') == 'admin'){
+            echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            ';}
+            echo ' 
+            <td id="status'.$post->id.'"  class="align-middle text-center">Booked</td>
             <td class="align-middle text-center">
             <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
             <button class="btn btn-danger" type="button" onclick="reject('.$post->id.')" ><i class="fa fa-trash"></i></button>
@@ -161,12 +189,17 @@ class bookingController extends Controller
                 '.$post->category.'
                 </td>
                 <td class="align-middle">'.$post->meetingdate.'</td>
-                <td  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+                <td  class="align-middle text-center">'.date('g:i', strtotime($post->meetingtime)).'</td>
                 <td class="align-middle text-center">'.$post->duration.'</td>
                 <td  class="align-middle text-center">'.$post->total.'</td>
                 <td  class="align-middle text-center">'.$post->room.'</td>
-                <td  class="align-middle text-center">'.$post->postuser.'</td>
-                <td  class="align-middle text-center">'.$post->meetingtype.'</td>
+                <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+                ';
+                if(Session::get('role') == 'admin'){
+                echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+                ';}
+                echo ' 
+                <td id="status'.$post->id.'"  class="align-middle text-center">Rejected</td>
                 <td class="align-middle text-center">
                 <a href="edit/'.$post->id.'" class="btn btn-info" type="button"><i class="fa fa-edit"></i></a>
                 </td>
@@ -174,7 +207,7 @@ class bookingController extends Controller
             }
         }
     public function completed(){
-        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate < 
+        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate < 
         CAST( GETDATE() AS Date ) order by posts.meetingdate desc");
         $i=1;
         foreach($posts as $post){
@@ -191,6 +224,7 @@ class bookingController extends Controller
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+            <td id="status'.$post->id.'"  class="align-middle text-center">Completed</td>
             <td class="align-middle text-center">
             <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
             </td>

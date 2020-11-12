@@ -10,7 +10,7 @@
 
 @section('main-content')
 <h5 class="mb-0" ><strong>@yield('page-title')</strong></h5>
-                <span class="text-secondary">Booking <i class="fa fa-angle-right"></i> @yield('page-title')</span>
+                <!-- <span class="text-secondary">Booking <i class="fa fa-angle-right"></i> @yield('page-title')</span> -->
                 <div class="row mt-3">
                     <div class="col-sm-12">
                         <!--Default elements-->
@@ -24,7 +24,7 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="id" value="{{ $post->id }}">
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-1">Purpose of Meeting*</label>
+                                    <label class="control-label col-sm-2" for="input-1">Purpose of Meeting</label>
                                     <div class="col-sm-10">
                                         <input type="text" value="{{ $post->purpose }}" name="purpose" class="form-control" id="input-1" placeholder="write down someting" required @if(Session::get("role") == 'admin') disabled @endif/>
                                     </div>
@@ -104,7 +104,7 @@
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2" for="input-6">Comments</label>
                                     <div class="col-sm-10">
-                                        <textarea @if(Session::get('role') == 'user') disabled @endif rows="2" name="comments" class="form-control disabled" id="input-11" placeholder="write down the requirments of your meeting" required>{{ $post->comments }}</textarea>
+                                        <textarea @if(Session::get('role') == 'user') disabled @endif rows="2" name="comments" class="form-control disabled" id="input-11" placeholder="administration comments" required>{{ $post->comments }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -128,6 +128,7 @@
                                     <div class="col-sm-4">
                                     @if(Session::get('role') == 'user')
                                     @if($post->status != 'postponed')
+                                    <button class="btn btn-success" onclick="updatepost()" type="button">Update</button>
                                     <button class="btn btn-primary" onclick="postponed()" type="button">Postponed</button>
                                     @endif
                                     @if($post->status == 'postponed')
@@ -186,7 +187,7 @@
                 data: $("#editbooking").serialize(),
                 url: "{{ URL::to('/book') }}",
                 success: function (response) {
-                    window.location =  "{{ URL::to('/managebooking') }}";
+                    window.location =  "{{ URL::to('/dashboard') }}";
                 },
                 error: function (error) {
                     console.log('error');
@@ -199,7 +200,7 @@
                 data: $("#editbooking").serialize(),
                 url: "{{ URL::to('/rebook') }}",
                 success: function (response) {
-                    window.location =  "{{ URL::to('/managebooking') }}";
+                    window.location =  "{{ URL::to('/dashboard') }}";
                 },
                 error: function (error) {
                     console.log('error');
@@ -212,7 +213,20 @@
                 data: $("#editbooking").serialize(),
                 url: "{{ URL::to('/setpostponed') }}",
                 success: function (response) {
-                    window.location =  "{{ URL::to('/managebooking') }}";
+                    window.location =  "{{ URL::to('/dashboard') }}";
+                },
+                error: function (error) {
+                    console.log('error');
+                }
+            }); 
+        }
+        function updatepost(){
+            $.ajax({
+                type: "POST",
+                data: $("#editbooking").serialize(),
+                url: "{{ URL::to('/updatepost') }}",
+                success: function (response) {
+                    window.location =  "{{ URL::to('/dashboard') }}";
                 },
                 error: function (error) {
                     console.log('error');
