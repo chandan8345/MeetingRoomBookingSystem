@@ -96,18 +96,18 @@ class bookingController extends Controller
             <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
             '.$post->category.'
             </td>
-            <td id="status'.$post->id.'" class="align-middle">'.$post->meetingdate.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
-            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
-            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+            <td class="align-middle">'.$post->meetingdate.'</td>
+            <td class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+            <td class="align-middle text-center">'.$post->duration.'</td>
+            <td class="align-middle text-center">'.$post->total.'</td>
+            <td class="align-middle text-center">'.$post->room.'</td>
+            <td class="align-middle text-center">'.$post->meetingtype.'</td>
             ';
             if(Session::get('role') == 'admin'){
-            echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            echo '<td class="align-middle text-center">'.$post->postuser.'</td>
             ';}
             echo ' 
-            <td id="status'.$post->id.'"  class="align-middle text-center">Waiting</td>
+            <td class="align-middle text-center">Waiting</td>
             <td class="align-middle text-center">
             <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
             ';
@@ -128,18 +128,18 @@ class bookingController extends Controller
             <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
             '.$post->category.'
             </td>
-            <td id="status'.$post->id.'" class="align-middle">'.$post->meetingdate.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
-            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
-            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+            <td class="align-middle">'.$post->meetingdate.'</td>
+            <td class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+            <td class="align-middle text-center">'.$post->duration.'</td>
+            <td class="align-middle text-center">'.$post->total.'</td>
+            <td class="align-middle text-center">'.$post->room.'</td>
+            <td class="align-middle text-center">'.$post->meetingtype.'</td>
             ';
             if(Session::get('role') == 'admin'){
-            echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            echo '<td class="align-middle text-center">'.$post->postuser.'</td>
             ';}
             echo ' 
-            <td id="status'.$post->id.'"  class="align-middle text-center">Postponed</td>
+            <td class="align-middle text-center">Postponed</td>
             <td class="align-middle text-center">
             ';
             if(Session::get('role') == 'user'){
@@ -161,18 +161,18 @@ class bookingController extends Controller
             <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
             '.$post->category.'
             </td>
-            <td id="status'.$post->id.'" class="align-middle">'.$post->meetingdate.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
-            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
-            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+            <td class="align-middle">'.$post->meetingdate.'</td>
+            <td class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+            <td class="align-middle text-center">'.$post->duration.'</td>
+            <td class="align-middle text-center">'.$post->total.'</td>
+            <td class="align-middle text-center">'.$post->room.'</td>
+            <td class="align-middle text-center">'.$post->meetingtype.'</td>
             ';
             if(Session::get('role') == 'admin'){
-            echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            echo '<td class="align-middle text-center">'.$post->postuser.'</td>
             ';}
             echo ' 
-            <td id="status'.$post->id.'"  class="align-middle text-center">Booked</td>
+            <td class="align-middle text-center">Booked</td>
             <td class="align-middle text-center">
             <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
             <button class="btn btn-danger" type="button" onclick="reject('.$post->id.')" ><i class="fa fa-trash"></i></button>
@@ -190,17 +190,17 @@ class bookingController extends Controller
                 '.$post->category.'
                 </td>
                 <td class="align-middle">'.$post->meetingdate.'</td>
-                <td  class="align-middle text-center">'.date('g:i', strtotime($post->meetingtime)).'</td>
+                <td class="align-middle text-center">'.date('g:i', strtotime($post->meetingtime)).'</td>
                 <td class="align-middle text-center">'.$post->duration.'</td>
-                <td  class="align-middle text-center">'.$post->total.'</td>
-                <td  class="align-middle text-center">'.$post->room.'</td>
-                <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
+                <td class="align-middle text-center">'.$post->total.'</td>
+                <td class="align-middle text-center">'.$post->room.'</td>
+                <td class="align-middle text-center">'.$post->meetingtype.'</td>
                 ';
                 if(Session::get('role') == 'admin'){
-                echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+                echo '<td class="align-middle text-center">'.$post->postuser.'</td>
                 ';}
                 echo ' 
-                <td id="status'.$post->id.'"  class="align-middle text-center">Rejected</td>
+                <td class="align-middle text-center">Rejected</td>
                 <td class="align-middle text-center">
                 <a href="edit/'.$post->id.'" class="btn btn-info" type="button"><i class="fa fa-edit"></i></a>
                 </td>
@@ -218,18 +218,18 @@ class bookingController extends Controller
             <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
             '.$post->category.'
             </td>
-            <td id="status'.$post->id.'" class="align-middle">'.$post->meetingdate.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
-            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
-            <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
+            <td class="align-middle">'.$post->meetingdate.'</td>
+            <td class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+            <td class="align-middle text-center">'.$post->duration.'</td>
+            <td class="align-middle text-center">'.$post->total.'</td>
+            <td class="align-middle text-center">'.$post->room.'</td>
             ';
             if(Session::get('role') == 'admin'){
-            echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            echo '<td class="align-middle text-center">'.$post->postuser.'</td>
             ';}
             echo ' 
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">Completed</td>
+            <td class="align-middle text-center">'.$post->meetingtype.'</td>
+            <td class="align-middle text-center">Completed</td>
             ';
             if(Session::get('role') == 'user'){
                 echo '<td class="align-middle text-center"><a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
