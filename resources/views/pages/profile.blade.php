@@ -10,6 +10,7 @@
 
 @section('main-content')
 <h5 class="mb-0" ><strong>@yield('page-title')</strong></h5>
+                @foreach($profiles as $profile)
                 <div class="row mt-3">
                     <div class="col-sm-12">
                         <!--User profile header-->
@@ -20,14 +21,14 @@
                             <div class="profile-bio-main container-fluid">
                                 <div class="row">
                                     <div class="col-md-5 offset-md-3 col-sm-12 offset-sm-0 col-12 bio-header">
-                                        <h3 class="mt-4">Mario Mendez</h3>
+                                        <h3 class="mt-4">{{ $profile->name }}</h3>
                                         <span class="text-muted mt-0 bio-request">Senior Architect</span>
                                     </div>
                                     <div class="col-md-4 col-sm-12 col-12 px-5 text-right pt-4 bio-comment">
                                         <button type="button" class="btn btn-default">
                                             <i class="far fa-comment"></i>
                                         </button>
-                                        <button type="button" class="btn btn-theme">Request</button>
+                                        <button type="button" class="btn btn-default">UPDATE</button>
                                     </div>
                                 </div>
                             </div>
@@ -133,6 +134,7 @@
                         <!--/Default elements-->
                     </div>
                 </div>
+                @endforeach
 @stop
 
 @section('head')

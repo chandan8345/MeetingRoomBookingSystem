@@ -45,7 +45,9 @@ class usersController extends Controller
 
     public function profile()
     {
-        return view('pages.profile');
+        $id=Session::get('id');
+        $profiles=User::where('id',$id)->get();
+        return view('pages.profile')->with('profiles',$profiles);
     }
 
     public function reports()

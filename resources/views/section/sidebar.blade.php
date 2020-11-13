@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li class="parent">
-                    <a href="{{ URL::to('/category') }}" class=""><i class="fa fa-user mr-3"></i>
+                    <a href="{{ URL::to('/profile') }}" class=""><i class="fa fa-user mr-3"></i>
                         <span class="none">Profile</span>
                     </a>
                 </li>
