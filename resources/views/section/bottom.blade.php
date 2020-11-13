@@ -50,5 +50,4 @@
     <script src="//cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
     <script>
     $('.bulk-actions').niceSelect();
-    //$('#example').DataTable( {} );
     </script>

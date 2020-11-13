@@ -1,30 +1,37 @@
 @extends('main')
 
-@section('tabname','MRBS | Reports')
+@section('tabname','MRBS | Generate Report')
 
 @section('username','CK BISWAS')
 
 @section('designation','Assistant Officer')
 
-@section('page-title','Reports')
+@section('page-title','Generate Report')
 
 @section('main-content')
+<h5 class="mb-0" ><strong>@yield('page-title')</strong></h5>
                         <!--Tags-->
+                        <div class="row mt-3">
+                            <div class="col-sm-12">
                         <div class="mt-1 mb-3 p-3 button-container bg-white border shadow-sm">
-                            <form action="">
+                            <div id="message" class="alert alert-warning" role="alert">
+                                End Date cannot come before Start Date
+                            </div>
+                            <form id="report-form" action="">
                                 <div class="form-group row">
                                     <div class="col-sm-5">
-                                        <label for="">Date from*</label>
-                                        <input class="form-control" type="date" placeholder="col-sm-2">
+                                        <label for="">Meeting Date from*</label>
+                                        <input class="form-control" name="datefrom" id="datefrom" type="date" placeholder="" required>
                                     </div>
                                     <div class="col-sm-5">
-                                        <label for="">Date to*</label>
-                                        <input class="form-control" type="date" placeholder="col-sm-10">
+                                        <label for="">Meeting Date to*</label>
+                                        <input class="form-control" name="dateto" id="dateto" type="date" placeholder="" required>
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="pull-right mr-3 btn-order-bulk">
                                             <label for="">Status</label>
                                             <select id="status" name="status" onchange="" class="shadow bg-primary bulk-actions">
+                                                <option value="">Select Status</option>
                                                 <option value="booked">Booked</option>
                                                 <option value="waiting">Waiting</option>
                                                 <option value="postponed">Postponed</option>
@@ -36,7 +43,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-2">
-                                        <button class="btn btn-success">Search</button>
+                                        <button type="submit" class="btn btn-success">Search</button>
                                     </div>
                                 </div>
                             </form>
@@ -72,11 +79,7 @@
                         </div>
                         <!--/Datatable-->
                     </div>
-                </div>
-            </div>
-        </div>
-                        <!--/Tags-->
-                    
+                </div> 
 @stop
 
 @section('head')
@@ -105,4 +108,28 @@
 
 @section('bottom')
 @include('section.bottom')
+<script>
+    $("#message").hide();
+        $('#report-form').on('submit', function (e) {
+            e.preventDefault();
+            if( $('#datefrom').val() <= $('#dateto').val() ){
+                $("#message").hide();
+                $.ajax({
+                type: "GET",
+                data: $("#report-form").serialize(),
+                url: "{{ URL::to('/search') }}",
+                success: function (response) {
+                    
+                    $('#newtable').DataTable( {} );
+                },
+                error: function (error) {
+                    console.log('error');
+                }
+            });
+            }else{
+                e.preventDefault();
+                $("#message").show(1);
+            }
+        });
+</script>
 @stop

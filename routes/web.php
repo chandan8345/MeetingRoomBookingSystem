@@ -7,6 +7,7 @@ use App\Http\Controllers\roomsController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\bookingController;
 use App\Http\Controllers\calenderController;
+use App\Http\Controllers\reportController;
 
 //USERS
 Route::get('/',[usersController::class,'index']);
@@ -24,6 +25,9 @@ Route::get('/roomlist',[roomsController::class,'roomlist']);
 Route::get('/updateroom/{id}',[roomsController::class,'updateroom']);
 Route::get('/deleteroom/{id}',[roomsController::class,'deleteroom']);
 Route::post('/addroom',[roomsController::class,'addroom']);
+
+//Reports
+Route::get('/search',[reportController::class,'search']);
 
 //Booking
 Route::get('/quickbooking',[bookingController::class,'quickbooking']);

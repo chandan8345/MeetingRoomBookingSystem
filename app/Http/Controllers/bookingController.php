@@ -151,7 +151,8 @@ class bookingController extends Controller
         }
     }
     public function booked(){
-        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
+        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate > 
+        CAST( GETDATE() AS Date ) order by posts.meetingdate desc");
         $i=1;
         foreach($posts as $post){
             echo 
@@ -222,11 +223,18 @@ class bookingController extends Controller
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->duration.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->total.'</td>
             <td id="status'.$post->id.'" class="align-middle text-center">'.$post->room.'</td>
-            <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            ';
+            if(Session::get('role') == 'admin'){
+            echo '<td id="status'.$post->id.'"  class="align-middle text-center">'.$post->postuser.'</td>
+            ';}
+            echo ' 
             <td id="status'.$post->id.'"  class="align-middle text-center">'.$post->meetingtype.'</td>
             <td id="status'.$post->id.'"  class="align-middle text-center">Completed</td>
-            <td class="align-middle text-center">
-            <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
+            ';
+            if(Session::get('role') == 'user'){
+                echo '<td class="align-middle text-center"><a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
+            ';}
+            echo '<a onclick="reject('.$post->id.')" class="btn btn-danger" type="button"><i class="fa fa-ban"></i></a>
             </td>
         </tr>';
         }

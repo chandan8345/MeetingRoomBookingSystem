@@ -83,12 +83,12 @@
         <div class="mt-1 mb-3 p-3 button-container bg-white border shadow-sm">
             <!-- <h6 class="mb-2">Manage Booking</h6> -->
             <div class="row border-bottom mb-4">
-                <div class="col-sm-7 pt-2">
+                <div class="col-sm-10 pt-2">
                     <h6 class="mb-4 bc-header">Manage Booking</h6>
                 </div>
-                <div class="form-group col-sm-3">
+                <!-- <div class="form-group col-sm-3">
                     <input type="date" name="" id="date" class="form-control">
-                </div>
+                </div> -->
                 <div class="col-sm-2 text-right pb-2">
                     <div class="pull-right mr-3 btn-order-bulk">
                         <select id="status" onchange="state()" class="shadow bg-success bulk-actions">
@@ -105,7 +105,7 @@
             </div>
             <h3 id="data">No Data Available</h3>
             <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered table-dark">
+                <table id="example" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>Category</th>
@@ -148,6 +148,8 @@
                 $('#example').show();
                 $('#data').hide();
                 $('#example tbody').html(response);
+                $('#example').DataTable( {
+                } );
             } else {
                 $('#data').show();
                 $('#example').hide();
@@ -168,7 +170,9 @@
                 if (response.length != 0) {
                     $('#example').show();
                     $('#data').hide();
+                    $('#example').DataTable().destroy();
                     $('#example tbody').html(response);
+                    $('#example').DataTable( {} );
                 } else {
                     $('#data').show();
                     $('#example').hide();
