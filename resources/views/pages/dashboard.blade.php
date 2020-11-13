@@ -189,9 +189,11 @@
             url: "{{ URL::to('/reject') }}"+'/'+ id,
             success: function (response) {
                 state();
+                swal('Done!', "Reject successfully", "success");
                 console.log('reject');
             },
             error: function (error) {
+                swal('Error!', "Something went Wrong, Please Try Again.", "error");
                 console.log('Error');
             }
         });
@@ -202,9 +204,11 @@
             url: "{{ URL::to('/delete') }}"+'/'+ id,
             success: function (response) {
                 state();
+                swal('Done!', "Removed successfully", "success");
                 console.log('delete');
             },
             error: function (error) {
+                swal('Error!', "Something went Wrong, Please Try Again.", "error");
                 console.log('Error');
             }
         });

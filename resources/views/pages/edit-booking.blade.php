@@ -136,8 +136,11 @@
                                     @endif
                                     @endif
                                     @if(Session::get('role') == 'admin')
-                                    @if($post->status != 'booked')
-                                        <button class="btn btn-primary" type="submit">Booked</button>
+                                        @if($post->status != 'booked')
+                                            <button class="btn btn-primary" type="submit">Booked</button>
+                                        @endif
+                                        @if($post->status == 'booked')
+                                            <button class="btn btn-primary" type="submit">Booked</button>
                                         @endif
                                     @endif
                                     </div>
@@ -187,9 +190,11 @@
                 data: $("#editbooking").serialize(),
                 url: "{{ URL::to('/book') }}",
                 success: function (response) {
+                    swal('Done!', "Booked confirmed successfully", "success");
                     window.location =  "{{ URL::to('/dashboard') }}";
                 },
                 error: function (error) {
+                    swal('Error!', "Something went Wrong, Please Try Again.", "error");
                     console.log('error');
                 }
             });
@@ -200,9 +205,11 @@
                 data: $("#editbooking").serialize(),
                 url: "{{ URL::to('/rebook') }}",
                 success: function (response) {
+                    swal('Done!', "Rebooking successfully", "success");
                     window.location =  "{{ URL::to('/dashboard') }}";
                 },
                 error: function (error) {
+                    swal('Error!', "Something went Wrong, Please Try Again.", "error");
                     console.log('error');
                 }
             }); 
@@ -213,9 +220,11 @@
                 data: $("#editbooking").serialize(),
                 url: "{{ URL::to('/setpostponed') }}",
                 success: function (response) {
+                    swal('Done!', "Postponed successfully", "success");
                     window.location =  "{{ URL::to('/dashboard') }}";
                 },
                 error: function (error) {
+                    swal('Error!', "Something went Wrong, Please Try Again.", "error");
                     console.log('error');
                 }
             }); 
@@ -226,9 +235,11 @@
                 data: $("#editbooking").serialize(),
                 url: "{{ URL::to('/updatepost') }}",
                 success: function (response) {
+                    swal('Done!', "Update successfully", "success");
                     window.location =  "{{ URL::to('/dashboard') }}";
                 },
                 error: function (error) {
+                    swal('Error!', "Something went Wrong, Please Try Again.", "error");
                     console.log('error');
                 }
             }); 

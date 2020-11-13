@@ -19,11 +19,11 @@
             </div>
             <form id="report-form" action="">
                 <div class="form-group row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <label for="">Meeting Date from*</label>
                         <input class="form-control" name="datefrom" id="datefrom" type="date" placeholder="" required>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <label for="">Meeting Date to*</label>
                         <input class="form-control" name="dateto" id="dateto" type="date" placeholder="" required>
                     </div>
@@ -125,10 +125,19 @@
                     $('#example').DataTable({
                         dom: 'Bfrtip',
                         buttons: [
-                        {"extend": 'csv',"className": 'btn btn-default btn-sm' },
-                        {"extend": 'excel',"className": 'btn btn-default btn-sm' },
-                        {"extend": 'pdf',"className": 'btn btn-default btn-sm' },
-                        {"extend": 'print',"className": 'btn btn-default btn-sm' },
+                            {
+                                "extend": 'csv',
+                                "className": 'btn btn-info btn-sm bg-dark',
+                                title: ' ',
+                                message: ' ',
+                                customize: function (win) {
+                                    $(win.document.body).prepend('<h3>Guardian Life Insurance</h3>'); 
+                                    $(win.document.body).append('<h3>Guardian Life Insurance</h3>'); 
+                                }
+                            },
+                            { "extend": 'excel', "className": 'btn btn-info btn-sm  bg-dark' },
+                            { "extend": 'pdf', "className": 'btn btn-info btn-sm  bg-dark' },
+                            { "extend": 'print', "className": 'btn btn-info btn-sm  bg-dark' },
                         ]
                     });
                 },

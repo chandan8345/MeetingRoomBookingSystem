@@ -36,8 +36,8 @@
                 <div class="form-group row">
                     <label class="control-label col-sm-2" for="input-2">Meeting Date</label>
                     <div class="col-sm-10">
-                        <input type="date" id="date" min="<?php echo date('m-d-Y');?>" name="meetingdate" class="form-control"
-                            id="input-2" placeholder="pick the date here" required />
+                        <input type="date" id="date" min="<?php echo date('m-d-Y');?>" name="meetingdate"
+                            class="form-control" id="input-2" placeholder="pick the date here" required />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -173,18 +173,20 @@
         e.preventDefault();
         if ($('#date').val() >= $('#today').val()) {
             $("#message").hide();
-            $.ajax({
-                type: "POST",
-                url: "{{ URL::to('/booking') }}",
-                data: $("#addbooking").serialize(),
-                success: function (response) {
-                    $("#addbooking").trigger('reset');
-                    console.log(response);
-                },
-                error: function (error) {
-                    console.log('error');
-                }
-            });
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ URL::to('/booking') }}",
+                        data: $("#addbooking").serialize(),
+                        success: function (response) {
+                            swal('Done!', "Booking Request placed successfully", "success");
+                            $("#addbooking").trigger('reset');
+                            console.log(response);
+                        },
+                        error: function (error) {
+                            swal('Error!', "Something went Wrong, Please Try Again.", "error");
+                            console.log('error');
+                        }
+                    });
         } else {
             e.preventDefault();
             $("#message").show(1);

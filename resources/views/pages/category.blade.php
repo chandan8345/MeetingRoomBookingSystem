@@ -164,6 +164,7 @@
                     $("#add-category").trigger('reset');
                     $("#addEmployeeModal").modal('hide');
                     categorylist();
+                    swal('Done!', "Category added successfully", "success");
                     console.log(response);
                 },
                 error: function (error) {

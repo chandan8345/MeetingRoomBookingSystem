@@ -33,6 +33,7 @@
                                 Manage Booking</a></li>
                     </ul>
                 </li> -->
+                @if(Session::get('role') == 'admin')
                 <li class="parent">
                     <a href="{{ URL::to('/rooms') }}" class=""><i class="fa fa-building-o mr-3"></i>
                         <span class="none">Rooms </span>
@@ -43,6 +44,7 @@
                         <span class="none">Category </span>
                     </a>
                 </li>
+                @endif
                 <li class="parent">
                     <a href="{{ URL::to('/schedule') }}" class=""><i class="fa fa-calendar-plus-o mr-3"></i>
                         <span class="none">Calendar</span>

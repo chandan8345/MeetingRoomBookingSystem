@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Session;
 
 class dashboardController extends Controller
 {
@@ -15,11 +16,20 @@ class dashboardController extends Controller
     public function index()
     {
         $complete=0;$book=0;$waiting=0;
-        $c = DB::select("select count(posts.status) complete from posts where posts.status='booked' and posts.meetingdate < 
-        CAST( GETDATE() AS Date )");
-        $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate >= 
-        CAST( GETDATE() AS Date )");
-        $w = DB::select("select count(posts.status) waiting from posts where posts.status='waiting'");
+        if(Session::get('role') == 'admin'){
+            $c = DB::select("select count(posts.status) complete from posts where posts.status='booked' and posts.meetingdate < 
+            CAST( GETDATE() AS Date )");
+            $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate >= 
+            CAST( GETDATE() AS Date )");
+            $w = DB::select("select count(posts.status) waiting from posts where posts.status='waiting'");
+        }else{
+            $id=Session::get('id');
+            $c = DB::select("select count(posts.status) complete from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate < 
+            CAST( GETDATE() AS Date )");
+            $b = DB::select("select count(posts.status) book from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate >= 
+            CAST( GETDATE() AS Date )");
+            $w = DB::select("select count(posts.status) waiting from posts where posts.postuser_id='$id' and posts.status='waiting'"); 
+        }
         foreach($c as $row){$complete=$row->complete;}
         foreach($b as $row){$book=$row->book;}
         foreach($w as $row){$waiting=$row->waiting;}

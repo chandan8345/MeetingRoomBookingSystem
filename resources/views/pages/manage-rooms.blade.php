@@ -169,10 +169,12 @@
                     $("#add-room").trigger('reset');
                     $("#addEmployeeModal").modal('hide');
                     roomlist();
+                    swal('Done!', "Room added successfully", "success");
                     console.log(response);
                 },
                 error: function (error) {
                     $("#addEmployeeModal").modal('hide');
+                    swal('Error!', "Something went Wrong, Please Try Again.", "error");
                     console.log('error');
                 }
             });
@@ -185,8 +187,10 @@
                 success: function (response) {
                     console.log(response);
                     roomlist();
+                    swal('Done!', "Room Delete successfully", "success");
                 },
                 error: function (error) {
+                    swal('Error!', "Something went Wrong, Please Try Again.", "error");
                     console.log('Error');
                 }
             });

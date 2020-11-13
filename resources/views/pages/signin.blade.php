@@ -71,7 +71,8 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-theme btn-block p-2 mb-1">Login</button>
                             <a href="#">
-                                <small class="text-theme"><strong>Forgot password?</strong></small>
+                                <small id="one" class="text-theme"><strong>Your email or password was incorrect</strong></small>
+                                <small id="both" class="text-theme"><strong>Your email and password was incorrect</strong></small>
                             </a>
                         </div>
                     </form>
@@ -94,6 +95,8 @@
     <script src="{{ URL::asset('template/assets/js/custom.js') }}"></script>
     <!--Custom Js Script-->
     <script>
+        $('#one').hide();
+        $('#both').hide();
     $('#login-form').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
@@ -103,6 +106,12 @@
             success: function (response) {
                 if(response == 2){
                     window.location.href = "{{ url('/dashboard') }}";
+                }else if(response == 1){
+                    $('#one').show(50);
+                    $('#both').hide();
+                }else{
+                    $('#one').hide();
+                    $('#both').show(50);
                 }
             },
             error: function (error) {

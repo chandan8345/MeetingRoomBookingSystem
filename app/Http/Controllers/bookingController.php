@@ -88,7 +88,12 @@ class bookingController extends Controller
     public function waiting(){
         $rooms=Room::where('status',1)->get();
         $categories=Category::where('status',1)->get();
-        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='waiting' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
+        if(Session::get('role') == 'admin'){
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='waiting' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
+        }else{
+            $id=Session::get('id');
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.postuser_id='$id' and posts.status='waiting' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");   
+        }
         $i=1;
         foreach($posts as $post){
             echo 
@@ -119,7 +124,12 @@ class bookingController extends Controller
         }
     }
     public function postponed(){
-        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
+        if(Session::get('role') == 'admin'){
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
+        }else{
+            $id=Session::get('id');
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.postuser_id='$id' and posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate desc");
+        }
         $i=1;
         foreach($posts as $post){
             echo 
@@ -151,8 +161,14 @@ class bookingController extends Controller
         }
     }
     public function booked(){
-        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate > 
+        if(Session::get('role') == 'admin'){
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate > 
         CAST( GETDATE() AS Date ) order by posts.meetingdate desc");
+        }else{
+            $id=Session::get('id');
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.postuser_id='$id' and posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate > 
+            CAST( GETDATE() AS Date ) order by posts.meetingdate desc");
+        }
         $i=1;
         foreach($posts as $post){
             echo 
@@ -180,7 +196,12 @@ class bookingController extends Controller
         </tr>';
         }    }
         public function rejected(){
+            if(Session::get('role') == 'admin'){
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='rejected' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate asc");
+            }else{
+            $id=Session::get('id');
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.postuser_id='$id' and posts.status='rejected' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate asc");
+            }
             $i=1;
             foreach($posts as $post){
                 echo 
@@ -208,8 +229,14 @@ class bookingController extends Controller
             }
         }
     public function completed(){
+        if(Session::get('role') == 'admin'){
         $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate < 
         CAST( GETDATE() AS Date ) order by posts.meetingdate desc");
+        }else{
+        $id=Session::get('id');
+        $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.postuser_id='$id' and posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate < 
+        CAST( GETDATE() AS Date ) order by posts.meetingdate desc");
+        }
         $i=1;
         foreach($posts as $post){
             echo 
