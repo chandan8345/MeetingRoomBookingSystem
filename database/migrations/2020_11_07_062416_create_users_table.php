@@ -18,12 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('name',50);
             $table->string('password',30);
             $table->string('email',50)->unique();
-            $table->string('designation',50);
+            $table->string('department',30);
+            $table->string('designation',30);
             $table->string('staffid',30)->unique();
             $table->string('mobile',11)->unique();
             $table->integer('ext');
             $table->integer('band');
-            $table->integer('role');
+            $table->string('role');
             $table->boolean('status');
             $table->timestamps();
         });

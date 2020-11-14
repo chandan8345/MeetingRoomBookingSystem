@@ -2,10 +2,6 @@
 
 @section('tabname','MRBS | Manage Booking')
 
-@section('username','CK BISWAS')
-
-@section('designation','Assistant Officer')
-
 @section('page-title','Manage Booking')
 
 @section('main-content')

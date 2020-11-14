@@ -2,9 +2,9 @@
     <div class="inner-sidebar mr-3">
         <!--Image Avatar-->
         <div class="avatar text-center">
-            <img src="{{ URL::asset('template/assets/img/client-img4.png') }}" alt="" class="rounded-circle" />
-            <p><strong>@yield('username')</strong></p>
-            <span class="text-primary small"><strong>@yield('designation')</strong></span>
+            <img src="{{ URL::asset('img/user.jpg') }}" alt="" class="rounded-circle" />
+            <p><strong>{{ Session::get('name') }}</strong></p>
+            <span class="text-primary small"><strong>{{ Session::get('designation') }}</strong></span>
         </div>
         <!--Image Avatar-->
 

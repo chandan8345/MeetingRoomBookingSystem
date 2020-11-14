@@ -2,10 +2,6 @@
 
 @section('tabname','MRBS | Generate Report')
 
-@section('username','CK BISWAS')
-
-@section('designation','Assistant Officer')
-
 @section('page-title','Generate Report')
 
 @section('main-content')
@@ -30,7 +26,7 @@
                     <div class="col-sm-2">
                         <div class="pull-right mr-3 btn-order-bulk">
                             <label for="">Status</label>
-                            <select id="status" name="status" onchange="" class="shadow bg-primary bulk-actions">
+                            <select id="status" name="status" onchange="" class="shadow bg-warning bulk-actions">
                                 <option value="">Select Status</option>
                                 <option value="booked">Booked</option>
                                 <option value="waiting">Waiting</option>
@@ -43,7 +39,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-2">
-                        <button type="submit" class="btn btn-success">Search</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </div>
             </form>
@@ -58,15 +54,21 @@
                     <thead>
                         <tr>
                             <th>Category</th>
+                            <th>purpose</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Duration</th>
                             <th>Person</th>
                             <th>Room</th>
-                            <th>Meeting Type</th>
-                            @if(Session::get('role') == "admin")
-                            <th>Proposed By</th>
-                            @endif
+                            <th>Type</th>
+                            <th>Remarks</th>
+                            <th>Comments</th>
+                            <th>Proposed</th>
+                            <th>Approved</th>
+                            <th>Post Date</th>
+                            <th>Approved Date</th>
+                            <th>Coffee</th>
+                            <th>Snacks</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -119,6 +121,7 @@
                 data: $("#report-form").serialize(),
                 url: "{{ URL::to('/search') }}",
                 success: function (response) {
+                    if(response != 0){
                     $('#mytable').show();
                     $('#example').DataTable().destroy();
                     $('#example tbody').html(response);
@@ -131,8 +134,8 @@
                                 title: ' ',
                                 message: ' ',
                                 customize: function (win) {
-                                    $(win.document.body).prepend('<h3>Guardian Life Insurance</h3>'); 
-                                    $(win.document.body).append('<h3>Guardian Life Insurance</h3>'); 
+                                    $(win.document.header).prepend('<h3>Guardian Life Insurance</h3>'); 
+                                    $(win.document.header).append('<h3>Guardian Life Insurance</h3>'); 
                                 }
                             },
                             { "extend": 'excel', "className": 'btn btn-info btn-sm  bg-dark' },
@@ -140,8 +143,12 @@
                             { "extend": 'print', "className": 'btn btn-info btn-sm  bg-dark' },
                         ]
                     });
+                    }else{
+                        swal('Sorry!'," Post not found", "error");
+                    }
                 },
                 error: function (error) {
+                    swal('Error!', "Something went Wrong, Please Try Again.", "error");
                     console.log('error');
                 }
             });

@@ -2,10 +2,6 @@
 
 @section('tabname','MRBS | Category')
 
-@section('username','CK BISWAS')
-
-@section('designation','Assistant Officer')
-
 @section('page-title','Manage Category')
 
 @section('main-content')

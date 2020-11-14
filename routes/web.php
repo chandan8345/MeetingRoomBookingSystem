@@ -18,6 +18,9 @@ Route::get('/logout',[usersController::class,'logout']);
 
 //DASHBOARD
 Route::get('/dashboard',[dashboardController::class,'index']);
+Route::get('/countbooked',[dashboardController::class,'countbooked']);
+Route::get('/countwaiting',[dashboardController::class,'countwaiting']);
+Route::get('/countcompleted',[dashboardController::class,'countcompleted']);
 
 //ROOMS
 Route::get('/rooms',[roomsController::class,'index']);

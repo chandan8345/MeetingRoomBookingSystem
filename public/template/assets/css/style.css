@@ -157,7 +157,7 @@ table tbody tr td {
     transform: translate(-50%, -50%);
     border-radius: 50%;
     border: 5px solid #fff;
-    box-shadow: 0 0 0 5px #0D47A1;
+    box-shadow: 0 0 0 5px #d5bd06c7;
     overflow: hidden;
 }
 
@@ -167,7 +167,7 @@ table tbody tr td {
     height: 100%;
     background: #0D47A1;
     border-radius: 50%;
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 50px rgba(255, 119, 8, 0.5);
 }
 
 .loader-wave:before,
@@ -1631,10 +1631,9 @@ span.tag.label.label-info {
 /*========Profile page CSS Rules=========*/
 
 .profile-bg {
-    background-image: url('../img/banner.png');
+    background-image: url('../img/tarred.jpeg');
     background-size: cover;
-    background-position-y: 25%;
-    background-position-x: 0%;
+    background-position-y: 80%;
     background-repeat: no-repeat;
     height: 240px;
 }

@@ -2,10 +2,6 @@
 
 @section('tabname','MRBS | Update')
 
-@section('username','CK BISWAS')
-
-@section('designation','Assistant Officer')
-
 @section('page-title','Quick Update')
 
 @section('main-content')

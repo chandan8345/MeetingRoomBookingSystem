@@ -2,10 +2,6 @@
 
 @section('tabname','MRBS | Quick Booking')
 
-@section('username','CK BISWAS')
-
-@section('designation','Assistant Officer')
-
 @section('page-title','Quick Booking')
 
 @section('main-content')

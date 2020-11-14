@@ -44,7 +44,7 @@ class bookingController extends Controller
         $post->snacks=$r->input('snacks');
         $post->room_id=$r->input('room');
         $post->status='booked';
-        $post->approveuser=session()->get('name');
+        $post->approveuser=Session::get('name');
         $post->save();
         return "update";
     }
@@ -59,7 +59,6 @@ class bookingController extends Controller
         $post->snacks=$r->input('snacks');
         $post->room_id=$r->input('room');
         $post->status='waiting';
-        $post->approveuser=session()->get('name');
         $post->save();
         return "rebook";
     }
@@ -74,7 +73,6 @@ class bookingController extends Controller
         $post->snacks=$r->input('snacks');
         $post->room_id=$r->input('room');
         $post->status='postponed';
-        $post->approveuser=session()->get('name');
         $post->save();
         return "update";
     }

@@ -71,8 +71,8 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-theme btn-block p-2 mb-1">Login</button>
                             <a href="#">
-                                <small id="one" class="text-theme"><strong>Your email or password was incorrect</strong></small>
-                                <small id="both" class="text-theme"><strong>Your email and password was incorrect</strong></small>
+                                <small id="one" class="text-danger"><strong>Your email or password was incorrect</strong></small>
+                                <small id="both" class="text-danger"><strong>Your email and password was incorrect</strong></small>
                             </a>
                         </div>
                     </form>
