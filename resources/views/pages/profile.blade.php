@@ -24,7 +24,7 @@
                                         <button type="button" class="btn btn-default">
                                             <i class="far fa-comment"></i>
                                         </button>
-                                        <button type="button" class="btn btn-warning">UPDATE</button>
+                                        <button type="button" onclick="update()" class="btn btn-warning">UPDATE</button>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,6 @@
                         <!--Default elements-->
                         <div class="mt-1 mb-3 p-3 button-container bg-white border shadow-sm">
                             <h6 class="mb-2"></h6>
-                            <p>use class <span class="text-danger">.form-control</span> with input</p>
                             
                             <form class="form-horizontal mt-4 mb-5">
                                 <div class="form-group row">
@@ -129,4 +128,9 @@
 
 @section('bottom')
 @include('section.bottom')
+<script>
+    function update(){
+        swal('Coming Soon!'," profile update not available now", "error");
+    }
+</script>
 @stop
