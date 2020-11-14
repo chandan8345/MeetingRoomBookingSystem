@@ -87,7 +87,7 @@
                 </div> -->
         <div class="col-sm-2 text-right pb-2">
             <div class="pull-right mr-3 btn-order-bulk">
-                <select id="status" onchange="state()" class="shadow bg-danger bulk-actions">
+                <select id="status" onchange="state()" class="shadow bg-dark bulk-actions">
                     <option value="waiting">Waiting</option>
                     <option value="booked">Booked</option>
                     <option value="postponed">Postponed</option>

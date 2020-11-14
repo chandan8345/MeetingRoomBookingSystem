@@ -26,7 +26,7 @@
                     <div class="col-sm-2">
                         <div class="pull-right mr-3 btn-order-bulk">
                             <label for="">Status</label>
-                            <select id="status" name="status" onchange="" class="shadow bg-warning bulk-actions">
+                            <select id="status" name="status" onchange="" class="shadow bg-dark bulk-actions">
                                 <option value="">Select Status</option>
                                 <option value="booked">Booked</option>
                                 <option value="waiting">Waiting</option>
@@ -131,7 +131,7 @@
                             {
                                 "extend": 'csv',
                                 "className": 'btn btn-info btn-sm bg-dark',
-                                title: ' ',
+                                title: 'Meeting Room Booking System',
                                 message: ' ',
                                 customize: function (win) {
                                     $(win.document.header).prepend('<h3>Guardian Life Insurance</h3>'); 
