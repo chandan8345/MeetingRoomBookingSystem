@@ -39,7 +39,7 @@
                 <div class="form-group row">
                     <label class="control-label col-sm-2" for="input-3">Meeting Time</label>
                     <div class="col-sm-10">
-                        <input type="time" name="meetingtime" min="09:00" max="18:00" class="form-control" id="input-3"
+                        <input type="time" name="meetingtime" min="08:00" max="18:00" class="form-control" id="input-3"
                             placeholder="pick the time here" required />
                     </div>
                 </div>

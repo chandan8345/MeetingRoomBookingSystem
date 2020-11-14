@@ -124,7 +124,7 @@
                         </div>     -->
                     <div class="mr-4">
                             <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ URL::asset('template/assets/img/profile.jpg') }}" alt="Adam" class="rounded-circle" width="40px" height="40px">
+                                <img src="{{ URL::asset('img/user.jpg') }}" alt="Adam" class="rounded-circle" width="40px" height="40px">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="{{ URL::to('/profile') }}"><i class="fa fa-user pr-2"></i> Profile</a>
