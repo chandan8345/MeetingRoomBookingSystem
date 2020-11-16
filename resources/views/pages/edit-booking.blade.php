@@ -42,9 +42,9 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" name="duration" id="exampleFormControlSelect1" required>
                                             <option value="">Choose Duration</option>
-                                            <option value="30 Mins" @if($post->duration == "30 Mins") selected @endif >30 Mins</option>
+                                            <option value="30 Mis" @if($post->duration == "30 Mins") selected @endif >30 Mins</option>
                                             <option value="1 Hour" @if($post->duration == "1 Hour") selected @endif >1 Hour</option>
-                                            <option value="2 Hour" @if($post->duration == "3 Hour") selected @endif >2 Hour</option>
+                                            <option value="2 Hour" @if($post->duration == "2 Hour") selected @endif >2 Hour</option>
                                             <option value="3 Hour" @if($post->duration == "3 Hour") selected @endif >3 Hour</option>
                                             <option value="4 Hour" @if($post->duration == "4 Hour") selected  @endif >4 Hour</option>
                                             <option value="5 Hour" @if($post->duration == "5 Hour") selected  @endif >5 Hour</option>

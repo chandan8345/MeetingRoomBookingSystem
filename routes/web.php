@@ -9,11 +9,15 @@ use App\Http\Controllers\bookingController;
 use App\Http\Controllers\calenderController;
 use App\Http\Controllers\reportController;
 
-//USERS
+
 Route::get('/',[usersController::class,'index']);
+Route::post('/login',[usersController::class,'login']);
+
+Route::group(['middleware' => 'usersession'], function () {
+    
+//USERS
 Route::get('/profile',[usersController::class,'profile']);
 Route::get('/reports',[usersController::class,'reports']);
-Route::post('/login',[usersController::class,'login']);
 Route::get('/logout',[usersController::class,'logout']);
 
 //DASHBOARD
@@ -65,3 +69,5 @@ Route::post('/create',[myController::class,'create']);
 Route::get('/update/{id}',[myController::class,'update']);
 Route::get('/remove/{id}',[myController::class,'remove']);
 Route::get('/userlist',[myController::class,'userlist']);
+
+});

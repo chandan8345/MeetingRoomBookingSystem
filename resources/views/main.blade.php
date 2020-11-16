@@ -1,8 +1,3 @@
-@if(session()->has('id'))
-    
-@else 
-<script>window.location = "{{ URL::to('/') }}";</script>
-@endif
 <!DOCTYPE html>
 <html lang="en">
 @yield('head')
