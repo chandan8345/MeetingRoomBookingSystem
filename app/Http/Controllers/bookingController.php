@@ -95,31 +95,111 @@ class bookingController extends Controller
         $i=1;
         foreach($posts as $post){
             echo 
-           '<tr>
-            <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
-            '.$post->category.'
-            </td>
-            <td class="align-middle">'.$post->meetingdate.'</td>
-            <td class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
-            <td class="align-middle text-center">'.$post->duration.'</td>
-            <td class="align-middle text-center">'.$post->total.'</td>
-            <td class="align-middle text-center">'.$post->room.'</td>
-            <td class="align-middle text-center">'.$post->meetingtype.'</td>
-            ';
-            if(Session::get('role') == 'admin'){
-            echo '<td class="align-middle text-center">'.$post->postuser.'</td>
-            ';}
-            echo ' 
-            <td class="align-middle text-center">Waiting</td>
-            <td class="align-middle text-center">
-            <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
-            ';
-            if(Session::get('role') == 'user'){
-            echo '<button class="btn btn-danger" type="button" onclick="remove('.$post->id.')" ><i class="fa fa-trash"></i></button>
-            ';}
-            echo '</td>
-        </tr>';
-        }
+            '
+            <tr>
+             <td class="align-middle text-center">
+             '.$post->category.'
+             </td>
+             <td class="align-middle">'.$post->meetingdate.'</td>
+             <td class="align-middle text-center">'.date('G:i', strtotime($post->meetingtime)).'</td>
+             <td class="align-middle text-center">'.$post->duration.'</td>
+             <td class="align-middle text-center">'.$post->total.'</td>
+             <td class="align-middle text-center">'.$post->room.'</td>
+             <td class="align-middle text-center">'.$post->meetingtype.'</td>
+             ';
+             if(Session::get('role') == 'admin'){
+             echo '<td class="align-middle text-center">'.$post->postuser.'</td>
+             ';}
+             echo ' 
+             <td class="align-middle text-center">Waiting</td>
+             <td class="align-middle text-center">
+             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
+ 
+             <div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             <div class="modal-dialog modal-lg" role="document">
+             <div class="modal-content">
+             <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Booking Information</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+             </div>
+             <div class="modal-body">
+             <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                     <input type="text" id="email-vr" value="'.$post->purpose.'" class="form-control"/>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                     <input type="text" id="email-vr"  value="'.$post->category.'" class="form-control"/>
+                     </div>
+                 </div>
+             </div>
+                          <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                     <input type="text" id="email-vr" value="'.$post->room.'" class="form-control"/>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                     <input type="text" id="email-vr"  value="'.$post->meetingtype.'" class="form-control"/>
+                     </div>
+                 </div>
+             </div>
+                         <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                     <input type="text" id="email-vr" value="'.$post->meetingdate.'" class="form-control"/>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                     <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->meetingtime)).'" class="form-control"/>
+                     </div>
+                 </div>
+             </div>
+                          <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                     <input type="text" id="email-vr" value="'.$post->duration.'" class="form-control"/>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                     <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
+                     </div>
+                 </div>
+             </div>
+                                      <div class="row">
+                 <div class="col-md-12">
+                     <div class="form-group">
+                     <input type="text" id="email-vr" value="'.$post->remarks.'" class="form-control"/>
+                     </div>
+                 </div>
+                 <div class="col-md-12">
+                     <div class="form-group">
+                     <input type="text" id="email-vr"  value="'.$post->comments.'" class="form-control"/>
+                     </div>
+                 </div>
+             </div>
+             </div>
+             <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             </div>
+             </div>
+             </div>
+             </div>
+             <a href="edit/'.$post->id.'" class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></a>
+             ';
+             if(Session::get('role') == 'user'){
+             echo '<button class="btn btn-danger btn-sm" type="button" onclick="remove('.$post->id.')" ><i class="fa fa-trash"></i></button>
+             ';}
+             echo '</td>
+         </tr>';
+         }
     }
     public function postponed(){
         if(Session::get('role') == 'admin'){
@@ -133,7 +213,7 @@ class bookingController extends Controller
             echo 
            '
            <tr>
-            <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
+            <td class="align-middle text-center">
             '.$post->category.'
             </td>
             <td class="align-middle">'.$post->meetingdate.'</td>
@@ -149,11 +229,90 @@ class bookingController extends Controller
             echo ' 
             <td class="align-middle text-center">Postponed</td>
             <td class="align-middle text-center">
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
+
+            <div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Booking Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->purpose.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->category.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->room.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->meetingtype.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->meetingdate.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->meetingtime)).'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->duration.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->remarks.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->comments.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+            </div>
             ';
             if(Session::get('role') == 'user'){
-            echo '<a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
+            echo '<a href="edit/'.$post->id.'" class="btn btn-warning btn-sm" type="button"><i class="fa fa-edit"></i></a>
             ';}
-            echo '<button class="btn btn-danger" type="button" onclick="reject('.$post->id.')" ><i class="fa fa-trash"></i></button>
+            echo '<button class="btn btn-danger btn-sm" type="button" onclick="reject('.$post->id.')" ><i class="fa fa-ban"></i></button>
             </td>
         </tr>';
         }
@@ -172,7 +331,7 @@ class bookingController extends Controller
             echo 
            '
            <tr>
-            <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
+            <td class="align-middle text-center">
             '.$post->category.'
             </td>
             <td class="align-middle">'.$post->meetingdate.'</td>
@@ -185,14 +344,94 @@ class bookingController extends Controller
             if(Session::get('role') == 'admin'){
             echo '<td class="align-middle text-center">'.$post->postuser.'</td>
             ';}
-            echo ' 
-            <td class="align-middle text-center">Booked</td>
+            echo 
+            '<td class="align-middle text-center">Booked</td>
             <td class="align-middle text-center">
-            <a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
-            <button class="btn btn-danger" type="button" onclick="reject('.$post->id.')" ><i class="fa fa-trash"></i></button>
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
+
+            <div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Booking Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->purpose.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->category.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                         <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->room.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->meetingtype.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                        <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->meetingdate.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->meetingtime)).'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                         <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->duration.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                                     <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->remarks.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->comments.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+            </div>
+            <a href="edit/'.$post->id.'" class="btn btn-warning btn-sm" type="button"><i class="fa fa-edit"></i></a>
+            <button class="btn btn-danger btn-sm" type="button" onclick="reject('.$post->id.')" ><i class="fa fa-ban"></i></button>
             </td>
         </tr>';
-        }    }
+        }  
+     }
         public function rejected(){
             if(Session::get('role') == 'admin'){
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,categories.name category,rooms.name room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts,categories,rooms where posts.status='rejected' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate asc");
@@ -205,7 +444,7 @@ class bookingController extends Controller
                 echo 
                '
                <tr>
-                <td id="name'.$post->id.'" class="align-middle text-center">
+                <td class="align-middle text-center">
                 '.$post->category.'
                 </td>
                 <td class="align-middle">'.$post->meetingdate.'</td>
@@ -221,7 +460,85 @@ class bookingController extends Controller
                 echo ' 
                 <td class="align-middle text-center">Rejected</td>
                 <td class="align-middle text-center">
-                <a href="edit/'.$post->id.'" class="btn btn-info" type="button"><i class="fa fa-edit"></i></a>
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
+
+            <div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Booking Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->purpose.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->category.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                         <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->room.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->meetingtype.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                        <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->meetingdate.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->meetingtime)).'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                         <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->duration.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                                     <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->remarks.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->comments.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+            </div>
                 </td>
             </tr>';
             }
@@ -240,7 +557,7 @@ class bookingController extends Controller
             echo 
            '
            <tr>
-            <td id="name'.$post->id.'" onblur="updateName('.$post->id.')" contenteditable="true" class="align-middle text-center">
+            <td class="align-middle text-center">
             '.$post->category.'
             </td>
             <td class="align-middle">'.$post->meetingdate.'</td>
@@ -248,18 +565,93 @@ class bookingController extends Controller
             <td class="align-middle text-center">'.$post->duration.'</td>
             <td class="align-middle text-center">'.$post->total.'</td>
             <td class="align-middle text-center">'.$post->room.'</td>
+            <td class="align-middle text-center">'.$post->meetingtype.'</td>
             ';
             if(Session::get('role') == 'admin'){
             echo '<td class="align-middle text-center">'.$post->postuser.'</td>
             ';}
-            echo ' 
-            <td class="align-middle text-center">'.$post->meetingtype.'</td>
-            <td class="align-middle text-center">Completed</td>
-            ';
-            if(Session::get('role') == 'user'){
-                echo '<td class="align-middle text-center"><a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
-            ';}
-            echo '<a onclick="reject('.$post->id.')" class="btn btn-danger" type="button"><i class="fa fa-ban"></i></a>
+            echo 
+            '<td class="align-middle text-center">Completed</td>';
+            // if(Session::get('role') == 'user'){
+            //     echo '<td class="align-middle text-center"><a href="edit/'.$post->id.'" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a>
+            // ';}
+            echo '<div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Booking Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->purpose.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->category.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                         <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->room.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->meetingtype.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                        <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->meetingdate.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->meetingtime)).'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                         <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->duration.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+                                     <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <input type="text" id="email-vr" value="'.$post->remarks.'" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <input type="text" id="email-vr"  value="'.$post->comments.'" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+            </div>
+            </div>
             </td>
         </tr>';
         }

@@ -123,19 +123,20 @@
                                     <label class="control-label col-sm-2" for="input-6"></label>
                                     <div class="col-sm-4">
                                     @if(Session::get('role') == 'user')
-                                    @if($post->status != 'postponed')
+                                    @if($post->status != 'postponed' && $post->status != 'booked' && $post->status != 'rejected')
                                     <button class="btn btn-primary" onclick="updatepost()" type="button">Update</button>
-                                    <button class="btn btn-info" onclick="postponed()" type="button">Postponed</button>
+                                    <button class="btn btn-danger" onclick="postponed()" type="button">Postponed</button>
+                                    @elseif($post->status == 'booked')
+                                    <button class="btn btn-danger" onclick="postponed()" type="button">Postponed</button>
+                                    
                                     @endif
+                                    
                                     @if($post->status == 'postponed')
                                     <button class="btn btn-primary" onclick="bookagain()" type="button">Book Again</button>
                                     @endif
                                     @endif
                                     @if(Session::get('role') == 'admin')
-                                        @if($post->status != 'booked')
-                                            <button class="btn btn-primary" type="submit">Booked</button>
-                                        @endif
-                                        @if($post->status == 'booked')
+                                        @if($post->status != 'booked' && $post->status != 'rejected' && $post->status != 'postponed')
                                             <button class="btn btn-primary" type="submit">Booked</button>
                                         @endif
                                     @endif
