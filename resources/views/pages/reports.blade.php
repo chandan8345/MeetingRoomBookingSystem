@@ -29,7 +29,7 @@
                             <select id="status" name="status" onchange="" class="shadow bg-dark bulk-actions">
                                 <option value="">Select Status</option>
                                 <option value="booked">Booked</option>
-                                <option value="waiting">Waiting</option>
+                                <!-- <option value="waiting">Waiting</option> -->
                                 <option value="postponed">Postponed</option>
                                 <option value="completed">Completed</option>
                                 <option value="rejected">Rejected</option>
@@ -56,19 +56,13 @@
                             <th>Category</th>
                             <th>purpose</th>
                             <th>Date</th>
-                            <th>Time</th>
-                            <th>Duration</th>
+                            <th>Start</th>
+                            <th>Finish</th>
                             <th>Person</th>
                             <th>Room</th>
                             <th>Type</th>
-                            <th>Remarks</th>
-                            <th>Comments</th>
                             <th>Proposed</th>
-                            <th>Approved</th>
                             <th>Post Date</th>
-                            <th>Approved Date</th>
-                            <th>Coffee</th>
-                            <th>Snacks</th>
                             <th>Status</th>
                         </tr>
                     </thead>

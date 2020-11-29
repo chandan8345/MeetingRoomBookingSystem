@@ -51,8 +51,8 @@
                         <i class="fas fa-spinner fa-pulse"></i>
                     </div>
                     <div class="media-body pl-2">
-                        <h3 class="mt-0 mb-0"><strong id="countpostponed">0</strong></h3>
-                        <p><small class="text-muted bc-description">Meeting Postponed</small></p>
+                        <h3 class="mt-0 mb-0"><strong id="countwaiting">0</strong></h3>
+                        <p><small class="text-muted bc-description">Waiting for Allocation</small></p>
                     </div>
                 </div>
             </div>
@@ -87,13 +87,12 @@
                 </div> -->
         <div class="col-sm-2 text-right pb-2">
             <div class="pull-right mr-3 btn-order-bulk">
-                <select id="status" onchange="state()" class="shadow bg-warning bulk-actions">
-                    <!-- <option value="waiting">Waiting</option> -->
-                    <option value="today"><b>On Going Today</b></option>
+                <select id="status" onchange="state()" class="shadow bg-dark bulk-actions">
+                    <option value="waiting">Waiting</option>
                     <option value="booked">Booked</option>
                     <option value="postponed">Postponed</option>
                     <option value="completed">Completed</option>
-                    <!-- <option value="rejected">Rejected</option> -->
+                    <option value="rejected">Rejected</option>
                 </select>
             </div>
 
@@ -107,12 +106,14 @@
                 <tr>
                     <th>Category</th>
                     <th>Date</th>
-                    <th>Start</th>
-                    <th>Finish</th>
+                    <th>Time</th>
+                    <th>Duration</th>
                     <th>Person</th>
                     <th>Room</th>
                     <th>Type</th>
-                    <th>BY</th>
+                    @if(Session::get('role') == "admin")
+                    <th>Proposed By</th>
+                    @endif
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -136,7 +137,7 @@
     console.log(url);
     countcompleted();
     countbooked();
-    countpostponed();
+    countwaiting();
     $.ajax({
         type: "GET",
         url: "{{ URL::to('/') }}" + '/' + url,
@@ -194,7 +195,7 @@
                 console.log('reject');
                 countcompleted();
                 countbooked();
-                countpostponed();
+                countwaiting();
             },
             error: function (error) {
                 swal('Error!', "Something went Wrong, Please Try Again.", "error");
@@ -212,7 +213,7 @@
                 console.log('delete');
                 countcompleted();
                 countbooked();
-                countpostponed();
+                countwaiting();
             },
             error: function (error) {
                 swal('Error!', "Something went Wrong, Please Try Again.", "error");
@@ -232,12 +233,12 @@
             }
         });
     }
-    function countpostponed() {
+    function countwaiting() {
         $.ajax({
             type: "GET",
-            url: "{{ URL::to('/countpostponed') }}",
+            url: "{{ URL::to('/countwaiting') }}",
             success: function (response) {
-                $('#countpostponed').html(response);
+                $('#countwaiting').html(response);
             },
             error: function (error) {
                 console.log('Error');

@@ -8,37 +8,34 @@ use Session;
 
 class dashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(){
         return view('pages.dashboard');
     }
+
     public function countbooked(){
         $book=0;
         if(Session::get('role') == 'admin'){
-            $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate >= 
+            $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate > 
             CAST( GETDATE() AS Date )");
         }else{
             $id=Session::get('id');
-            $b = DB::select("select count(posts.status) book from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate >= 
+            $b = DB::select("select count(posts.status) book from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate >
             CAST( GETDATE() AS Date )");
         }
         foreach($b as $row){$book=$row->book;}
         return $book;
     }
-    public function countwaiting(){
-        $waiting=0;
+    public function countpostponed(){
+        $postponed=0;
         if(Session::get('role') == 'admin'){
-            $w = DB::select("select count(posts.status) waiting from posts where posts.status='waiting'");
+            $w = DB::select("select count(posts.status) postponed from posts where posts.status='postponed'");
         }else{
             $id=Session::get('id');
-            $w = DB::select("select count(posts.status) waiting from posts where posts.postuser_id='$id' and posts.status='waiting'");             
+            $w = DB::select("select count(posts.status) postponed from posts where posts.postuser_id='$id' and posts.status='postponed'");             
         }
-        foreach($w as $row){$waiting=$row->waiting;}
-        return $waiting;
+        foreach($w as $row){$postponed=$row->postponed;}
+        return $postponed;
     }
     public function countcompleted(){
         $complete=0;

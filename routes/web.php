@@ -22,7 +22,9 @@ Route::get('/logout',[usersController::class,'logout']);
 
 //DASHBOARD
 Route::get('/dashboard',[dashboardController::class,'index']);
+Route::get('/count',[dashboardController::class,'count']);
 Route::get('/countbooked',[dashboardController::class,'countbooked']);
+Route::get('/countpostponed',[dashboardController::class,'countpostponed']);
 Route::get('/countwaiting',[dashboardController::class,'countwaiting']);
 Route::get('/countcompleted',[dashboardController::class,'countcompleted']);
 
@@ -52,6 +54,8 @@ Route::get('/postponed',[bookingController::class,'postponed']);
 Route::get('/booked',[bookingController::class,'booked']);
 Route::get('/rejected',[bookingController::class,'rejected']);
 Route::get('/completed',[bookingController::class,'completed']);
+Route::get('/hasbooked',[bookingController::class,'hasbooked']);
+Route::get('/today',[bookingController::class,'today']);
 
 
 //Category
@@ -71,3 +75,5 @@ Route::get('/remove/{id}',[myController::class,'remove']);
 Route::get('/userlist',[myController::class,'userlist']);
 
 });
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

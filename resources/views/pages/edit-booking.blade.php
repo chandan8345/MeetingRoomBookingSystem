@@ -26,40 +26,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-2">Meeting Date</label>
-                                    <div class="col-sm-10">
-                                        <input type="date"  value="{{ $post->meetingdate }}" name="meetingdate" min="<?php echo date('m-d-Y');?>" class="form-control" id="input-2" placeholder="pick the date here" required/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-3">Meeting Time</label>
-                                    <div class="col-sm-10">
-                                        <input type="time" value="{{ date('h:i', strtotime($post->meetingtime))}}" name="meetingtime" min="09:00" max="18:00" class="form-control" placeholder="pick the time here" required/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="exampleFormControlSelect1" class="control-label col-sm-2">Duration</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control" name="duration" id="exampleFormControlSelect1" required>
-                                            <option value="">Choose Duration</option>
-                                            <option value="30 Mis" @if($post->duration == "30 Mins") selected @endif >30 Mins</option>
-                                            <option value="1 Hour" @if($post->duration == "1 Hour") selected @endif >1 Hour</option>
-                                            <option value="2 Hour" @if($post->duration == "2 Hour") selected @endif >2 Hour</option>
-                                            <option value="3 Hour" @if($post->duration == "3 Hour") selected @endif >3 Hour</option>
-                                            <option value="4 Hour" @if($post->duration == "4 Hour") selected  @endif >4 Hour</option>
-                                            <option value="5 Hour" @if($post->duration == "5 Hour") selected  @endif >5 Hour</option>
-                                            <option value="6 Hour" @if($post->duration == "6 Hour") selected  @endif >6 Hour</option>
-                                            <option value="Full Day" @if($post->duration == "Full Day") selected @endif >Full Day</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-3">Total People</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" name="total" min="0" class="form-control" id="input-3" placeholder="How many people concern here" required/>
-                                    </div>
-                                </div> -->
-                                <div class="form-group row">
                                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Choose Room</label>
                                     <div class="col-sm-10">
                                         <select name="room" class="form-control" id="exampleFormControlSelect1" required>
@@ -70,17 +36,24 @@
                                         </select>
                                     </div>
                                 </div>
-                                <!-- <div class="form-group row">
-                                    <label for="exampleFormControlSelect1" class="control-label col-sm-2">Meeting Category</label>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-2" for="input-2">Meeting Date</label>
                                     <div class="col-sm-10">
-                                        <select name="category" class="form-control" id="exampleFormControlSelect1" required>
-                                            <option value="">Select Category</option>
-                                            @foreach($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="date"  value="{{ $post->meetingdate }}" name="meetingdate" min="<?php echo date('m-d-Y');?>" class="form-control" id="input-2" placeholder="pick the date here" required/>
                                     </div>
-                                </div> -->
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-2" for="input-3">Start Time</label>
+                                    <div class="col-sm-10">
+                                        <input type="time" value="{{ date('h:i', strtotime($post->starttime))}}" name="starttime" min="09:00" max="18:00" class="form-control" placeholder="pick the time here" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-2" for="input-3">Finish Time</label>
+                                    <div class="col-sm-10">
+                                        <input type="time" value="{{ date('h:i', strtotime($post->endtime))}}" name="endtime" min="09:00" max="18:00" class="form-control" placeholder="pick the time here" required/>
+                                    </div>
+                                </div>
                                 <!-- <div class="form-group row">
                                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Meeting Type</label>
                                     <div class="col-sm-10">
@@ -91,34 +64,7 @@
                                         </select>
                                     </div>
                                 </div> -->
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-6">Remarks</label>
-                                    <div class="col-sm-10">
-                                        <textarea @if(Session::get('role') == 'admin') disabled @endif rows="2" value="" name="remarks" class="form-control" id="input-11" placeholder="write down the requirments of your meeting">{{ $post->remarks }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-6">Comments</label>
-                                    <div class="col-sm-10">
-                                        <textarea @if(Session::get('role') == 'user') disabled @endif rows="2" name="comments" class="form-control disabled" id="input-11" placeholder="administration comments" required>{{ $post->comments }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="control-label col-sm-2" for="input-6">Other Requests</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="coffee" value="Yes" class="custom-control-input" id="customCheck1" @if($post->coffee == "Yes") checked @endif>
-                                            <label class="custom-control-label" for="customCheck1">Coffee</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" value="Yes" name="snacks" class="custom-control-input" id="customCheck2" @if($post->snacks == "Yes") checked @endif>
-                                            <label class="custom-control-label" for="customCheck2">Snacks</label>
-                                        </div>
-                                        </div>
- 
-                                    </div>
-                                </div>
+                                
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2" for="input-6"></label>
                                     <div class="col-sm-4">
