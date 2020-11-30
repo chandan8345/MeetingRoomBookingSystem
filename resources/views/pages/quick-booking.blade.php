@@ -288,7 +288,7 @@
         } else {
             if (UserDate == currentdate) {
                 console.log('match');
-                if (hours <= starthours && minutes < startmins) {
+                if (hours <= starthours || hours >= endhours) {
                     console.log(hours);
                     if (starthours < 8) {
                         $('.start').focus();
