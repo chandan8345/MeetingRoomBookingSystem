@@ -114,7 +114,7 @@
                     <th>Type</th>
                     <th>BY</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th width="20%">Action</th>
                 </tr>
             </thead>
             <tbody>

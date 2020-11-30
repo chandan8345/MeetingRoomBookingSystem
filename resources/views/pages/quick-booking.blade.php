@@ -31,7 +31,7 @@
                 <div class="form-group row">
                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Choose Room</label>
                     <div class="col-sm-10">
-                        <select name="room" onchange="" class="form-control room" id="exampleFormControlSelect1"
+                        <select name="room" onblur="myRoom()" class="form-control room" id="exampleFormControlSelect1"
                             required>
                             <option value="">Choose Room</option>
                             @foreach($rooms as $room)
@@ -101,7 +101,7 @@
                 <div class="form-group row">
                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Meeting Category</label>
                     <div class="col-sm-10">
-                        <select name="category" class="form-control" id="exampleFormControlSelect1" required>
+                        <select name="category" onblur="myCategory()" class="form-control category" id="exampleFormControlSelect1" required>
                             <option value="">Select Category</option>
                             @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -114,7 +114,7 @@
                 <div class="form-group row">
                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Meeting Type</label>
                     <div class="col-sm-10">
-                        <select name="meetingtype" onchange="" class="form-control" id="exampleFormControlSelect1"
+                        <select name="meetingtype" onblur="meetingType()" class="form-control meetingtype" id="exampleFormControlSelect1"
                             required>
                             <option value="">Select Type</option>
                             <option value="Internal">Internal</option>
@@ -210,6 +210,36 @@
         }
     }
 
+    function meetingType(){
+        if ($('.meetingtype').val() == '') {
+            $('.meetingtype').focus();
+            $('#alertType').html('please select meeting type');
+            $('#alertType').show();
+        }else{
+            $('#alertType').hide();
+        }
+    }
+
+    function myRoom(){
+        if ($('.room').val() == '') {
+            $('.room').focus();
+            $('#alertRoom').html('please select room for meeting');
+            $('#alertRoom').show();
+        }else{
+            $('#alertRoom').hide();
+        }
+    }
+
+    function myCategory(){
+        if ($('.category').val() == '') {
+            $('.category').focus();
+            $('#alertCategory').html('please select meeting category');
+            $('#alertCategory').show();
+        }else{
+            $('#alertCategory').hide();
+        }
+    }
+
     function meetingDate() {
         var UserDate = document.getElementById("date").value;
         var today = new Date();
@@ -254,6 +284,7 @@
             $('.start').focus();
             $('#alertStart').html('please input meeting start time');
             $('#alertStart').show();
+            $('#alertDbFinish').hide();
         } else {
             if (UserDate == currentdate) {
                 console.log('match');
@@ -271,13 +302,14 @@
                     }
                     else {
                         $('#alertStart').hide();
-                        hasbookedstart($('.start').val());
+                        
                     }
                 } else {
                     $('.start').focus();
                     $('#alertStart').html('allocated time of this day is over');
                     $('#alertStart').show();
                 }
+                hasbookedstart($('.start').val());
             } else {
                 if (starthours < 8) {
                     $('.start').focus();
@@ -317,8 +349,8 @@
             $('#alertFinish').show();
         } else {
             if (isNaN(starthours) || isNaN(startmins)) {
-                $('.start').focus();
                 $('#alertFinish').html('please input start time');
+                $('#alertDbFinish').hide();
             } else {
                 if (UserDate == currentdate) {
                     if (hours <= endhours) {
@@ -473,20 +505,15 @@
     }
     $('#addbooking').on('submit', function (e) {
         e.preventDefault();
-        if ($('#date').val() >= $('#today').val()) {
-            $("#message").hide();
+        if ($('#alertStart').css('display') == 'block' || $('#alertFinish').css('display') == 'block') {
             $.ajax({
                 type: "POST",
                 url: "{{ URL::to('/booking') }}",
                 data: $("#addbooking").serialize(),
                 success: function (response) {
-                    if(response != 'store'){
-                    swal('Sorry,', response, "error");
-                    }else{
                     swal('Done!', "Congratulation! Reserved Successfully", "success");
                     $("#addbooking").trigger('reset');
                     console.log(response);
-                    }
                 },
                 error: function (error) {
                     swal('Error!', "Something went Wrong, Please Try Again.", "error");
@@ -495,7 +522,7 @@
             });
         } else {
             e.preventDefault();
-            $("#message").show(1);
+            swal('Notice', "Please change your time schedule, Already Booked!", "error");
         }
     });
 

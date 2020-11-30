@@ -15,12 +15,13 @@ class bookingController extends Controller
         $post = Post::find($r->input('id'));
         $post->purpose=$r->input('purpose');
         $post->meetingdate=$r->input('meetingdate');
-        $post->meetingtime=$r->input('meetingtime');
-        $post->duration=$r->input('duration');
-        $post->comments=$r->input('comments');
-        $post->coffee=$r->input('coffee');
-        $post->snacks=$r->input('snacks');
+        $post->starttime=$r->input('starttime');
+        $post->endtime=$r->input('endtime');
+        $post->meetingtype=$r->input('meetingtype');
+        $post->total=$r->input('total');
+        $post->postingdate=date('Y-m-d');
         $post->room_id=$r->input('room');
+        $post->category_id=$r->input('category');
         $post->save();
         return "update";
     }
@@ -36,42 +37,37 @@ class bookingController extends Controller
     }
     public function book(Request $r){
         $post = Post::find($r->input('id'));
+        $post->purpose=$r->input('purpose');
         $post->meetingdate=$r->input('meetingdate');
-        $post->meetingtime=$r->input('meetingtime');
-        $post->duration=$r->input('duration');
-        $post->comments=$r->input('comments');
-        $post->coffee=$r->input('coffee');
-        $post->snacks=$r->input('snacks');
+        $post->starttime=$r->input('starttime');
+        $post->endtime=$r->input('endtime');
+        $post->meetingtype=$r->input('meetingtype');
+        $post->total=$r->input('total');
+        $post->postingdate=date('Y-m-d');
         $post->room_id=$r->input('room');
-        $post->status='booked';
-        $post->approveuser=Session::get('name');
+        $post->category_id=$r->input('category');
         $post->save();
         return "update";
     }
 
     public function rebook(Request $r){
         $post= Post::find($r->input('id'));
-        $post->meetingdate=$r->input('meetingdate');
-        $post->meetingtime=$r->input('meetingtime');
-        $post->duration=$r->input('duration');
-        $post->remarks=$r->input('remarks');
-        $post->coffee=$r->input('coffee');
-        $post->snacks=$r->input('snacks');
-        $post->room_id=$r->input('room');
         $post->status='booked';
+        $post->purpose=$r->input('purpose');
+        $post->meetingdate=$r->input('meetingdate');
+        $post->starttime=$r->input('starttime');
+        $post->endtime=$r->input('endtime');
+        $post->meetingtype=$r->input('meetingtype');
+        $post->total=$r->input('total');
+        $post->postingdate=date('Y-m-d');
+        $post->room_id=$r->input('room');
+        $post->category_id=$r->input('category');
         $post->save();
         return "rebook";
     }
 
     public function setPostponed(Request $r){
         $post= Post::find($r->input('id'));
-        $post->meetingdate=$r->input('meetingdate');
-        $post->meetingtime=$r->input('meetingtime');
-        $post->duration=$r->input('duration');
-        $post->remarks=$r->input('remarks');
-        $post->coffee=$r->input('coffee');
-        $post->snacks=$r->input('snacks');
-        $post->room_id=$r->input('room');
         $post->status='postponed';
         $post->save();
         return "update";
@@ -207,8 +203,7 @@ class bookingController extends Controller
             CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
         }else{
             $id=Session::get('id');
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate >= 
-            CAST( GETDATE() AS Date ) and posts.postuser_id='$id' order by posts.meetingdate asc");
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.postuser_id='$id' and posts.meetingdate >= CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
         }
         $i=1;
         foreach($posts as $post){
@@ -225,7 +220,7 @@ class bookingController extends Controller
             <td class="align-middle text-center">'.$post->room.'</td>
             <td class="align-middle text-center">'.$post->meetingtype.'</td>
             <td class="align-middle text-center">'.$post->postuser.'</td>
-            <td class="align-middle text-center">Postponed</td>
+            <td class="align-middle text-center">Rejected</td>
             <td class="align-middle text-center">
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
 
@@ -271,31 +266,19 @@ class bookingController extends Controller
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->starttime)).'" class="form-control"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
                     <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr" value="'.date('h:i a', strtotime($post->starttime)).'" class="form-control"/>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr"  value="'.date('h:i a', strtotime($post->endtime)).'" class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -315,6 +298,7 @@ class bookingController extends Controller
         </tr>';
         }
     }
+
     public function completed(){
         if(Session::get('role') == 'admin'){
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate < 
@@ -385,38 +369,25 @@ class bookingController extends Controller
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->starttime)).'" class="form-control"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
                     <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr" value="'.date('h:i a', strtotime($post->starttime)).'" class="form-control"/>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr"  value="'.date('h:i a', strtotime($post->endtime)).'" class="form-control"/>
                     </div>
                 </div>
             </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
             </div>
             </div>
             </div>
@@ -431,25 +402,25 @@ class bookingController extends Controller
         }else{
             $id=Session::get('id');
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where posts.status='booked' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate >= 
-            CAST( GETDATE() AS Date ) and posts.postuser_id='$id' and users order by posts.meetingdate asc");
+            CAST( GETDATE() AS Date ) and posts.postuser_id='$id' order by posts.meetingdate asc");
         }
         $i=1;
         foreach($posts as $post){
             echo 
            '
            <tr>
-            <td class="align-middle text-center">
+            <td class="">
             '.$post->category.'
             </td>
-            <td class="align-middle">'.$post->meetingdate.'</td>
-            <td class="align-middle text-center">'.date('h:i a', strtotime($post->starttime)).'</td>
-            <td class="align-middle text-center">'.date('h:i a', strtotime($post->endtime)).'</td>
-            <td class="align-middle text-center">'.$post->total.'</td>
-            <td class="align-middle text-center">'.$post->room.'</td>
-            <td class="align-middle text-center">'.$post->meetingtype.'</td>
-            <td class="align-middle text-center">'.$post->postuser.'</td>
-            <td class="align-middle text-center">Booked</td>
-            <td class="align-middle text-center">
+            <td class="">'.$post->meetingdate.'</td>
+            <td class="">'.date('h:i a', strtotime($post->starttime)).'</td>
+            <td class="">'.date('h:i a', strtotime($post->endtime)).'</td>
+            <td class="">'.$post->total.'</td>
+            <td class="">'.$post->room.'</td>
+            <td class="">'.$post->meetingtype.'</td>
+            <td class="">'.$post->postuser.'</td>
+            <td class="">Booked</td>
+            <td class="">
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
 
             <div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -494,31 +465,19 @@ class bookingController extends Controller
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->starttime)).'" class="form-control"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
                     <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr" value="'.date('h:i a', strtotime($post->starttime)).'" class="form-control"/>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr"  value="'.date('h:i a', strtotime($post->endtime)).'" class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -606,31 +565,19 @@ class bookingController extends Controller
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->starttime)).'" class="form-control"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
                     <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr" value="'.date('h:i a', strtotime($post->starttime)).'" class="form-control"/>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr"  value="'.date('h:i a', strtotime($post->endtime)).'" class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -714,31 +661,19 @@ class bookingController extends Controller
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.date('G:i', strtotime($post->starttime)).'" class="form-control"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
                     <input type="text" id="email-vr"  value="'.$post->total.' Person" class="form-control"/>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr" value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr" value="'.date('h:i a', strtotime($post->starttime)).'" class="form-control"/>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                    <input type="text" id="email-vr"  value="'.$post->total.'" class="form-control"/>
+                    <input type="text" id="email-vr"  value="'.date('h:i a', strtotime($post->endtime)).'" class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -754,7 +689,6 @@ class bookingController extends Controller
         }
     }
     public function booking(Request $r){
-        $start;$end;$room;
         $post=new Post;
         $post->purpose=$r->input('purpose');
         $post->meetingdate=$r->input('meetingdate');
@@ -772,24 +706,26 @@ class bookingController extends Controller
         $post->category_id=$r->input('category');
         $post->status='booked';
         $post->postuser_id=session()->get('id');
-        // $sql="select posts.starttime,posts.endtime,rooms.name as room from posts,rooms where posts.room_id=rooms.id and posts.room_id='$r->input('room')' and posts.meetingdate='$r->input('meetingdate')' and cast(posts.starttime as time) <= '$r->input('starttime')' and cast(posts.endtime as time) >= '$r->input('starttime')' or  cast(posts.starttime as time) <= '$r->input('endtime')' and cast(posts.endtime as time) >= '$r->input('endtime')'";
-        // $data=DB::select($sql);
-        // if($data == null){
             $post->save();
             return "store";
-        // }else{
-        //     foreach($data as $row){
-        //         $start=date('h:i A', strtotime($row->starttime));
-        //         $end=date('h:i A', strtotime($row->endtime));
-        //         $room=$row->room;
-        //     }
-        //     return "Sorry, $start to $end $room reserved";
-        // }
     }
 
     public function hasbooked(Request $req){
         $start;$end;$room;
         $sql="select posts.starttime,posts.endtime,rooms.name as room from posts,rooms where posts.room_id=rooms.id and posts.room_id='$req->room' and posts.meetingdate='$req->date' and cast(posts.starttime as time) <= '$req->time' and cast(posts.endtime as time) >= '$req->time'";
+        $data=DB::select($sql);
+        foreach($data as $row){
+            $start=date('h:i A', strtotime($row->starttime));
+            $end=date('h:i A', strtotime($row->endtime));
+            $room=$row->room;
+        }
+        $string = $data != null ? "Sorry, $start to $end $room reserved":"not booked";
+        return $string;
+    }
+
+    public function userhasbooked(Request $req){
+        $start;$end;$room;
+        $sql="select posts.starttime,posts.endtime,rooms.name as room from posts,rooms where posts.room_id=rooms.id and posts.room_id='$req->room' and posts.id='$req->id' and posts.meetingdate='$req->date' and cast(posts.starttime as time) <= '$req->time' and cast(posts.endtime as time) >= '$req->time'";
         $data=DB::select($sql);
         foreach($data as $row){
             $start=date('h:i A', strtotime($row->starttime));

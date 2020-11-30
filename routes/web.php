@@ -55,6 +55,7 @@ Route::get('/booked',[bookingController::class,'booked']);
 Route::get('/rejected',[bookingController::class,'rejected']);
 Route::get('/completed',[bookingController::class,'completed']);
 Route::get('/hasbooked',[bookingController::class,'hasbooked']);
+Route::get('/userhasbooked',[bookingController::class,'userhasbooked']);
 Route::get('/today',[bookingController::class,'today']);
 
 
