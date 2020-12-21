@@ -17,11 +17,11 @@
                 <div class="form-group row">
                     <div class="col-sm-4">
                         <label for="">Meeting Date from*</label>
-                        <input class="form-control" name="datefrom" id="datefrom" type="date" placeholder="" required>
+                        <input class="form-control" name="datefrom" id="datefrom" type="date" value="<?php echo date('Y-m-d');?>" placeholder="" required>
                     </div>
                     <div class="col-sm-4">
                         <label for="">Meeting Date to*</label>
-                        <input class="form-control" name="dateto" id="dateto" type="date" placeholder="" required>
+                        <input class="form-control" value="<?php echo date('Y-m-d');?>" name="dateto" id="dateto" type="date" placeholder="" required>
                     </div>
                     <div class="col-sm-2">
                         <div class="pull-right mr-3 btn-order-bulk">
@@ -32,7 +32,7 @@
                                 <!-- <option value="waiting">Waiting</option> -->
                                 <option value="postponed">Postponed</option>
                                 <option value="completed">Completed</option>
-                                <option value="rejected">Rejected</option>
+                                <!--<option value="rejected">Rejected</option> -->
                             </select>
                         </div>
                     </div>
@@ -132,9 +132,9 @@
                                     $(win.document.header).append('<h3>Guardian Life Insurance</h3>'); 
                                 }
                             },
-                            { "extend": 'excel', "className": 'btn btn-info btn-sm  bg-dark' },
-                            { "extend": 'pdf', "className": 'btn btn-info btn-sm  bg-dark' },
-                            { "extend": 'print', "className": 'btn btn-info btn-sm  bg-dark' },
+                            { "extend": 'excel', "className": 'btn btn-info btn-sm  bg-dark', title: ''},
+                            { "extend": 'pdf', "className": 'btn btn-info btn-sm  bg-dark', title: '',},
+                            { "extend": 'print', "className": 'btn btn-info btn-sm  bg-dark', title: '',},
                         ]
                     });
                     }else{

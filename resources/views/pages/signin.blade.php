@@ -1,7 +1,5 @@
 @if(session()->has('id'))
 <script>window.location = "{{ URL::to('/dashboard') }}";</script>
-@else 
-
 @endif
 <!DOCTYPE html>
 <html lang="en">
@@ -58,14 +56,14 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope-o"></i></span>
                             </div>
-                            <input type="email" name="email" class="form-control mt-0" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required>
+                            <input type="email" name="email" value="user@guardianlife.com.bd" class="form-control mt-0" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required>
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
                             </div>
-                            <input type="password" name="password" class="form-control mt-0" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required>
+                            <input type="password" name="password" value="Glil@123" class="form-control mt-0" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required>
                         </div>
 
                         <div class="form-group">

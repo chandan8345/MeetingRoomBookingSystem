@@ -183,7 +183,7 @@
                 success: function (response) {
                     console.log(response);
                     roomlist();
-                    swal('Done!', "Room Delete successfully", "success");
+                    swal('Done!', "Room delete successfully", "success");
                 },
                 error: function (error) {
                     swal('Error!', "Something went Wrong, Please Try Again.", "error");
@@ -203,8 +203,10 @@
             success: function (response) {
                 console.log(response);
                 roomlist();
+                swal('Done!', "Update Successfully", "success");
             },
             error: function (error) {
+                roomlist();
                 console.log('Error');
             }
         });
@@ -220,8 +222,10 @@
             success: function (response) {
                 console.log(response);
                 roomlist();
+                swal('Done!', "Update Successfully", "success");
             },
             error: function (error) {
+                roomlist();
                 console.log('Error');
             }
         });
@@ -239,6 +243,7 @@
                 roomlist();
             },
             error: function (error) {
+                roomlist();
                 console.log('Error');
             }
         });

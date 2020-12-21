@@ -49,7 +49,7 @@
                                 <div class="form-group row">
                                     <label class="control-label col-sm-2" for="input-2">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="input-2" placeholder="johndoe@gmail.com"  value="{{ $profile->eamil }}"/>
+                                        <input type="text" class="form-control" id="input-2" placeholder="johndoe@gmail.com"  value="{{ $profile->email }}"/>
                                     </div>
                                 </div>
                                 <div class="form-group row">

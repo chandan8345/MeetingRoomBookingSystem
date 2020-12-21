@@ -16,11 +16,11 @@ class dashboardController extends Controller
     public function countbooked(){
         $book=0;
         if(Session::get('role') == 'admin'){
-            $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate > 
+            $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate >= 
             CAST( GETDATE() AS Date )");
         }else{
             $id=Session::get('id');
-            $b = DB::select("select count(posts.status) book from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate >
+            $b = DB::select("select count(posts.status) book from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate >=
             CAST( GETDATE() AS Date )");
         }
         foreach($b as $row){$book=$row->book;}
@@ -45,7 +45,7 @@ class dashboardController extends Controller
         }else{
             $id=Session::get('id');
             $c = DB::select("select count(posts.status) complete from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate < 
-            CAST( GETDATE() AS Date )");          
+            CAST( GETDATE() AS Date )");     
         }      
         foreach($c as $row){$complete=$row->complete;}
         return $complete;

@@ -218,6 +218,24 @@ function Purpose() {
             $('#alertRoom').show();
         }else{
             $('#alertRoom').hide();
+            var id=$('.room').val();
+            $.ajax({
+            type: "GET",
+            url: "{{ URL::to('/setMaxCapacity') }}",
+            data: {
+                id: id,
+            },
+            success: function (response) {
+                $('.people').attr({
+                    "max" : response,
+                    "min" : 2
+                });
+                console.log(response);
+            },
+            error: function (error) {
+                console.log('error');
+            }
+        });
         }
     }
 
@@ -279,7 +297,7 @@ function Purpose() {
         } else {
             if (UserDate == currentdate) {
                 console.log('match');
-                if (hours <= starthours && minutes < startmins) {
+                if (hours <= starthours) {
                     console.log(hours);
                     if (starthours < 8) {
                         $('.start').focus();
@@ -834,7 +852,7 @@ function Purpose() {
         } else {
             if (UserDate == currentdate) {
                 console.log('match');
-                if (hours <= starthours && minutes < startmins) {
+                if (hours <= starthours) {
                     console.log(hours);
                     if (starthours < 8) {
                         $('.start').focus();

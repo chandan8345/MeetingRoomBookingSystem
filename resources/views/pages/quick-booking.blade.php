@@ -227,6 +227,24 @@
             $('#alertRoom').show();
         }else{
             $('#alertRoom').hide();
+            var id=$('.room').val();
+            $.ajax({
+            type: "GET",
+            url: "{{ URL::to('/setMaxCapacity') }}",
+            data: {
+                id: id,
+            },
+            success: function (response) {
+                $('.people').attr({
+                    "max" : response,
+                    "min" : 2
+                });
+                console.log(response);
+            },
+            error: function (error) {
+                console.log('error');
+            }
+        });
         }
     }
 
@@ -288,7 +306,7 @@
         } else {
             if (UserDate == currentdate) {
                 console.log('match');
-                if (hours <= starthours || hours >= endhours) {
+                if (hours <= starthours) {
                     console.log(hours);
                     if (starthours < 8) {
                         $('.start').focus();
@@ -505,7 +523,7 @@
     }
     $('#addbooking').on('submit', function (e) {
         e.preventDefault();
-        if ($('#alertStart').css('display') == 'block' || $('#alertFinish').css('display') == 'block') {
+        if ($('#alertDbStart').is(":hidden") && $('#alertDbFinish').is(":hidden")) {
             $.ajax({
                 type: "POST",
                 url: "{{ URL::to('/booking') }}",
@@ -520,7 +538,7 @@
                     console.log('error');
                 }
             });
-        } else {
+        }else {
             e.preventDefault();
             swal('Notice', "Please change your time schedule, Already Booked!", "error");
         }

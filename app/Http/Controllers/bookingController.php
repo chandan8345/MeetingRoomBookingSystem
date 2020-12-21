@@ -11,6 +11,10 @@ Use Session;
 
 class bookingController extends Controller
 {   
+    public function capacity(Request $req){
+        $val=Room::where('id', $req->id)->first();
+        return $val->capacity;
+    }
     public function updatepost(Request $r){
         $post = Post::find($r->input('id'));
         $post->purpose=$r->input('purpose');
@@ -107,7 +111,7 @@ class bookingController extends Controller
              echo '<td class="align-middle text-center">'.$post->postuser.'</td>
              ';}
              echo ' 
-             <td class="align-middle text-center">Waiting</td>
+             <td class="align-middle text-center" width="15%">Waiting</td>
              <td class="align-middle text-center">
              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
  
@@ -199,11 +203,10 @@ class bookingController extends Controller
     }
     public function postponed(){
         if(Session::get('role') == 'admin'){
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.meetingdate >= 
-            CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id order by posts.meetingdate asc");
         }else{
             $id=Session::get('id');
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.postuser_id='$id' and posts.meetingdate >= CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where posts.status='postponed' and users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id and posts.postuser_id='$id' order by posts.meetingdate asc");
         }
         $i=1;
         foreach($posts as $post){
@@ -220,8 +223,8 @@ class bookingController extends Controller
             <td class="align-middle text-center">'.$post->room.'</td>
             <td class="align-middle text-center">'.$post->meetingtype.'</td>
             <td class="align-middle text-center">'.$post->postuser.'</td>
-            <td class="align-middle text-center">Rejected</td>
-            <td class="align-middle text-center">
+            <td class="align-middle text-center">Postponed</td>
+            <td class="align-middle text-center" width="15%">
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
 
             <div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -324,7 +327,7 @@ class bookingController extends Controller
             <td class="align-middle text-center">'.$post->meetingtype.'</td>
             <td class="align-middle text-center">'.$post->postuser.'</td>
             <td class="align-middle text-center">Completed</td>
-            <td class="align-middle text-center">
+            <td class="align-middle text-center" width="15%">
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
 
             <div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -420,7 +423,7 @@ class bookingController extends Controller
             <td class="">'.$post->meetingtype.'</td>
             <td class="">'.$post->postuser.'</td>
             <td class="">Booked</td>
-            <td class="">
+            <td class="" width="15%">
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$post->id.'"><i class="fa fa-eye"></i></button>
 
             <div class="modal fade" id="exampleModal'.$post->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -694,25 +697,20 @@ class bookingController extends Controller
         $post->meetingdate=$r->input('meetingdate');
         $post->starttime=$r->input('starttime');
         $post->endtime=$r->input('endtime');
-        // $post->meetingtime=$r->input('meetingtime');
-        // $post->duration=$r->input('duration');
         $post->meetingtype=$r->input('meetingtype');
-        // $post->remarks=$r->input('remarks');
         $post->total=$r->input('total');
-        // $post->coffee=$r->input('coffee');
-        // $post->snacks=$r->input('snacks');
         $post->postingdate=date('Y-m-d');
         $post->room_id=$r->input('room');
         $post->category_id=$r->input('category');
         $post->status='booked';
         $post->postuser_id=session()->get('id');
-            $post->save();
-            return "store";
+        $post->save();
+        return "store";
     }
 
     public function hasbooked(Request $req){
         $start;$end;$room;
-        $sql="select posts.starttime,posts.endtime,rooms.name as room from posts,rooms where posts.room_id=rooms.id and posts.room_id='$req->room' and posts.meetingdate='$req->date' and cast(posts.starttime as time) <= '$req->time' and cast(posts.endtime as time) >= '$req->time'";
+        $sql="select posts.starttime,posts.endtime,rooms.name as room from posts,rooms where posts.room_id=rooms.id and posts.room_id='$req->room' and posts.meetingdate='$req->date' and starttime <= '$req->time' and posts.endtime >= '$req->time'";
         $data=DB::select($sql);
         foreach($data as $row){
             $start=date('h:i A', strtotime($row->starttime));
@@ -725,7 +723,7 @@ class bookingController extends Controller
 
     public function userhasbooked(Request $req){
         $start;$end;$room;
-        $sql="select posts.starttime,posts.endtime,rooms.name as room from posts,rooms where posts.room_id=rooms.id and posts.room_id='$req->room' and posts.id='$req->id' and posts.meetingdate='$req->date' and cast(posts.starttime as time) <= '$req->time' and cast(posts.endtime as time) >= '$req->time'";
+        $sql="select posts.starttime,posts.endtime,rooms.name as room from posts,rooms where posts.room_id=rooms.id and posts.room_id='$req->room' and posts.id = '$req->id' and posts.meetingdate='$req->date' and starttime <= '$req->time' and posts.endtime >= '$req->time'";
         $data=DB::select($sql);
         foreach($data as $row){
             $start=date('h:i A', strtotime($row->starttime));

@@ -31,7 +31,7 @@
                 <thead>
                     <tr>
                         <th class="align-middle text-center">Serial No</th>
-                        <th class="align-middle text-center">Category Name</th>
+                        <th class="align-middle text-center">Category</th>
                         <th class="align-middle text-center">Status</th>
                         <th class="align-middle text-center">Action</th>
                     </tr>
@@ -177,6 +177,7 @@
                 success: function (response) {
                     console.log(response);
                     categorylist();
+                    swal('Done!', "Category delete successfully", "success");
                 },
                 error: function (error) {
                     console.log('Error');
@@ -195,8 +196,10 @@
             success: function (response) {
                 console.log(response);
                 categorylist();
+                swal('Done!', "Update Successfully", "success");
             },
             error: function (error) {
+                categorylist();
                 console.log('Error');
             }
         });
@@ -212,8 +215,10 @@
             success: function (response) {
                 console.log(response);
                 categorylist();
+                swal('Done!', "Update Successfully", "success");
             },
             error: function (error) {
+                categorylist();
                 console.log('Error');
             }
         });

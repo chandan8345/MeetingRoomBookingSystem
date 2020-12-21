@@ -23,8 +23,7 @@ class usersController extends Controller
             foreach($result as $r){
                 session()->put('id',$r->id);  
                 session()->put('name',$r->name); 
-                session()->put('role',$r->role);
-                session()->put('designation',$r->designation);
+                session()->put('role',$r->room_booking_role);
             }
             return $i;
         }else if($i == 1){

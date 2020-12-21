@@ -15,9 +15,9 @@ class reportController extends Controller
         $query="select posts.id,posts.purpose,posts.meetingdate meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id";
         if($status != ""){
             if($status == 'booked'){
-                $query .=" and posts.meetingdate > CAST( GETDATE() AS Date )and posts.status = 'booked'";
+                $query .=" and posts.meetingdate >= CAST( GETDATE() AS Date ) and posts.status = 'booked'";
             }else if($status == 'completed'){
-                $query .=" and posts.meetingdate <= CAST( GETDATE() AS Date )and posts.status = 'booked'";
+                $query .=" and posts.meetingdate < CAST( GETDATE() AS Date ) and posts.status = 'booked'";
             }
             else if($status == 'postponed'){
                 $query .=" and posts.status = 'postponed'";

@@ -4,7 +4,7 @@
         <div class="avatar text-center">
             <img src="{{ URL::asset('img/user.jpg') }}" alt="" class="rounded-circle" />
             <p><strong>{{ Session::get('name') }}</strong></p>
-            <span class="text-primary small"><strong>{{ Session::get('designation') }}</strong></span>
+            <span class="text-primary small"><strong>Designation</strong></span>
         </div>
         <!--Image Avatar-->
 
@@ -33,7 +33,7 @@
                                 Manage Booking</a></li>
                     </ul>
                 </li> -->
-                @if(Session::get('role') == 'admin')
+                @if(Session::get('role') != 'user')
                 <li class="parent">
                     <a href="{{ URL::to('/rooms') }}" class=""><i class="fa fa-building-o mr-3"></i>
                         <span class="none">Rooms </span>

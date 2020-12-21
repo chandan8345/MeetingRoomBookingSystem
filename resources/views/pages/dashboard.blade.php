@@ -6,6 +6,14 @@
 
 @section('head')
 @include('section.head')
+    <style>
+        #blink {
+            font-size: 16px;
+            font-weight: bold;
+            color: red;
+            transition: 0.1s;
+        }
+    </style>
 @stop
 
 @section('loader')
@@ -80,7 +88,7 @@
     <!-- <h6 class="mb-2">Manage Booking</h6> -->
     <div class="row border-bottom mb-4">
         <div class="col-sm-10 pt-2">
-            <h6 class="mb-4 bc-header">Manage Booking</h6>
+            <h6 class="mb-4 bc-header">MANAGE BOOKING</h6>
         </div>
         <!-- <div class="form-group col-sm-3">
                     <input type="date" name="" id="date" class="form-control">
@@ -89,10 +97,10 @@
             <div class="pull-right mr-3 btn-order-bulk">
                 <select id="status" onchange="state()" class="shadow bg-warning bulk-actions">
                     <!-- <option value="waiting">Waiting</option> -->
-                    <option value="today"><b>On Going Today</b></option>
-                    <option value="booked">Booked</option>
-                    <option value="postponed">Postponed</option>
-                    <option value="completed">Completed</option>
+                    <option value="today"><strong>On Going Today</strong></option>
+                    <option value="booked"><strong>Booked</strong></option>
+                    <option value="postponed"><strong>Postponed</strong></option>
+                    <option value="completed"><strong>Completed</strong></option>
                     <!-- <option value="rejected">Rejected</option> -->
                 </select>
             </div>
@@ -100,7 +108,11 @@
             <div class="clearfix"></div>
         </div>
     </div>
-    <h3 id="data">No Data Available</h3>
+    <!--<h5 id="data">Meeting Rooms are not booked yet, So Hurry Up !!!</h5>-->
+    <div  id="data" class="col-lg-12">
+    <h5  class="text-center" id="blink">Meeting rooms were not booked today !</h5>
+    <!-- <img class="img-responsive center-block d-block mx-auto" src="{{ URL::asset('img/animation.gif') }}"> -->
+    </div>
     <div class="table-responsive">
         <table id="example" class="table table-striped table-bordered">
             <thead>
@@ -114,7 +126,7 @@
                     <th>Type</th>
                     <th>BY</th>
                     <th>Status</th>
-                    <th width="20%">Action</th>
+                    <th width="15%">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -131,7 +143,15 @@
 
 @section('bottom')
 @include('section.bottom')
+    <script type="text/javascript">
+        var blink = document.getElementById('blink');
+        setInterval(function() {
+            blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
+        }, 1500);
+    </script>
 <script>
+    $('#example').hide();
+    $('#data').hide();
     var url = $('#status').val();
     console.log(url);
     countcompleted();
@@ -173,7 +193,7 @@
                     $('#example').DataTable({});
                 } else {
                     $('#example').DataTable().destroy();
-                    swal('Sorry!', status + " post not found", "error");
+                    swal(" Data not found");
                     $('#data').show();
                     $('#example').hide();
                 }
