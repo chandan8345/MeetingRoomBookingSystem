@@ -45,7 +45,7 @@ class dashboardController extends Controller
         }else{
             $id=Session::get('id');
             $c = DB::select("select count(posts.status) complete from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate < 
-            CAST( GETDATE() AS Date )");     
+            CAST( GETDATE() AS Date )");
         }      
         foreach($c as $row){$complete=$row->complete;}
         return $complete;

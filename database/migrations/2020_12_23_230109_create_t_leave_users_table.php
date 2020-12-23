@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateTLeaveUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('t_leave_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('staffid',191);
             $table->string('name',191);
@@ -32,12 +32,12 @@ class CreateUsersTable extends Migration
             $table->datetime('email_verified_at')->nullable();
             $table->string('picture',199)->nullable();
             $table->string('remember_token',100)->nullable();
-            $table->integer('is_mancom')->nullable();
+            $table->integer('is_mancom')->default(0);
             $table->integer('status_updated_by')->nullable();
             $table->datetime('status_updated_at')->nullable();
             $table->string('ims_id',191)->nullable();
             $table->integer('role_id')->nullable();
-            $table->integer('car_booking_role_id');
+            $table->integer('car_booking_role_id')->default(4);
             $table->string('room_booking_role')->default('user');
             //$table->string('room_booking_role')->default('admin');
             $table->timestamps();
@@ -51,6 +51,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('t_leave_users');
     }
 }

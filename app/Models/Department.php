@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class Department extends Model
 {
     use HasFactory;
-    protected $table='rooms';
-    protected $fillable=['name','capacity','user_id','status','created_at','uploaded_at'];
+    protected $table='t_leaves_departments'; 
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateMrbsPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -30,10 +30,10 @@ class CreatePostsTable extends Migration
             $table->integer('postuser_id');
             $table->integer('room_id');
             $table->integer('category_id');
-            $table->foreign('postuser_id')->references('id')->on('users');
+            $table->foreign('postuser_id')->references('id')->on('t_leave_users');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->foreign('category_id')->references('id')->on('categories');
-            // $table->string('coffee',5)->nullable();;
+            // $table->string('coffee',5)->nullable();
             // $table->string('snacks',5)->nullable();
             $table->string('status',12);
             $table->timestamps();
@@ -47,6 +47,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('mrbs_posts');
     }
 }

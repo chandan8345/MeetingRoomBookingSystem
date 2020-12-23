@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 Use Session;
 
 class reportController extends Controller
@@ -12,7 +12,7 @@ class reportController extends Controller
         $status=$r->status;
         $datefrom=$r->datefrom;
         $dateto=$r->dateto;
-        $query="select posts.id,posts.purpose,posts.meetingdate meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,users.name postuser,posts.status,posts.meetingtype from users,posts,categories,rooms where users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id";
+        $query="select posts.id,posts.purpose,posts.meetingdate meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,categories.name category,rooms.name room,t_leave_users.name postuser,posts.status,posts.meetingtype from t_leave_users,posts,categories,rooms where t_leave_users.id=posts.postuser_id and categories.id=posts.category_id and rooms.id=posts.room_id";
         if($status != ""){
             if($status == 'booked'){
                 $query .=" and posts.meetingdate >= CAST( GETDATE() AS Date ) and posts.status = 'booked'";

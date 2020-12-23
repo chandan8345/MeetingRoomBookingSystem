@@ -30,8 +30,8 @@
             <table class="table table-bordered table-striped mt-0" id="categoryList">
                 <thead>
                     <tr>
-                        <th class="align-middle text-center">Serial No</th>
-                        <th class="align-middle text-center">Category</th>
+                        <th class="align-middle text-center">#</th>
+                        <th class="align-middle text-center">Meeting Category</th>
                         <th class="align-middle text-center">Status</th>
                         <th class="align-middle text-center">Action</th>
                     </tr>

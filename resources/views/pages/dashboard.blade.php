@@ -6,14 +6,14 @@
 
 @section('head')
 @include('section.head')
-    <style>
-        #blink {
-            font-size: 16px;
-            font-weight: bold;
-            color: red;
-            transition: 0.1s;
-        }
-    </style>
+<style>
+    #blink {
+        font-size: 16px;
+        font-weight: bold;
+        color: red;
+        transition: 0.1s;
+    }
+</style>
 @stop
 
 @section('loader')
@@ -109,9 +109,9 @@
         </div>
     </div>
     <!--<h5 id="data">Meeting Rooms are not booked yet, So Hurry Up !!!</h5>-->
-    <div  id="data" class="col-lg-12">
-    <h5  class="text-center" id="blink">Meeting rooms were not booked today !</h5>
-    <!-- <img class="img-responsive center-block d-block mx-auto" src="{{ URL::asset('img/animation.gif') }}"> -->
+    <div id="data" class="col-lg-12">
+        <h5 class="text-center" id="blink">Meeting rooms were not booked today !</h5>
+        <!-- <img class="img-responsive center-block d-block mx-auto" src="{{ URL::asset('img/animation.gif') }}"> -->
     </div>
     <div class="table-responsive">
         <table id="example" class="table table-striped table-bordered">
@@ -143,13 +143,14 @@
 
 @section('bottom')
 @include('section.bottom')
-    <script type="text/javascript">
-        var blink = document.getElementById('blink');
-        setInterval(function() {
-            blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
-        }, 1500);
-    </script>
+<script type="text/javascript">
+    var blink = document.getElementById('blink');
+    setInterval(function () {
+        blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
+    }, 1200);
+</script>
 <script>
+    $('.current').css({'font-weight' : 'bold'});
     $('#example').hide();
     $('#data').hide();
     var url = $('#status').val();
@@ -166,8 +167,7 @@
                 $('#example').show();
                 $('#data').hide();
                 $('#example tbody').html(response);
-                $('#example').DataTable({
-                });
+                $('#example').DataTable({});
             } else {
                 $('#data').show();
                 $('#example').hide();
@@ -180,22 +180,33 @@
 
     function state() {
         var status = $('#status').val();
-        console.log(status);
+        var todayMessage = "Meeting rooms were not booked today !";
+        var postponedMessage = "You were not postpone any meeting !";
+        var bookedMessage = "You have not book any room !";
+        var completedMessage = "You have not completed any meeting !";
         $.ajax({
             type: "GET",
             url: "{{ URL::to('/') }}" + '/' + status,
             success: function (response) {
                 if (response.length != 0) {
-                    $('#example').show();
                     $('#data').hide();
                     $('#example').DataTable().destroy();
                     $('#example tbody').html(response);
                     $('#example').DataTable({});
                 } else {
-                    $('#example').DataTable().destroy();
-                    swal(" Data not found");
-                    $('#data').show();
+                    if (status == 'postponed') {
+                        $('#blink').text(postponedMessage);
+                    } else if (status == 'booked') {
+                        $('#blink').text(bookedMessage);
+                    } else if (status == 'completed') {
+                        $('#blink').text(completedMessage);
+                    } else {
+                        $('#blink').text(todayMessage);
+                    }
                     $('#example').hide();
+                    $('#example').DataTable().destroy();
+                    //swal(" Data not found");
+                    $('#data').show();
                 }
             },
             error: function (error) {
