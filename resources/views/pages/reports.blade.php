@@ -138,7 +138,7 @@
                         ]
                     });
                     }else{
-                        swal('Sorry!'," Post not found", "error");
+                        swal('Sorry!'," Data not found", "error");
                     }
                 },
                 error: function (error) {

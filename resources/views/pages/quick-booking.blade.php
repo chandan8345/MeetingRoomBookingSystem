@@ -23,7 +23,7 @@
                     <label class="control-label col-sm-2" for="input-1">Purpose of Meeting</label>
                     <div class="col-sm-10">
                         <input type="text" onblur="Purpose()" id="purpose" name="purpose" class="form-control"
-                            id="input-1" placeholder="Write down pupose of meeting" required />
+                            id="input-1" placeholder="Write down pupose of meeting"  />
                         <p id="alertPurpose" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
                             about your meeting goal</p>
                     </div>
@@ -32,7 +32,7 @@
                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Choose Room</label>
                     <div class="col-sm-10">
                         <select name="room" onblur="myRoom()" class="form-control room" id="exampleFormControlSelect1"
-                            required>
+                            >
                             <option value="">Choose Room</option>
                             @foreach($rooms as $room)
                             <option value="{{ $room->id }}">{{ $room->name }}</option>
@@ -46,7 +46,7 @@
                     <label class="control-label col-sm-2" for="input-2">Meeting Date</label>
                     <div class="col-sm-10">
                         <input type="date" onblur="meetingDate()" id="date" value="<?php echo date('Y-m-d');?>"
-                            name="meetingdate" class="form-control" id="input-2" required />
+                            name="meetingdate" class="form-control" id="input-2"  />
                         <p id="alertDate" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
                             about your meeting goal</p>
                     </div>
@@ -55,7 +55,7 @@
                     <label class="control-label col-sm-2" for="input-3">Start Time</label>
                     <div class="col-sm-10">
                         <input type="time" onblur="startTime()" name="starttime" id="starttime" min="08:00" max="22:00"
-                            class="form-control start" id="input-3" placeholder="pick the time here" required />
+                            class="form-control start" id="input-3" placeholder="pick the time here"  />
                         <p id="alertStart" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
                             about your meeting goal</p>
                             <p id="alertDbStart" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
@@ -66,7 +66,7 @@
                     <label class="control-label col-sm-2" for="input-3">Finish Time</label>
                     <div class="col-sm-10">
                         <input type="time" onblur="finishTime()" name="endtime" id="endtime" min="08:00" max="22:00"
-                            class="form-control finish" id="input-3" placeholder="pick the time here" required />
+                            class="form-control finish" id="input-3" placeholder="pick the time here"  />
                         <p id="alertFinish" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
                             about your meeting goal</p>
                             <p id="alertDbFinish" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
@@ -76,7 +76,7 @@
                 <!-- <div class="form-group row">
                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Duration</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="duration" id="exampleFormControlSelect1" required>
+                        <select class="form-control" name="duration" id="exampleFormControlSelect1" >
                             <option value="">Choose Duration</option>
                             <option value="30 Mins">30 Mins</option>
                             <option value="1 Hour">1 Hour</option>
@@ -93,7 +93,7 @@
                     <label class="control-label col-sm-2" for="input-3">Total People</label>
                     <div class="col-sm-10">
                         <input type="number" onblur="people()" name="total" min="2" class="form-control people"
-                            id="input-3" placeholder="Number of people" required />
+                            id="input-3" placeholder="Number of people"  />
                         <p id="alertPeople" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
                             about your meeting goal</p>
                     </div>
@@ -101,7 +101,7 @@
                 <div class="form-group row">
                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Meeting Category</label>
                     <div class="col-sm-10">
-                        <select name="category" onblur="myCategory()" class="form-control category" id="exampleFormControlSelect1" required>
+                        <select name="category" onblur="myCategory()" class="form-control category" id="exampleFormControlSelect1" >
                             <option value="">Select Category</option>
                             @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -115,7 +115,7 @@
                     <label for="exampleFormControlSelect1" class="control-label col-sm-2">Meeting Type</label>
                     <div class="col-sm-10">
                         <select name="meetingtype" onblur="meetingType()" class="form-control meetingtype" id="exampleFormControlSelect1"
-                            required>
+                            >
                             <option value="">Select Type</option>
                             <option value="Internal">Internal</option>
                             <option value="External">External</option>
@@ -152,7 +152,7 @@
                 <div class="form-group row">
                     <label class="control-label col-sm-2" for="input-6"></label>
                     <div class="col-sm-10">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="button" onclick="addpost()">Submit</button>
                     </div>
                 </div>
             </form>
@@ -521,9 +521,310 @@
             $('#alertPeople').hide();
         }
     }
-    $('#addbooking').on('submit', function (e) {
-        e.preventDefault();
-        if ($('#alertDbStart').is(":hidden") && $('#alertDbFinish').is(":hidden")) {
+
+    function addpost() {
+        var i=0;
+        if ($('#purpose').val() == '') {
+            $('#purpose').focus();
+            $('#alertPurpose').html('write down purpose of meeting');
+            $('#alertPurpose').show();
+            i++;
+        } else if ($('#purpose').val().trim().length == 0) {
+            $('#purpose').focus();
+            $('#alertPurpose').html('space character not allowed');
+            $('#alertPurpose').show();
+            i++;
+        } else if ($('#purpose').val().trim().length < 10) {
+            $('#purpose').focus();
+            $('#alertPurpose').html('please use minimum 10 character');
+            $('#alertPurpose').show();
+            i++;
+        } else {
+            $('#alertPurpose').hide();
+        }
+        if ($('.meetingtype').val() == '') {
+            $('.meetingtype').focus();
+            $('#alertType').html('please select meeting type');
+            $('#alertType').show();
+            i++;
+        } else {
+            $('#alertType').hide();
+        }
+        if ($('.room').val() == '') {
+            $('.room').focus();
+            $('#alertRoom').html('please select room for meeting');
+            $('#alertRoom').show();
+            i++;
+        } else {
+            $('#alertRoom').hide();
+        }
+        if ($('.category').val() == '') {
+            $('.category').focus();
+            $('#alertCategory').html('please select meeting category');
+            $('#alertCategory').show();
+            i++;
+        } else {
+            $('#alertCategory').hide();
+        }
+        if ($('.people').val() < 2 || $('.people').val() == "") {
+            $('.people').focus();
+            $('#alertPeople').html('please input number of people');
+            $('#alertPeople').show();
+            i++;
+        } else {
+            $('#alertPeople').hide();
+        }
+
+        var today = new Date();
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var starttime = $('.start').val().split(':');
+        var endtime = $('.finish').val().split(':');
+        var starthours = parseInt(starttime[0]);
+        var startmins = parseInt(starttime[1]);
+        var endhours = parseInt(endtime[0]);
+        var endmins = parseInt(endtime[1]);
+        var startampm = starthours >= 12 ? 'pm' : 'am';
+        var endampm = endhours >= 12 ? 'pm' : 'am';
+        var UserDate = document.getElementById("date").value;
+        var currentdate = currentDate();
+        if ($('.start').val() == '') {
+            $('.start').focus();
+            $('#alertStart').html('please input meeting start time');
+            $('#alertStart').show();
+            $('#alertDbFinish').hide();
+            i++;
+        } else {
+            if (UserDate == currentdate) {
+                console.log('match');
+                if (hours <= starthours) {
+                    console.log(hours);
+                    if (starthours < 8) {
+                        $('.start').focus();
+                        $('#alertStart').html('you dont create meeting before 8 AM');
+                        $('#alertStart').show();
+                        i++;
+                    }
+                    else if (starthours > 22) {
+                        $('.start').focus();
+                        $('#alertStart').html('you dont create meeting after 8 PM');
+                        $('#alertStart').show();
+                        i++;
+                    }
+                    else {
+                        $('#alertStart').hide();
+                        
+                    }
+                } else {
+                    $('.start').focus();
+                    $('#alertStart').html('allocated time of this day is over');
+                    $('#alertStart').show();
+                    i++;
+                }
+                hasbookedstart($('.start').val());
+            } else {
+                if (starthours < 8) {
+                    $('.start').focus();
+                    $('#alertStart').html('you dont create meeting before 8 AM');
+                    $('#alertStart').show();
+                    i++;
+                }
+                else if (starthours > 22) {
+                    $('.start').focus();
+                    $('#alertStart').html('you dont create meeting after 8 PM');
+                    $('#alertStart').show();
+                    i++;
+                }
+                else {
+                    $('#alertStart').hide();
+                    hasbookedstart($('.start').val());
+                }
+            }
+        }
+
+        var today = new Date();
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var starttime = $('.start').val().split(':');
+        var endtime = $('.finish').val().split(':');
+        var starthours = parseInt(starttime[0]);
+        var startmins = parseInt(starttime[1]);
+        var endhours = parseInt(endtime[0]);
+        var endmins = parseInt(endtime[1]);
+        var startampm = starthours >= 12 ? 'pm' : 'am';
+        var endampm = endhours >= 12 ? 'pm' : 'am';
+        var UserDate = document.getElementById("date").value;
+        var currentdate = currentDate();
+        if ($('.finish').val() == '') {
+            $('.finish').focus();
+            $('#alertFinish').html('please input meeting finish time');
+            $('#alertFinish').show();
+            i++;
+        } else {
+            if (isNaN(starthours) || isNaN(startmins)) {
+                $('#alertFinish').html('please input start time');
+                $('#alertDbFinish').hide();
+                i++;
+            } else {
+                if (UserDate == currentdate) {
+                    if (hours <= endhours) {
+                        if (endhours < 8) {
+                            $('.finish').focus();
+                            $('#alertFinish').html('you dont create meeting before 8 AM');
+                            $('#alertFinish').show();
+                            i++;
+                        } else if (endhours > 22) {
+                            $('.finish').focus();
+                            $('#alertFinish').html('you dont create meeting after 8 PM');
+                            $('#alertFinish').show();
+                            i++;
+                        }
+                        else if (startampm == 'pm' && endampm == 'pm') {
+                            if (endhours > starthours) {
+                                var mins = (60 - startmins) + endmins;
+                                var minsdif = mins >= 30 ? 'YES' : 'NO';
+                            } else {
+                                var minsdif = endmins >= startmins + 30 ? 'YES' : 'NO';
+                            }
+                            if (starthours > endhours) {
+                                $('.finish').focus();
+                                $('#alertFinish').html('finish time can not less than start time');
+                                $('#alertFinish').show();
+                                i++;
+                            } else if (minsdif != 'YES') {
+                                $('.finish').focus();
+                                $('#alertFinish').html('meeting duration minimum 30 minutes');
+                                $('#alertFinish').show();
+                                i++;
+                            } else {
+                                $('#alertFinish').hide();
+                            }
+                        } else if (startampm == 'am' && endampm == 'am') {
+                            if (endhours > starthours) {
+                                var mins = (60 - startmins) + endmins;
+                                var minsdif = mins > 30 ? 'YES' : 'NO';
+                            } else {
+                                var minsdif = endmins >= startmins + 30 ? 'YES' : 'NO';
+                            }
+                            if (starthours > endhours) {
+                                $('.finish').focus();
+                                $('#alertFinish').html('finish time can not less than start time');
+                                $('#alertFinish').show();
+                                i++;
+                            } else if (minsdif != 'YES') {
+                                $('.finish').focus();
+                                $('#alertFinish').html('meeting duration minimum 30 minutes');
+                                $('#alertFinish').show();
+                                i++;
+                            } else {
+                                $('#alertFinish').hide();
+                            }
+                        } else if (startampm == 'pm' && endampm == 'am') {
+                            $('.finish').focus();
+                            $('#alertFinish').html('please change AM to PM');
+                            $('#alertFinish').show();
+                            i++;
+                        } else if (startampm == 'am' && endampm == 'pm') {
+                            var mins = (60 - startmins) + endmins;
+                            var minsdif = mins > 30 ? 'YES' : 'NO';
+                            console.log(mins);
+                            if (minsdif != 'YES') {
+                                $('.finish').focus();
+                                $('#alertFinish').html('meeting duration minimum 30 minutes');
+                                $('#alertFinish').show();
+                                i++;
+                            } else {
+                                $('#alertFinish').hide();
+                            }
+                        }
+                        else {
+                            $('#alertFinish').hide();
+                        }
+                    } else {
+                        $('.finish').focus();
+                        $('#alertFinish').html('allocated time of this day is over');
+                        $('#alertFinish').show();
+                        i++;
+                    }
+                    hasbookedend($('.finish').val());
+                } else {
+                    if (endhours < 8) {
+                        $('.finish').focus();
+                        $('#alertFinish').html('you dont create meeting before 8 AM');
+                        $('#alertFinish').show();
+                        i++;
+                    } else if (endhours > 22) {
+                        $('.finish').focus();
+                        $('#alertFinish').html('you dont create meeting after 8 PM');
+                        $('#alertFinish').show();
+                        i++;
+                    }
+                    else if (startampm == 'pm' && endampm == 'pm') {
+                        if (endhours > starthours) {
+                            var mins = (60 - startmins) + endmins;
+                            var minsdif = mins >= 30 ? 'YES' : 'NO';
+                        } else {
+                            var minsdif = endmins >= startmins + 30 ? 'YES' : 'NO';
+                        }
+                        if (starthours > endhours) {
+                            $('.finish').focus();
+                            $('#alertFinish').html('finish time can not less than start time');
+                            $('#alertFinish').show();
+                            i++;
+                        } else if (minsdif != 'YES') {
+                            $('.finish').focus();
+                            $('#alertFinish').html('meeting duration minimum 30 minutes');
+                            $('#alertFinish').show();
+                            i++;
+                        } else {
+                            $('#alertFinish').hide();
+                        }
+                    } else if (startampm == 'am' && endampm == 'am') {
+                        if (endhours > starthours) {
+                            var mins = (60 - startmins) + endmins;
+                            var minsdif = mins > 30 ? 'YES' : 'NO';
+                        } else {
+                            var minsdif = endmins >= startmins + 30 ? 'YES' : 'NO';
+                        }
+                        if (starthours > endhours) {
+                            $('.finish').focus();
+                            $('#alertFinish').html('finish time can not less than start time');
+                            $('#alertFinish').show();
+                            i++;
+                        } else if (minsdif != 'YES') {
+                            $('.finish').focus();
+                            $('#alertFinish').html('meeting duration minimum 30 minutes');
+                            $('#alertFinish').show();
+                            i++;
+                        } else {
+                            $('#alertFinish').hide();
+                        }
+                    } else if (startampm == 'pm' && endampm == 'am') {
+                        $('.finish').focus();
+                        $('#alertFinish').html('please change AM to PM');
+                        $('#alertFinish').show();
+                        i++;
+                    } else if (startampm == 'am' && endampm == 'pm') {
+                        var mins = (60 - startmins) + endmins;
+                        var minsdif = mins > 30 ? 'YES' : 'NO';
+                        console.log(mins);
+                        if (minsdif != 'YES') {
+                            $('.finish').focus();
+                            $('#alertFinish').html('meeting duration minimum 30 minutes');
+                            $('#alertFinish').show();
+                            i++;
+                        } else {
+                            $('#alertFinish').hide();
+                        }
+                    }
+                    else {
+                        $('#alertFinish').hide();
+                    }
+                    hasbookedend($('.finish').val());
+                }
+            }
+        }
+        if(i==0){
             $.ajax({
                 type: "POST",
                 url: "{{ URL::to('/booking') }}",
@@ -538,11 +839,8 @@
                     console.log('error');
                 }
             });
-        }else {
-            e.preventDefault();
-            swal('Notice', "Please change your time schedule, Already Booked!", "error");
         }
-    });
+    }
 
     function currentDate() {
         var today = new Date();

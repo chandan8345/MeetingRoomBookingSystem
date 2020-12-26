@@ -13,9 +13,9 @@ class CreateTLeaveUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('t_leave_users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('staffid',191);
+            $table->string('staffid',191)->nullable();
             $table->string('name',191);
             $table->string('role',191)->nullable();
             $table->string('email',191)->nullable();

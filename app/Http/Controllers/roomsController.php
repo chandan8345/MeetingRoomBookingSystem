@@ -7,6 +7,10 @@ use App\Models\Room;
 
 class roomsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function updateroom(Request $r, $id){
         Room::where('id', $id)->update($r->all());
         return "update";

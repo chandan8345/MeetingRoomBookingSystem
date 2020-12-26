@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usersController;
-use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\roomsController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\bookingController;
@@ -11,22 +11,22 @@ use App\Http\Controllers\reportController;
 
 
 Route::get('/',[usersController::class,'index']);
-Route::post('/login',[usersController::class,'login']);
-
-Route::group(['middleware' => 'usersession'], function () {
+Route::post('/login',[usersController::class,'index']);
     
 //USERS
-Route::get('/profile',[usersController::class,'profile']);
-Route::get('/reports',[usersController::class,'reports']);
 Route::get('/logout',[usersController::class,'logout']);
 
+Route::group(['middleware' => 'usersession'], function () {
+
+Route::get('/reports',[HomeController::class,'reports']);
+Route::get('/profile',[HomeController::class,'profile']);
+
 //DASHBOARD
-Route::get('/dashboard',[dashboardController::class,'index']);
-Route::get('/count',[dashboardController::class,'count']);
-Route::get('/countbooked',[dashboardController::class,'countbooked']);
-Route::get('/countpostponed',[dashboardController::class,'countpostponed']);
-Route::get('/countwaiting',[dashboardController::class,'countwaiting']);
-Route::get('/countcompleted',[dashboardController::class,'countcompleted']);
+Route::get('/count',[HomeController::class,'count']);
+Route::get('/countbooked',[HomeController::class,'countbooked']);
+Route::get('/countpostponed',[HomeController::class,'countpostponed']);
+Route::get('/countwaiting',[HomeController::class,'countwaiting']);
+Route::get('/countcompleted',[HomeController::class,'countcompleted']);
 
 //ROOMS
 Route::get('/rooms',[roomsController::class,'index']);
@@ -78,4 +78,6 @@ Route::get('/userlist',[myController::class,'userlist']);
 
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Auth::routes();

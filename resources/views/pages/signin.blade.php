@@ -1,5 +1,5 @@
 @if(session()->has('id'))
-<script>window.location = "{{ URL::to('/dashboard') }}";</script>
+<script>window.location = "{{ URL::to('/home') }}";</script>
 @endif
 <!DOCTYPE html>
 <html lang="en">

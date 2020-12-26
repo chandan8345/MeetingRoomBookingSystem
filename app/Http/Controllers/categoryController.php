@@ -7,6 +7,10 @@ use App\Models\Category;
 
 class categoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function updatecategory(Request $r, $id){
         Category::where('id', $id)->update($r->all());
         return "update";

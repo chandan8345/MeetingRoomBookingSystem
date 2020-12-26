@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMrbsCategoriesTable extends Migration
+class CreateRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateMrbsCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',199);
+            $table->string('name',199)->unique();
+            $table->integer('capacity');
             $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('t_leave_users');
+            //$table->foreign('user_id')->references('id')->on('t_leave_users');
             $table->boolean('status');
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class CreateMrbsCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mrbs_categories');
+        Schema::dropIfExists('rooms');
     }
 }

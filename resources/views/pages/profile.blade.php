@@ -76,7 +76,7 @@
                                         <input type="text" id="input-4" class="form-control" placeholder="number"  value="{{ $profile->department }}"/>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label class="control-label col-sm-2" for="input-7">Password*</label>
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" id="input-7" placeholder="" />
@@ -93,7 +93,7 @@
                                     <div class="col-sm-10">
                                         <input type="file" class="form-control" id="exampleFormControlFile1">
                                     </div>
-                                </div>
+                                </div> -->
                             </form>
                         </div>
                         <!--/Default elements-->

@@ -190,6 +190,7 @@
             success: function (response) {
                 if (response.length != 0) {
                     $('#data').hide();
+                    $('#example').show();
                     $('#example').DataTable().destroy();
                     $('#example tbody').html(response);
                     $('#example').DataTable({});
