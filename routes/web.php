@@ -69,8 +69,9 @@ Route::post('/addcategory',[categoryController::class,'addcategory']);
 
 //Calender
 Route::get('/schedule',[calenderController::class,'index']);
+Route::get('/postlist',[calenderController::class,'postlist']);
 
-
+//CRUD
 Route::post('/create',[myController::class,'create']);
 Route::get('/update/{id}',[myController::class,'update']);
 Route::get('/remove/{id}',[myController::class,'remove']);

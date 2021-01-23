@@ -33,6 +33,11 @@
                                 Manage Booking</a></li>
                     </ul>
                 </li> -->
+                <li class="parent">
+                    <a href="{{ URL::to('/schedule') }}" class=""><i class="fa fa-calendar-plus-o mr-3"></i>
+                        <span class="none">Calendar</span>
+                    </a>
+                </li>
                 @if(Session::get('role') != 'user')
                 <li class="parent">
                     <a href="{{ URL::to('/rooms') }}" class=""><i class="fa fa-building-o mr-3"></i>
@@ -45,11 +50,6 @@
                     </a>
                 </li>
                 @endif
-                <!-- <li class="parent">
-                    <a href="{{ URL::to('/schedule') }}" class=""><i class="fa fa-calendar-plus-o mr-3"></i>
-                        <span class="none">Calendar</span>
-                    </a>
-                </li> -->
                 <li class="parent">
                     <a href="{{ URL::to('/reports') }}" class=""><i class="fa fa-file mr-3"></i>
                         <span class="none">Reports </span>

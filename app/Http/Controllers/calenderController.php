@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Post;
+use App\Models\Room;
+Use Session;
+
 
 class calenderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +25,22 @@ class calenderController extends Controller
         return view('pages.schedule');
     }
 
+    public function postlist(){
+    $val=[];
+    $sql="select posts.meetingdate as date,rooms.name title,posts.starttime,posts.endtime from posts,rooms where posts.room_id=rooms.id and posts.meetingdate >= CAST(CONVERT(VARCHAR(6),GETDATE(),112) +'01' AS DATE)";
+    $posts=DB::select($sql);
+    foreach($posts as $post){
+        $start=date('h:i', strtotime($post->starttime));
+        $end=date('h:i', strtotime($post->endtime));
+        $title=$start.'-'.$end.' '.$post->title;
+        $val[] = [
+            'date' => $post->date,
+            'title' => $title,
+        ];
+    }
+    //echo json_encode($value);
+    return json_encode($val);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,7 +70,7 @@ class calenderController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
