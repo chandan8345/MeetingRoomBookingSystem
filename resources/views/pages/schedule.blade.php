@@ -1,8 +1,8 @@
 @extends('main')
 
-@section('tabname','MRBS | Schedule')
+@section('tabname','MRBS | Reserved Schedule')
 
-@section('page-title','Schedule')
+@section('page-title','Reserved Schedule')
 
 @section('main-content')
 <h5 class="mb-0"><strong>@yield('page-title')</strong></h5>

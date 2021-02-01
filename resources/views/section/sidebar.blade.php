@@ -35,7 +35,7 @@
                 </li> -->
                 <li class="parent">
                     <a href="{{ URL::to('/schedule') }}" class=""><i class="fa fa-calendar-plus-o mr-3"></i>
-                        <span class="none">Calendar</span>
+                        <span class="none">Reserved Schedule</span>
                     </a>
                 </li>
                 @if(Session::get('role') != 'user')
