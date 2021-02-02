@@ -697,17 +697,33 @@ class bookingController extends Controller
     }
     public function booking(Request $r){
         $post=new Post;
-        $post->purpose=$r->input('purpose');
-        $post->meetingdate=$r->input('meetingdate');
-        $post->starttime=$r->input('starttime');
-        $post->endtime=$r->input('endtime');
-        $post->meetingtype=$r->input('meetingtype');
-        $post->total=$r->input('total');
+        $post->purpose=$r->purpose;
+        $post->meetingdate=$r->meetingdate;
+        $post->starttime=$r->starttime;
+        $post->endtime=$r->endtime;
+        $post->meetingtype=$r->meetingtype;
+        $post->total=$r->total;
         $post->postingdate=date('Y-m-d');
-        $post->room_id=$r->input('room');
-        $post->category_id=$r->input('category');
+        $post->room=$r->room;
+        $post->category=$r->category;
+        $post->room_id=$r->room_id;
+        $post->category_id=$r->category_id;
         $post->status='booked';
         $post->postuser_id=session()->get('id');
+        
+        // $post->purpose=$r->input('purpose');
+        // $post->meetingdate=$r->input('meetingdate');
+        // $post->starttime=$r->input('starttime');
+        // $post->endtime=$r->input('endtime');
+        // $post->meetingtype=$r->input('meetingtype');
+        // $post->total=$r->input('total');
+        // $post->postingdate=date('Y-m-d');
+        // $post->room=$r->input('room');
+        // $post->category=$r->input('category');
+        // $post->room_id=$r->input('room_id');
+        // $post->category_id=$r->input('category_id');
+        // $post->status='booked';
+        // $post->postuser_id=session()->get('id');
         $post->save();
         return "store";
     }

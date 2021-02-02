@@ -8,6 +8,15 @@
     min-height: 1.5rem;
     padding-left: 2.5rem;
 }
+.fc-content, .fc-title, .fc-time {
+    color: orange !important;
+    font-weight: 400;
+    font-size: 14px !important;
+    font-family: Sans-serif;
+}
+.fc-day-grid-event .fc-content {
+    white-space: normal;
+}
 </style>
 <body>
     <!--Page loader-->

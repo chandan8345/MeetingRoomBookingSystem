@@ -25,6 +25,8 @@ class CreatePostsTable extends Migration
             // $table->text('comments')->nullable();
             $table->integer('total');
             $table->date('postingdate');
+            $table->string('room',100);
+            $table->string('category',100);
             // $table->date('approvedate')->nullable();
             // $table->string('approveuser')->nullable();
             $table->integer('postuser_id');

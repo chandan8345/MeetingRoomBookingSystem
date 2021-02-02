@@ -38,7 +38,6 @@ class calenderController extends Controller
             'title' => $title,
         ];
     }
-    //echo json_encode($value);
     return json_encode($val);
     }
     /**

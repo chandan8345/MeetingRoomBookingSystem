@@ -46,7 +46,7 @@
                     <label class="control-label col-sm-2" for="input-2">Meeting Date</label>
                     <div class="col-sm-10">
                         <input type="date" onblur="meetingDate()" id="date" value="<?php echo date('Y-m-d');?>"
-                            name="meetingdate" class="form-control" id="input-2"  />
+                        name="meetingdate" class="form-control meetingdate" id="input-2"  />
                         <p id="alertDate" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
                             about your meeting goal</p>
                     </div>
@@ -105,6 +105,7 @@
                             <option value="">Select Category</option>
                             @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <input type="hidden" value="{{ $category->name }}"/>
                             @endforeach
                         </select>
                         <p id="alertCategory" style="display:none;color:red;margin-top:5px;margin-left:2px;">please
@@ -152,7 +153,7 @@
                 <div class="form-group row">
                     <label class="control-label col-sm-2" for="input-6"></label>
                     <div class="col-sm-10">
-                        <button class="btn btn-primary" type="button" onclick="addpost()">Submit</button>
+                        <button class="btn btn-primary submit" type="button" onclick="addpost()">Submit</button>
                     </div>
                 </div>
             </form>
@@ -828,10 +829,24 @@
             $.ajax({
                 type: "POST",
                 url: "{{ URL::to('/booking') }}",
-                data: $("#addbooking").serialize(),
+                //data: $("#addbooking").serialize(),
+                data : {
+                    _token: "{{ csrf_token() }}",
+                    purpose: $('#purpose').val(),
+                    meetingdate:$('.meetingdate').val(),
+                    starttime:$('#starttime').val(),
+                    endtime:$('#endtime').val(),
+                    meetingtype:$('.meetingtype').val(),
+                    total:$('.people').val(),
+                    room:$( ".room option:selected" ).text(),
+                    category:$( ".category option:selected" ).text(),
+                    room_id:$('.room').val(),
+                    category_id:$('.category').val()
+                 },
                 success: function (response) {
                     swal('Done!', "Congratulation! Reserved Successfully", "success");
                     $("#addbooking").trigger('reset');
+                    $(':focus').blur();
                     console.log(response);
                 },
                 error: function (error) {
