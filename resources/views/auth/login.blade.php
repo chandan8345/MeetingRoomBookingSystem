@@ -1,6 +1,3 @@
-@if(session()->has('id'))
-<script>window.location = "{{ URL::to('/home') }}";</script>
-@endif
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -109,8 +106,8 @@
     <script src="{{ URL::asset('template/assets/js/custom.js') }}"></script>
     <!--Custom Js Script-->
     <script>
-        $('.signin').show();
-        $('.welcomeTxt').hide();
+        $('.signin').hide();
+        $('.welcomeTxt').show();
         $('#one').hide();
         $('#both').hide();
         $('#login-form').on('submit', function (e) {

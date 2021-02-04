@@ -19,6 +19,7 @@
     <!--Font Awesome-->
     <link rel="stylesheet" href="{{ URL::asset('template/assets/css/fontawesome-all.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('template/assets/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css">
     <!--Animate CSS-->
     <link rel="stylesheet" href="{{ URL::asset('template/assets/css/animate.min.css') }}">
     <!--Chartist CSS-->

@@ -404,7 +404,7 @@ class bookingController extends Controller
     }
     public function booked(){
         if(Session::get('role') == 'admin'){
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and and posts.meetingdate >= 
+            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate >= 
             CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
         }else{
             $id=Session::get('id');

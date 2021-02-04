@@ -38,43 +38,57 @@
 <!--Dashboard widget-->
 <div class="mt-1 mb-3 button-container">
     <div class="row pl-0">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
-            <div class="bg-white border shadow">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-12 mb-3">
+            <div class="bg-white border shadow" id="ongoing" onclick="ongoing()">
                 <div class="media p-4">
-                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-theme">
-                        <i class="fa fa-users"></i>
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-theme" id="ongoingIconBack">
+                        <i class="fa fa-users faa-tada animated" id="ongoingIcon"></i>
                     </div>
                     <div class="media-body pl-2">
-                        <h3 class="mt-0 mb-0"><strong id="countbooked">0</strong></h3>
-                        <p><small class="text-muted bc-description">On Going Meeting</small></p>
+                        <h3 class="mt-0 mb-0"><strong id="countongoing">0</strong></h3>
+                        <p><small class="text-muted bc-description" id="ongoingText">On Going Today</small></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
-            <div class="bg-white border shadow">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12 mb-3">
+            <div class="bg-white border shadow" id="postponed" onclick="postponed()">
                 <div class="media p-4">
-                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-warning">
-                        <i class="fas fa-spinner fa-pulse"></i>
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-warning" id="postponedIconBack">
+                        <i class="fas fa-spinner fa-pulse" id="postponedIcon"></i>
                     </div>
                     <div class="media-body pl-2">
                         <h3 class="mt-0 mb-0"><strong id="countpostponed">0</strong></h3>
-                        <p><small class="text-muted bc-description">Meeting Postponed</small></p>
+                        <p><small class="text-muted bc-description" id="postponedText">Postponed</small></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
-            <div class="bg-theme border shadow">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12 mb-3">
+            <div class="bg-white border shadow" id="reserved" onclick="reserved()">
                 <div class="media p-4">
-                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-white">
-                        <i class="fa fa-tags text-theme"></i>
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-danger"  id="reservedIconBack">
+                        <i class="fa fa-tags faa-flash animated" id="reservedIcon"></i>
+                    </div>
+                    <div class="media-body pl-2">
+                        <h3 class="mt-0 mb-0"><strong id="countbooked">0</strong></h3>
+                        <p><small class="text-muted bc-description"  id="reservedText">Reserved Event</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12 mb-3">
+            <div class="bg-white border shadow" id="completed" onclick="completed()">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-success" id="completedIconBack">
+                        <i class="far fa-handshake faa-vertical animated" id="completedIcon"></i>
                     </div>
                     <div class="media-body pl-2">
                         <h3 class="mt-0 mb-0"><strong id="countcompleted">0</strong></h3>
-                        <p><small class="bc-description text-white">Meeting Completed</small></p>
+                        <p><small class="bc-description text-muted" id="completedText">Completed</small></p>
                     </div>
                 </div>
             </div>
@@ -95,14 +109,16 @@
                 </div> -->
         <div class="col-sm-2 text-right pb-2">
             <div class="pull-right mr-3 btn-order-bulk">
-                <select id="status" onchange="state()" class="shadow bg-warning bulk-actions">
-                    <!-- <option value="waiting">Waiting</option> -->
+                <!-- <select id="status" onchange="state()" class="shadow bg-warning bulk-actions">
                     <option value="today"><strong>On Going Today</strong></option>
                     <option value="booked"><strong>Booked</strong></option>
                     <option value="postponed"><strong>Postponed</strong></option>
                     <option value="completed"><strong>Completed</strong></option>
-                    <!-- <option value="rejected">Rejected</option> -->
-                </select>
+                </select> -->
+                <a href="{{ url('/quickbooking') }}" type="button"
+                    class="btn btn-warning icon-round shadow pull-right">
+                    <i class="fas fa-plus"></i>
+                </a>
             </div>
 
             <div class="clearfix"></div>
@@ -153,11 +169,12 @@
     $('.current').css({'font-weight' : 'bold'});
     $('#example').hide();
     $('#data').hide();
-    var url = $('#status').val();
+    var url = 'booked';
     console.log(url);
     countcompleted();
     countbooked();
     countpostponed();
+    ongoingHoverIn();
     $.ajax({
         type: "GET",
         url: "{{ URL::to('/') }}" + '/' + url,
@@ -178,8 +195,8 @@
         }
     });
 
-    function state() {
-        var status = $('#status').val();
+    function state(status) {
+        //var status = $('#status').val();
         var todayMessage = "Meeting rooms were not booked today !";
         var postponedMessage = "You were not postpone any meeting !";
         var bookedMessage = "You have not book any room !";
@@ -287,6 +304,114 @@
                 console.log('Error');
             }
         });
+    }
+    function ongoing(){
+        ongoingHoverIn();
+        postponedHoverOut();
+        reservedHoverOut();
+        completedHoverOut();
+        state('today');
+    }
+    function postponed(){
+        ongoingHoverOut();
+        postponedHoverIn();
+        reservedHoverOut();
+        completedHoverOut();
+        state('postponed');
+    }
+    function reserved(){
+        ongoingHoverOut();
+        postponedHoverOut();
+        reservedHoverIn();
+        completedHoverOut();
+        state('booked');
+    }
+    function completed(){
+        ongoingHoverOut();
+        postponedHoverOut();
+        reservedHoverOut();
+        completedHoverIn();
+        state('completed');
+    }
+    function ongoingHoverIn(){
+        $("#ongoing").addClass("bg-theme");
+        $("#ongoing").removeClass("bg-white");
+        $("#ongoingIcon").addClass("text-theme");
+        $("#ongoingIconBack").addClass("bg-white");
+        $("#ongoingIconBack").removeClass("bg-theme");
+        $("#countongoing").addClass("text-white");
+        $("#ongoingText").addClass("text-white");
+        $("#ongoingText").removeClass("text-muted");
+    }
+    function ongoingHoverOut(){
+        $("#ongoing").addClass("bg-white");
+        $("#ongoing").removeClass("bg-theme");
+        $("#ongoingIcon").removeClass("text-theme");
+        $("#ongoingIconBack").removeClass("bg-white");
+        $("#ongoingIconBack").addClass("bg-theme");
+        $("#countongoing").removeClass("text-white");
+        $("#ongoingText").removeClass("text-white");
+        $("#ongoingText").addClass("text-muted");
+    }
+    function postponedHoverIn(){
+        $("#postponed").addClass("bg-theme");
+        $("#postponed").removeClass("bg-white");
+        $("#postponedIcon").addClass("text-theme");
+        $("#postponedIconBack").addClass("bg-white");
+        $("#postponedIconBack").removeClass("bg-warning");
+        $("#countpostponed").addClass("text-white");
+        $("#postponedText").addClass("text-white");
+        $("#postponedText").removeClass("text-muted");
+    }
+    function postponedHoverOut(){
+        $("#postponed").addClass("bg-white");
+        $("#postponed").removeClass("bg-theme");
+        $("#postponedIcon").removeClass("text-theme");
+        $("#postponedIconBack").removeClass("bg-white");
+        $("#postponedIconBack").addClass("bg-warning");
+        $("#countpostponed").removeClass("text-white");
+        $("#postponedText").removeClass("text-white");
+        $("#postponedText").addClass("text-muted");
+    }
+    function reservedHoverIn(){
+        $("#reserved").addClass("bg-theme");
+        $("#reserved").removeClass("bg-white");
+        $("#reservedIcon").addClass("text-theme");
+        $("#reservedIconBack").addClass("bg-white");
+        $("#reservedIconBack").removeClass("bg-danger");
+        $("#countreserved").addClass("text-white");
+        $("#reservedText").addClass("text-white");
+        $("#reservedText").removeClass("text-muted");
+    }
+    function reservedHoverOut(){
+        $("#reserved").addClass("bg-white");
+        $("#reserved").removeClass("bg-theme");
+        $("#reservedIcon").removeClass("text-theme");
+        $("#reservedIconBack").removeClass("bg-white");
+        $("#reservedIconBack").addClass("bg-danger");
+        $("#countreserved").removeClass("text-white");
+        $("#reservedText").removeClass("text-white");
+        $("#reservedText").addClass("text-muted");
+    }
+    function completedHoverIn(){
+        $("#completed").addClass("bg-theme");
+        $("#completed").removeClass("bg-white");
+        $("#completedIcon").addClass("text-theme");
+        $("#completedIconBack").addClass("bg-white");
+        $("#completedIconBack").removeClass("bg-success");
+        $("#countcompleted").addClass("text-white");
+        $("#completedText").addClass("text-white");
+        $("#completedText").removeClass("text-muted");
+    }
+    function completedHoverOut(){
+        $("#completed").addClass("bg-white");
+        $("#completed").removeClass("bg-theme");
+        $("#completedIcon").removeClass("text-theme");
+        $("#completedIconBack").removeClass("bg-white");
+        $("#completedIconBack").addClass("bg-success");
+        $("#countcompleted").removeClass("text-white");
+        $("#completedText").removeClass("text-white");
+        $("#completedText").addClass("text-muted");
     }
 </script>
 @stop

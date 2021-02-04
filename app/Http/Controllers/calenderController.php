@@ -27,7 +27,7 @@ class calenderController extends Controller
 
     public function postlist(){
     $val=[];
-    $sql="select posts.meetingdate as date,rooms.name title,posts.starttime,posts.endtime from posts,rooms where posts.room_id=rooms.id and posts.status='booked' and posts.meetingdate >= CAST(CONVERT(VARCHAR(6),GETDATE(),112) +'01' AS DATE)";
+    $sql="select posts.meetingdate as date,rooms.name title,posts.starttime,posts.endtime from posts,rooms where posts.room_id=rooms.id and posts.status='booked' and posts.meetingdate >= CAST( GETDATE() AS Date)";
     $posts=DB::select($sql);
     foreach($posts as $post){
         $start=date('h:i', strtotime($post->starttime));
