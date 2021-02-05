@@ -12,13 +12,13 @@ class usersController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        return view('pages.onboard');
     }
     
     public function logout()
     {
         Auth::logout();
         Session::flush();
-        return redirect('/');
+        return redirect('/login');
     }
 }

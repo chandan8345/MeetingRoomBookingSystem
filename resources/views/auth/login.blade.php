@@ -36,14 +36,14 @@
     <div class="container-fluid login-wrapper">
         <div class="login-box">
             <h2 class="text-center mb-5 signin"></i> Meeting Room Booking System</h2>
-            <h1 class="text-center mb-0 welcomeTxt"></i> Guardian Life Insurance Ltd.</h1> 
+            <!-- <h1 class="text-center mb-0 welcomeTxt"></i> Guardian Life Insurance Ltd.</h1> 
             <h5 class="text-center mb-0 welcomeTxt"></i> Meeting Room Booking System</h5>
             <div  class="container-fluid welcomeTxt" style="padding-top:10px;">
             <div class="row justify-content-center">
             <button type="button" onclick="loginform()" class="btn btn-primary btn-sm" style="width: 50px; height: 50px; padding: 7px 10px; border-radius: 25px; font-size: 20px; 
             text-align: center;"><i class="fa fa-sign-in faa-horizontal animated"></i></button>
             </div>
-            </div>
+            </div> -->
             <!-- <img class="text-center" src="{{ URL::asset('template/assets/img/guardian.png') }}" width="240" height="80" alt="">   -->
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-12 login-box-info signin">
@@ -106,10 +106,10 @@
     <script src="{{ URL::asset('template/assets/js/custom.js') }}"></script>
     <!--Custom Js Script-->
     <script>
-        $('.signin').hide();
+        $('.signin').show();
         $('.welcomeTxt').show();
-        $('#one').hide();
-        $('#both').hide();
+        $('#one').show();
+        $('#both').show();
         $('#login-form').on('submit', function (e) {
         e.preventDefault();
         $.ajax({

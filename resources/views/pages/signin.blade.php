@@ -1,4 +1,4 @@
-@if(session()->has('id'))
+<!-- @if(session()->has('id'))
 <script>window.location = "{{ URL::to('/home') }}";</script>
 @endif
 <!DOCTYPE html>
@@ -119,4 +119,4 @@
 	});
     </script>
   </body>
-</html>
+</html> -->
