@@ -169,8 +169,8 @@
     $('.current').css({'font-weight' : 'bold'});
     $('#example').hide();
     $('#data').hide();
-    var url = 'booked';
-    console.log(url);
+    var url = 'today';
+    countongoing();
     countcompleted();
     countbooked();
     countpostponed();
@@ -196,7 +196,6 @@
     });
 
     function state(status) {
-        //var status = $('#status').val();
         var todayMessage = "Meeting rooms were not booked today !";
         var postponedMessage = "You were not postpone any meeting !";
         var bookedMessage = "You have not book any room !";
@@ -244,6 +243,7 @@
                 countcompleted();
                 countbooked();
                 countpostponed();
+                countongoing();
             },
             error: function (error) {
                 swal('Error!', "Something went Wrong, Please Try Again.", "error");
@@ -265,6 +265,18 @@
             },
             error: function (error) {
                 swal('Error!', "Something went Wrong, Please Try Again.", "error");
+                console.log('Error');
+            }
+        });
+    }
+    function countongoing() {
+        $.ajax({
+            type: "GET",
+            url: "{{ URL::to('/countongoing') }}",
+            success: function (response) {
+                $('#countongoing').html(response);
+            },
+            error: function (error) {
                 console.log('Error');
             }
         });

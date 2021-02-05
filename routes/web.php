@@ -24,6 +24,7 @@ Route::get('/profile',[HomeController::class,'profile']);
 //DASHBOARD
 Route::get('/count',[HomeController::class,'count']);
 Route::get('/countbooked',[HomeController::class,'countbooked']);
+Route::get('/countongoing',[HomeController::class,'countongoing']);
 Route::get('/countpostponed',[HomeController::class,'countpostponed']);
 Route::get('/countwaiting',[HomeController::class,'countwaiting']);
 Route::get('/countcompleted',[HomeController::class,'countcompleted']);

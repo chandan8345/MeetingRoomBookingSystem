@@ -37,6 +37,19 @@ class HomeController extends Controller
         }
         return view('pages.dashboard');
     }
+    public function countongoing(){
+        $book=0;
+        if(Session::get('role') == 'admin'){
+            $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate = 
+            CAST( GETDATE() AS Date )");
+        }else{
+            $id=Auth::id();
+            $b = DB::select("select count(posts.status) book from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate =
+            CAST( GETDATE() AS Date )");
+        }
+        foreach($b as $row){$book=$row->book;}
+        return $book;
+    }
     public function countbooked(){
         $book=0;
         if(Session::get('role') == 'admin'){
