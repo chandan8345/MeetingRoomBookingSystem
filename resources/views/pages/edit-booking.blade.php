@@ -81,7 +81,7 @@
                 <div class="form-group row">
                     <label class="control-label col-sm-2" for="input-3">Total People</label>
                     <div class="col-sm-10">
-                        <input type="number" onblur="people()" name="total" min="2" class="form-control people"
+                        <input type="number" onchange="people()" name="total" min="2" class="form-control people"
                             id="input-3" placeholder="Number of people" value="{{ $post->total }}" required />
                         <p id="alertPeople" style="display:none;color:red;margin-top:5px;margin-left:2px;">please write
                             about your meeting goal</p>
@@ -122,7 +122,7 @@
                 <div class="form-group row">
                     <label class="control-label col-sm-2" for="input-6"></label>
                     <div class="col-sm-4">
-                        @if(Session::get('role') == 'user')
+                        
                         @if($post->status != 'postponed' && $post->status != 'booked' && $post->status != 'rejected')
                         <button class="btn btn-primary" onclick="updatepost()" type="button">Update</button>
                         <button class="btn btn-danger" onclick="postponed()" type="button">Postponed</button>
@@ -135,12 +135,6 @@
                         @if($post->status == 'postponed')
                         <button class="btn btn-success" onclick="updatepost()" type="button">Update</button>
                         <button class="btn btn-primary" onclick="bookagain()" type="button">Book Again</button>
-                        @endif
-                        @endif
-                        @if(Session::get('role') == 'admin')
-                        @if($post->status != 'booked' && $post->status != 'rejected' && $post->status != 'postponed')
-                        <button class="btn btn-primary" type="submit">Booked</button>
-                        @endif
                         @endif
                     </div>
                 </div>
@@ -503,6 +497,7 @@ function Purpose() {
         }
     }
     function people() {
+        myRoom();
         if ($('.people').val() < 2 || $('.people').val() == "") {
             $('.people').focus();
             $('#alertPeople').html('please input number of people');

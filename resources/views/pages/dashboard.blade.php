@@ -46,7 +46,7 @@
                     </div>
                     <div class="media-body pl-2">
                         <h3 class="mt-0 mb-0"><strong id="countongoing">0</strong></h3>
-                        <p><small class="text-muted bc-description" id="ongoingText">On Going Today</small></p>
+                        <p><small class="text-muted bc-description" id="ongoingText">Today</small></p>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="media-body pl-2">
                         <h3 class="mt-0 mb-0"><strong id="countbooked">0</strong></h3>
-                        <p><small class="text-muted bc-description"  id="reservedText">Reserved Event</small></p>
+                        <p><small class="text-muted bc-description"  id="reservedText">Reserved</small></p>
                     </div>
                 </div>
             </div>
@@ -166,10 +166,10 @@
     }, 1200);
 </script>
 <script>
+    var url;
     $('.current').css({'font-weight' : 'bold'});
     $('#example').hide();
     $('#data').hide();
-    var url = 'today';
     countongoing();
     countcompleted();
     countbooked();
@@ -177,7 +177,7 @@
     ongoingHoverIn();
     $.ajax({
         type: "GET",
-        url: "{{ URL::to('/') }}" + '/' + url,
+        url: "{{ URL::to('/') }}" + '/' + 'today',
         success: function (response) {
             console.log(response);
             if (response.length != 0) {
@@ -256,7 +256,7 @@
             type: "GET",
             url: "{{ URL::to('/delete') }}" + '/' + id,
             success: function (response) {
-                state();
+                state(url);
                 swal('Done!', "Removed successfully", "success");
                 console.log('delete');
                 countcompleted();
@@ -322,6 +322,7 @@
         postponedHoverOut();
         reservedHoverOut();
         completedHoverOut();
+        url = 'today';
         state('today');
     }
     function postponed(){
@@ -329,6 +330,7 @@
         postponedHoverIn();
         reservedHoverOut();
         completedHoverOut();
+        url = 'postponed';
         state('postponed');
     }
     function reserved(){
@@ -336,6 +338,7 @@
         postponedHoverOut();
         reservedHoverIn();
         completedHoverOut();
+        url = 'booked';
         state('booked');
     }
     function completed(){
@@ -343,6 +346,7 @@
         postponedHoverOut();
         reservedHoverOut();
         completedHoverIn();
+        url = 'completed';
         state('completed');
     }
     function ongoingHoverIn(){

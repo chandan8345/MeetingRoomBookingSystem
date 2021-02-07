@@ -51,6 +51,6 @@ class CreateTLeaveUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_leave_users');
+        Schema::dropIfExists('users');
     }
 }

@@ -88,14 +88,14 @@ class bookingController extends Controller
         return view('pages.edit-booking')->with('posts',$posts)->with('rooms',$rooms)->with('categories',$categories);
     }
     public function waiting(){
-        $rooms=Room::where('status',1)->get();
-        $categories=Category::where('status',1)->get();
-        if(Session::get('role') == 'admin'){
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,posts.category category,posts.room room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts where posts.status='waiting' and users.id=posts.postuser_id order by posts.meetingdate asc");
-        }else{
+        // $rooms=Room::where('status',1)->get();
+        // $categories=Category::where('status',1)->get();
+        // if(Session::get('role') == 'admin'){
+        //     $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,posts.category category,posts.room room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts where posts.status='waiting' and users.id=posts.postuser_id order by posts.meetingdate asc");
+        // }else{
             $id=Session::get('id');
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.meetingtime,posts.duration,posts.total,posts.postingdate,posts.snacks,posts.coffee,posts.remarks,posts.category category,posts.room room,users.name postuser,posts.status,posts.approveuser,posts.approvedate,posts.comments,posts.meetingtype from users,posts where posts.postuser_id='$id' and posts.status='waiting' and users.id=posts.postuser_id order by posts.meetingdate asc");   
-        }
+        // }
         $i=1;
         foreach($posts as $post){
             echo 
@@ -206,12 +206,12 @@ class bookingController extends Controller
          }
     }
     public function postponed(){
-        if(Session::get('role') == 'admin'){
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='postponed' and users.id=posts.postuser_id order by posts.meetingdate asc");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='postponed' and users.id=posts.postuser_id order by posts.meetingdate asc");
+        // }else{
             $id=Session::get('id');
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='postponed' and users.id=posts.postuser_id and posts.postuser_id='$id' order by posts.meetingdate asc");
-        }
+        // }
         $i=1;
         foreach($posts as $post){
             echo 
@@ -297,24 +297,21 @@ class bookingController extends Controller
             </div>
             </div>
             <a href="edit/'.$post->id.'" class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></a>
-            ';
-            if(Session::get('role') == 'user'){
-            echo '<button class="btn btn-danger btn-sm" type="button" onclick="remove('.$post->id.')" ><i class="fa fa-trash"></i></button>
-            ';}
-            echo '</td>
+            <button class="btn btn-danger btn-sm" type="button" onclick="remove('.$post->id.')" ><i class="fa fa-trash"></i></button>
+            </td>
         </tr>';
         }
     }
 
     public function completed(){
-        if(Session::get('role') == 'admin'){
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate < 
-            CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate < 
+        //     DATE(NOW()) order by posts.meetingdate asc");
+        // }else{
             $id=Session::get('id');
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate < 
             CAST( GETDATE() AS Date ) and posts.postuser_id='$id' order by posts.meetingdate asc");
-        }
+        // }
         $i=1;
         foreach($posts as $post){
             echo 
@@ -403,14 +400,14 @@ class bookingController extends Controller
         }
     }
     public function booked(){
-        if(Session::get('role') == 'admin'){
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate >= 
-            CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate >= 
+        //     DATE(NOW()) order by posts.meetingdate asc");
+        // }else{
             $id=Session::get('id');
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate >= 
             CAST( GETDATE() AS Date ) and posts.postuser_id='$id' order by posts.meetingdate asc");
-        }
+        // }
         $i=1;
         foreach($posts as $post){
             echo 
@@ -496,21 +493,18 @@ class bookingController extends Controller
             </div>
             </div>
             <a href="edit/'.$post->id.'" class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i></a>
-            ';
-            if(Session::get('role') == 'user'){
-            echo '<button class="btn btn-danger btn-sm" type="button" onclick="remove('.$post->id.')" ><i class="fa fa-trash"></i></button>
-            ';}
-            echo '</td>
+            <button class="btn btn-danger btn-sm" type="button" onclick="remove('.$post->id.')" ><i class="fa fa-trash"></i></button>
+            </td>
         </tr>';
         }
     }
     public function rejected(){
-        if(Session::get('role') == 'admin'){
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='rejected' and users.id=posts.postuser_id order by posts.meetingdate asc");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='rejected' and users.id=posts.postuser_id order by posts.meetingdate asc");
+        // }else{
             $id=Session::get('id');
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='rejected' and users.id=posts.postuser_id and posts.postuser_id='$id' order by posts.meetingdate asc");
-        }
+        // }
         $i=1;
         foreach($posts as $post){
             echo 
@@ -601,12 +595,12 @@ class bookingController extends Controller
     }
 
     public function today(){
-        if(Session::get('role') == 'admin'){
-            $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate=CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate=DATE(NOW()) order by posts.meetingdate asc");
+        // }else{
             $id=Session::get('id');
             $posts = DB::select("select posts.id,posts.purpose,posts.meetingdate,posts.starttime,posts.endtime,posts.total,posts.postingdate,posts.category category,posts.room room,users.name postuser,posts.status,posts.meetingtype from users,posts where posts.status='booked' and users.id=posts.postuser_id and posts.meetingdate=CAST( GETDATE() AS Date ) order by posts.meetingdate asc");
-        }
+        // }
         $i=1;
         foreach($posts as $post){
             echo 

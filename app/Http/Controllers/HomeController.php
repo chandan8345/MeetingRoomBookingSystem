@@ -39,51 +39,51 @@ class HomeController extends Controller
     }
     public function countongoing(){
         $book=0;
-        if(Session::get('role') == 'admin'){
-            $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate = 
-            CAST( GETDATE() AS Date )");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate = 
+        //     now()");
+        // }else{
             $id=Auth::id();
             $b = DB::select("select count(posts.status) book from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate =
             CAST( GETDATE() AS Date )");
-        }
+        // }
         foreach($b as $row){$book=$row->book;}
         return $book;
     }
     public function countbooked(){
         $book=0;
-        if(Session::get('role') == 'admin'){
-            $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate >= 
-            CAST( GETDATE() AS Date )");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $b = DB::select("select count(posts.status) book from posts where posts.status='booked' and posts.meetingdate >= 
+        //     now()");
+        // }else{
             $id=Auth::id();
             $b = DB::select("select count(posts.status) book from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate >=
             CAST( GETDATE() AS Date )");
-        }
+        // }
         foreach($b as $row){$book=$row->book;}
         return $book;
     }
     public function countpostponed(){
         $postponed=0;
-        if(Session::get('role') == 'admin'){
-            $w = DB::select("select count(posts.status) postponed from posts where posts.status='postponed'");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $w = DB::select("select count(posts.status) postponed from posts where posts.status='postponed'");
+        // }else{
             $id=Auth::id();
             $w = DB::select("select count(posts.status) postponed from posts where posts.postuser_id='$id' and posts.status='postponed'");             
-        }
+        // }
         foreach($w as $row){$postponed=$row->postponed;}
         return $postponed;
     }
     public function countcompleted(){
         $complete=0;
-        if(Session::get('role') == 'admin'){
-            $c = DB::select("select count(posts.status) complete from posts where posts.status='booked' and posts.meetingdate < 
-            CAST( GETDATE() AS Date )");
-        }else{
+        // if(Session::get('role') == 'admin'){
+        //     $c = DB::select("select count(posts.status) complete from posts where posts.status='booked' and posts.meetingdate < 
+        //     now()");
+        // }else{
             $id=Auth::id();
             $c = DB::select("select count(posts.status) complete from posts where posts.postuser_id='$id' and posts.status='booked' and posts.meetingdate < 
             CAST( GETDATE() AS Date )");
-        }      
+        // }      
         foreach($c as $row){$complete=$row->complete;}
         return $complete;
     } 
