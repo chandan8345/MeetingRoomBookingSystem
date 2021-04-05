@@ -16,7 +16,7 @@ Route::post('/login',[usersController::class,'index']);
 //USERS
 Route::get('/logout',[usersController::class,'logout']);
 
-Route::group(['middleware' => 'usersession'], function () {
+Route::group(['middleware' => 'CheckUserSession'], function () {
 
 Route::get('/reports',[HomeController::class,'reports']);
 Route::get('/profile',[HomeController::class,'profile']);
