@@ -13,7 +13,7 @@
             <ul class="sidebar-menu mt-4 mb-4">
                 <li class="parent">
                     <a href="{{ URL::to('/home') }}" class=""><i class="fa fa-tachometer mr-3"></i>
-                        <span class="none">Dashboard </span>
+                        <span class="none">@lang('dashboard.dashboard') </span>
                     </a>
                 </li>
                 <li class="parent">

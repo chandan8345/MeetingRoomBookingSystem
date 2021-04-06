@@ -8,14 +8,19 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\bookingController;
 use App\Http\Controllers\calenderController;
 use App\Http\Controllers\reportController;
+use App\Http\Controllers\LanguageController;
 
+//Language
+Route::get('/locale/{language}',[LanguageController::class,'setLang']);
 
+//AUTH
 Route::get('/',[usersController::class,'index']);
 Route::post('/login',[usersController::class,'index']);
     
 //USERS
 Route::get('/logout',[usersController::class,'logout']);
 
+//chaek Seesion
 Route::group(['middleware' => 'CheckUserSession'], function () {
 
 Route::get('/reports',[HomeController::class,'reports']);

@@ -38,7 +38,7 @@
 <!--Dashboard widget-->
 <div class="mt-1 mb-3 button-container">
     <div class="row pl-0">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-12 mb-3">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12 mb-3">
             <div class="bg-white border shadow" id="ongoing" onclick="ongoing()">
                 <div class="media p-4">
                     <div class="align-self-center mr-3 rounded-circle notify-icon bg-theme" id="ongoingIconBack">
@@ -69,12 +69,12 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-12 mb-3">
             <div class="bg-white border shadow" id="reserved" onclick="reserved()">
                 <div class="media p-4">
-                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-danger"  id="reservedIconBack">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-danger" id="reservedIconBack">
                         <i class="fa fa-tags faa-flash animated" id="reservedIcon"></i>
                     </div>
                     <div class="media-body pl-2">
                         <h3 class="mt-0 mb-0"><strong id="countbooked">0</strong></h3>
-                        <p><small class="text-muted bc-description"  id="reservedText">Reserved</small></p>
+                        <p><small class="text-muted bc-description" id="reservedText">Reserved</small></p>
                     </div>
                 </div>
             </div>
@@ -115,8 +115,7 @@
                     <option value="postponed"><strong>Postponed</strong></option>
                     <option value="completed"><strong>Completed</strong></option>
                 </select> -->
-                <a href="{{ url('/quickbooking') }}" type="button"
-                    class="btn btn-warning icon-round shadow pull-right">
+                <a href="{{ url('/quickbooking') }}" type="button" class="btn btn-warning icon-round shadow pull-right">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
@@ -159,6 +158,38 @@
 
 @section('bottom')
 @include('section.bottom')
+<script>
+        var lang = "{{ Session::get('language') }}";
+        console.log(lang);
+        switch (lang) {
+            case 'en':
+                $('#lang').prop('href', 'locale/bn');
+                // $.ajax({
+                //     type: "GET",
+                //     url: "{{ URL::to('/locale/bn') }}",
+                //     success: function (response) {
+                //         console.log('language changed to bangla');
+                //     },
+                //     error: function (error) {
+                //         console.log('Error');
+                //     }
+                // });
+                break;
+            case 'bn':
+                $('#lang').prop('href', 'locale/bn');
+                // $.ajax({
+                //     type: "GET",
+                //     url: "{{ URL::to('/locale/en') }}",
+                //     success: function (response) {
+                //         console.log('language changed to english');
+                //     },
+                //     error: function (error) {
+                //         console.log('Error');
+                //     }
+                // });
+                break;
+        }
+</script>
 <script type="text/javascript">
     var blink = document.getElementById('blink');
     setInterval(function () {
@@ -167,7 +198,7 @@
 </script>
 <script>
     var url;
-    $('.current').css({'font-weight' : 'bold'});
+    $('.current').css({ 'font-weight': 'bold' });
     $('#example').hide();
     $('#data').hide();
     countongoing();
@@ -317,7 +348,7 @@
             }
         });
     }
-    function ongoing(){
+    function ongoing() {
         ongoingHoverIn();
         postponedHoverOut();
         reservedHoverOut();
@@ -325,7 +356,7 @@
         url = 'today';
         state('today');
     }
-    function postponed(){
+    function postponed() {
         ongoingHoverOut();
         postponedHoverIn();
         reservedHoverOut();
@@ -333,7 +364,7 @@
         url = 'postponed';
         state('postponed');
     }
-    function reserved(){
+    function reserved() {
         ongoingHoverOut();
         postponedHoverOut();
         reservedHoverIn();
@@ -341,7 +372,7 @@
         url = 'booked';
         state('booked');
     }
-    function completed(){
+    function completed() {
         ongoingHoverOut();
         postponedHoverOut();
         reservedHoverOut();
@@ -349,7 +380,7 @@
         url = 'completed';
         state('completed');
     }
-    function ongoingHoverIn(){
+    function ongoingHoverIn() {
         $("#ongoing").addClass("bg-theme");
         $("#ongoing").removeClass("bg-white");
         $("#ongoingIcon").addClass("text-theme");
@@ -359,7 +390,7 @@
         $("#ongoingText").addClass("text-white");
         $("#ongoingText").removeClass("text-muted");
     }
-    function ongoingHoverOut(){
+    function ongoingHoverOut() {
         $("#ongoing").addClass("bg-white");
         $("#ongoing").removeClass("bg-theme");
         $("#ongoingIcon").removeClass("text-theme");
@@ -369,7 +400,7 @@
         $("#ongoingText").removeClass("text-white");
         $("#ongoingText").addClass("text-muted");
     }
-    function postponedHoverIn(){
+    function postponedHoverIn() {
         $("#postponed").addClass("bg-theme");
         $("#postponed").removeClass("bg-white");
         $("#postponedIcon").addClass("text-theme");
@@ -379,7 +410,7 @@
         $("#postponedText").addClass("text-white");
         $("#postponedText").removeClass("text-muted");
     }
-    function postponedHoverOut(){
+    function postponedHoverOut() {
         $("#postponed").addClass("bg-white");
         $("#postponed").removeClass("bg-theme");
         $("#postponedIcon").removeClass("text-theme");
@@ -389,7 +420,7 @@
         $("#postponedText").removeClass("text-white");
         $("#postponedText").addClass("text-muted");
     }
-    function reservedHoverIn(){
+    function reservedHoverIn() {
         $("#reserved").addClass("bg-theme");
         $("#reserved").removeClass("bg-white");
         $("#reservedIcon").addClass("text-theme");
@@ -399,7 +430,7 @@
         $("#reservedText").addClass("text-white");
         $("#reservedText").removeClass("text-muted");
     }
-    function reservedHoverOut(){
+    function reservedHoverOut() {
         $("#reserved").addClass("bg-white");
         $("#reserved").removeClass("bg-theme");
         $("#reservedIcon").removeClass("text-theme");
@@ -409,7 +440,7 @@
         $("#reservedText").removeClass("text-white");
         $("#reservedText").addClass("text-muted");
     }
-    function completedHoverIn(){
+    function completedHoverIn() {
         $("#completed").addClass("bg-theme");
         $("#completed").removeClass("bg-white");
         $("#completedIcon").addClass("text-theme");
@@ -419,7 +450,7 @@
         $("#completedText").addClass("text-white");
         $("#completedText").removeClass("text-muted");
     }
-    function completedHoverOut(){
+    function completedHoverOut() {
         $("#completed").addClass("bg-white");
         $("#completed").removeClass("bg-theme");
         $("#completedIcon").removeClass("text-theme");

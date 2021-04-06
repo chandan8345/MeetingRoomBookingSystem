@@ -133,10 +133,11 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"><i class="fa fa-book pr-2"></i> Projects</a>
                                 <div class="dropdown-divider"></div> -->
+                                <a class="dropdown-item" href="#" id="lang"><i class="fa fa-language pr-2"></i> @lang('dashboard.language')</a>
                                 <a class="dropdown-item" href="{{ URL::to('/logout') }}"><i class="fa fa-power-off pr-2"></i> Logout</a>
                             </div>
                         </div>
                     </div>
                     <!--Search box and avatar-->
-                </div>    
+                </div>
             </div>
