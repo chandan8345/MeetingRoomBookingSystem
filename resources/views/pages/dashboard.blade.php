@@ -176,7 +176,7 @@
                 // });
                 break;
             case 'bn':
-                $('#lang').prop('href', 'locale/bn');
+                $('#lang').prop('href', 'locale/en');
                 // $.ajax({
                 //     type: "GET",
                 //     url: "{{ URL::to('/locale/en') }}",
